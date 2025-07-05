@@ -62,6 +62,5 @@ public/gallery/uploads/
 
 # Environment
 .env
-!.env.example
 .env.local
 .env.vercel
