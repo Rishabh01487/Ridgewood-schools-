@@ -1,0 +1,119 @@
+// Ridgewood School, Mirganj — Prisma schema
+// Parents, Students, Report Cards, Notices, Participation, Gallery Items
+//
+// Database provider is chosen at build time via the DATABASE_URL env var:
+//   - SQLite (local dev):     DATABASE_URL=file:./db/custom.db
+//   - PostgreSQL (Vercel):    DATABASE_URL=postgresql://...
+//
+// The `prisma` CLI auto-detects the provider from the datasource block,
+// but Vercel needs the provider to be a literal string at build time.
+// We use the env var PRISMA_DATABASE_PROVIDER to switch providers via
+// a prebuild script (scripts/switch-db-provider.js).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Parent {
+  id           String   @id @default(cuid())
+  name         String
+  phone        String   @unique
+  passwordHash String
+  email        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  students     Student[]
+  notices      NoticeRead[]
+}
+
+model Student {
+  id           String   @id @default(cuid())
+  name         String
+  rollNo       String
+  classSection String   // e.g. "Year 3 · Section B"
+  classTeacher String
+  parentName   String
+  parentId     String
+  parent       Parent   @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  attendance   Int      @default(95) // percentage
+  averageGrade String   @default("A")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  reportCards     ReportCard[]
+  participation   Participation[]
+}
+
+model ReportCard {
+  id          String   @id @default(cuid())
+  studentId   String
+  term        String   // e.g. "Term 1 · 2025–26"
+  remarks     String?
+  pdfUrl      String?  // optional Cloudinary URL for downloadable PDF
+  createdAt   DateTime @default(now())
+
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subjects    Subject[]
+}
+
+model Subject {
+  id          String   @id @default(cuid())
+  reportCardId String
+  name        String
+  marks       Int      // out of 100
+  grade       String   // A+, A, B, etc.
+  reportCard  ReportCard @relation(fields: [reportCardId], references: [id], onDelete: Cascade)
+}
+
+model Notice {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  tag         String   @default("General") // Important / Holiday / Event / General
+  date        String
+  createdAt   DateTime @default(now())
+
+  readBy      NoticeRead[]
+}
+
+model NoticeRead {
+  id          String   @id @default(cuid())
+  noticeId    String
+  parentId    String
+  readAt      DateTime @default(now())
+  notice      Notice    @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+  parent      Parent    @relation(fields: [parentId], references: [id], onDelete: Cascade)
+}
+
+model Participation {
+  id          String   @id @default(cuid())
+  studentId   String
+  event       String
+  date        String
+  result      String   // "1st Place", "Participation", etc.
+  category    String   // Literary / Sports / Art / Music / Academics
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String   // Cloudinary URL (or local fallback)
+  thumbnailUrl String?
+  publicId    String?  // Cloudinary public_id for deletion
+  type        String   @default("photo") // "photo" | "video"
+  tag         String   @default("General") // Classroom / Patriotic / Cultural / Event
+  date        String?
+  isPublic    Boolean  @default(true) // shown in public gallery
+  studentId   String?  // optional: if this photo is of a specific child (for parent portal)
+  uploadedBy  String?  // admin email
+  createdAt   DateTime @default(now())
+}
