@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 
 /**
  * Ridgewood ornaments — gold-rule separators, small leaf marks, circle pattern.

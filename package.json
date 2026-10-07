@@ -13,7 +13,6 @@
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
     "seed": "bun run scripts/seed.ts",
-    "postinstall": "prisma generate",
     "vercel-build": "node scripts/switch-db-provider.js && prisma generate && next build"
   },
   "dependencies": {
