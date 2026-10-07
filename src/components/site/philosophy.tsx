@@ -9,7 +9,7 @@ export function Philosophy() {
   return (
     <section
       id="philosophy"
-      className="relative anchor-offset bg-navy-dark text-cream py-24 sm:py-32 overflow-hidden"
+      className="relative anchor-offset bg-navy-dark text-cream py-24 sm:py-32 overflow-hidden bg-navy-fusion navy-craft-overlay"
     >
       {/* decorative ridge at bottom */}
       <div className="absolute bottom-0 inset-x-0 h-32 opacity-30" aria-hidden>

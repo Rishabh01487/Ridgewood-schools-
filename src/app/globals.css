@@ -560,3 +560,86 @@
 .aspect-gallery-portrait { aspect-ratio: 3 / 4; }
 .aspect-gallery-landscape { aspect-ratio: 4 / 3; }
 .aspect-gallery-square { aspect-ratio: 1 / 1; }
+
+/* ===== Mobile Navy Section Fusion =====
+   On mobile, pure navy sections look flat/boring.
+   These utilities add a cream-white gradient "fusion" at the top and bottom edges
+   + a subtle dot-mandala craft pattern overlay to make navy sections more
+   interesting and crafted on small screens. */
+
+@media (max-width: 768px) {
+  /* Cream-white fusion at top and bottom edges of navy sections */
+  .bg-navy-fusion {
+    position: relative;
+  }
+  .bg-navy-fusion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg,
+      oklch(0.97 0.012 95 / 0.95) 0%,
+      oklch(0.97 0.012 95 / 0.6) 40%,
+      oklch(0.97 0.012 95 / 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .bg-navy-fusion::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(0deg,
+      oklch(0.97 0.012 95 / 0.95) 0%,
+      oklch(0.97 0.012 95 / 0.6) 40%,
+      oklch(0.97 0.012 95 / 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Subtle dot-mandala craft pattern overlay on navy sections */
+  .navy-craft-overlay {
+    position: relative;
+  }
+  .navy-craft-overlay > .craft-pattern {
+    display: block !important;
+  }
+  .craft-pattern {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+    background-image:
+      radial-gradient(circle at 50% 50%, oklch(0.97 0.012 95) 1.5px, transparent 1.5px),
+      radial-gradient(circle at 0% 0%, oklch(0.97 0.012 95) 1px, transparent 1px),
+      radial-gradient(circle at 100% 100%, oklch(0.97 0.012 95) 1px, transparent 1px),
+      radial-gradient(circle at 100% 0%, oklch(0.97 0.012 95) 1px, transparent 1px),
+      radial-gradient(circle at 0% 100%, oklch(0.97 0.012 95) 1px, transparent 1px);
+    background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px, 32px 32px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  }
+
+  /* Mandala-inspired decorative SVG pattern — more craft-like */
+  .navy-craft-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23faf7f0' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3Ccircle cx='30' cy='30' r='18'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Ccircle cx='30' cy='30' r='6'/%3E%3Cpath d='M30 5 L30 55 M5 30 L55 30 M12 12 L48 48 M12 48 L48 12'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+
+  /* Ensure content sits above the craft overlay */
+  .navy-craft-overlay > *:not(.craft-pattern) {
+    position: relative;
+    z-index: 2;
+  }
+}
