@@ -643,3 +643,109 @@
     z-index: 2;
   }
 }
+
+/* ===== Mobile Navy-to-Cream Fusion =====
+   On mobile, pure navy sections look like flat blue blocks.
+   This transforms them into cream-based sections with navy accents —
+   a "fusion" that feels lighter, warmer, and more premium. */
+
+@media (max-width: 768px) {
+  /* Philosophy: navy → cream background with navy text */
+  .bg-navy-fusion {
+    background: oklch(0.97 0.012 95) !important;
+    color: oklch(0.235 0.07 264) !important;
+  }
+  .bg-navy-fusion::before,
+  .bg-navy-fusion::after {
+    display: none !important;
+  }
+  .bg-navy-fusion .text-cream,
+  .bg-navy-fusion .text-cream\/80,
+  .bg-navy-fusion .text-cream\/85,
+  .bg-navy-fusion .text-cream\/90,
+  .bg-navy-fusion .text-cream\/75,
+  .bg-navy-fusion .text-cream\/65,
+  .bg-navy-fusion .text-cream\/55 {
+    color: oklch(0.235 0.07 264) !important;
+  }
+  .bg-navy-fusion .text-cream\/60,
+  .bg-navy-fusion .text-cream\/70 {
+    color: oklch(0.45 0.07 264) !important;
+  }
+  .bg-navy-fusion .text-gold {
+    color: oklch(0.62 0.12 68) !important;
+  }
+  .bg-navy-fusion .text-gold-light {
+    color: oklch(0.62 0.12 68) !important;
+  }
+  .bg-navy-fusion .border-cream\/12,
+  .bg-navy-fusion .border-cream\/15,
+  .bg-navy-fusion .border-cream\/20 {
+    border-color: oklch(0.88 0.015 95) !important;
+  }
+  /* Cards inside navy sections → white cards with navy text */
+  .bg-navy-fusion .bg-navy\/40,
+  .bg-navy-fusion .bg-navy-dark\/40,
+  .bg-navy-fusion .bg-navy-dark\/50,
+  .bg-navy-fusion .bg-navy-dark\/60 {
+    background: oklch(1 0 0) !important;
+  }
+  .bg-navy-fusion .glass-navy,
+  .bg-navy-fusion .glass-dark {
+    background: oklch(1 0 0 / 0.9) !important;
+    border-color: oklch(0.78 0.13 75 / 0.25) !important;
+  }
+  /* Gold accent lines and circles stay */
+  .bg-navy-fusion .bg-gold\/10,
+  .bg-navy-fusion .bg-gold\/15 {
+    background: oklch(0.78 0.13 75 / 0.08) !important;
+  }
+}
+
+/* ===== Mobile Heading Simplification =====
+   On mobile, animated gradient headings can look bad/distracting.
+   Use a clean solid navy with subtle gold accent instead. */
+
+@media (max-width: 768px) {
+  .text-royal-gradient.animate-gradient-flow,
+  .text-royal-cream-gradient.animate-gradient-flow,
+  .text-sunset-gradient.animate-gradient-flow,
+  .text-aurora-gradient.animate-gradient-flow {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: oklch(0.235 0.07 264) !important;
+    -webkit-text-fill-color: oklch(0.235 0.07 264) !important;
+    animation: none !important;
+    background-size: auto !important;
+  }
+
+  /* For headings on navy-fusion sections (now cream bg on mobile), keep navy text */
+  .bg-navy-fusion .text-royal-cream-gradient.animate-gradient-flow {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: oklch(0.235 0.07 264) !important;
+    -webkit-text-fill-color: oklch(0.235 0.07 264) !important;
+    animation: none !important;
+  }
+
+  /* Hero headline: simpler, cleaner on mobile */
+  .text-sunset-gradient.animate-gradient-flow {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: oklch(0.235 0.07 264) !important;
+    -webkit-text-fill-color: oklch(0.235 0.07 264) !important;
+    animation: none !important;
+  }
+
+  .text-royal-gradient.animate-gradient-flow {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: oklch(0.31 0.07 264) !important;
+    -webkit-text-fill-color: oklch(0.31 0.07 264) !important;
+    animation: none !important;
+  }
+}
