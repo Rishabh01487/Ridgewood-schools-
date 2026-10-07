@@ -175,8 +175,8 @@ export function ParentLogin() {
 function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) => Promise<any> }) {
   const { toast } = useToast();
   const [submitting, setSubmitting] = React.useState(false);
-  const [phone, setPhone] = React.useState("9999344965");
-  const [password, setPassword] = React.useState("ridgewood123");
+  const [phone, setPhone] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -281,11 +281,6 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
               </>
             )}
           </Button>
-
-          <p className="text-center text-[11.5px] text-cream/55 pt-2">
-            Demo credentials are pre-filled — phone <span className="text-gold-light font-medium">9999344965</span>,
-            password <span className="text-gold-light font-medium">ridgewood123</span>.
-          </p>
         </form>
       </div>
 

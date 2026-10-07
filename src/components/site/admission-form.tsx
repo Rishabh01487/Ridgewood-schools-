@@ -91,7 +91,7 @@ export function AdmissionForm() {
       setOtpSent(true);
       toast({
         title: "OTP sent to your phone",
-        description: `A 4-digit code has been sent to ${form1.countryCode} ${form1.phone}. (Demo: 1234)`,
+        description: `A 4-digit code has been sent to ${form1.countryCode} ${form1.phone}.`,
       });
       setStep(2);
     } else if (step === 2) {
