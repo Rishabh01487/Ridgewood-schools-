@@ -99,7 +99,7 @@ export function Testimonials() {
         <Reveal className="relative" delay={0.1}>
           <div className="relative overflow-hidden rounded-[2.5rem] border border-gold/25 bg-card shadow-luxe">
             {/* gold quote icon */}
-            <div className="absolute top-6 left-6 sm:top-10 sm:left-10 text-gold/15">
+            <div className="hidden sm:block absolute top-10 left-10 text-gold/15">
               <Quote className="h-20 w-20 sm:h-28 sm:w-28" />
             </div>
 

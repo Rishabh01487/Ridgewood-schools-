@@ -153,12 +153,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.7 }}
-            className="mt-10 flex items-center justify-center lg:justify-start gap-6 sm:gap-8 text-navy"
+            className="mt-10 grid grid-cols-3 gap-3 sm:gap-8 text-navy text-center lg:text-left"
           >
             {[
-              { value: "200+", label: "Curious Learners" },
-              { value: "5+", label: "Years of Trust" },
-              { value: "1:15", label: "Teacher Ratio" },
+              { value: "200+", label: "Learners" },
+              { value: "5+", label: "Years" },
+              { value: "1:15", label: "Ratio" },
             ].map((s, i) => (
               <div
                 key={s.label}
@@ -166,10 +166,10 @@ export function Hero() {
                   i !== 0 ? "lg:border-l lg:border-navy/15 lg:pl-8" : ""
                 }`}
               >
-                <span className="font-heading text-[26px] sm:text-[34px] font-bold text-gradient-navy leading-none">
+                <span className="font-heading text-[22px] sm:text-[34px] font-bold text-gradient-navy leading-none">
                   {s.value}
                 </span>
-                <span className="text-[10px] sm:text-[11.5px] tracking-luxe uppercase text-navy/60 mt-1.5 font-medium">
+                <span className="text-[9px] sm:text-[11.5px] tracking-luxe uppercase text-navy/60 mt-1.5 font-medium">
                   {s.label}
                 </span>
               </div>
@@ -177,16 +177,16 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* RIGHT — single framed real campus photo */}
+        {/* RIGHT — single framed real campus photo (shown on tablet+; on mobile shown below text) */}
         <motion.div
           style={{ y: yPhoto }}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 relative hidden lg:block"
+          className="col-span-12 lg:col-span-5 relative mt-6 lg:mt-0"
         >
           {/* Main framed photo */}
-          <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
+          <div className="relative aspect-[16/10] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
             <Image
               src="/gallery/uniform-students-1.png"
               alt="Ridgewood students in classroom uniform"

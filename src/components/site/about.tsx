@@ -39,9 +39,10 @@ export function About() {
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left — premium image collage with kid-on-balls hero + tilted accents */}
+          {/* Left — premium image collage (desktop only) / simple stacked (mobile) */}
           <RevealGroup className="lg:col-span-6" stagger={0.1}>
-            <div className="relative h-[540px] sm:h-[600px] lg:h-[640px]">
+            {/* Desktop collage layout */}
+            <div className="relative h-[540px] sm:h-[600px] lg:h-[640px] hidden lg:block">
               {/* MAIN — real Ridgewood classroom photo */}
               <RevealItem className="absolute left-0 top-0 w-[62%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream z-10">
                 <Image
@@ -162,6 +163,40 @@ export function About() {
                   Classrooms that echo with the joyful sounds of curiosity and laughter.
                 </p>
               </RevealItem>
+            </div>
+
+            {/* Mobile stacked layout (simple, clean) */}
+            <div className="lg:hidden space-y-4">
+              <RevealItem className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
+                <Image
+                  src="/gallery/uniform-students-2.png"
+                  alt="Ridgewood students in classroom uniform"
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/10 to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <div className="glass-light rounded-full px-3.5 py-1.5 flex items-center gap-2 text-[10.5px] tracking-luxe uppercase font-semibold text-navy">
+                    <RidgeCrest size={14} color="var(--brand-navy)" accent="var(--brand-gold)" />
+                    Est. 2020
+                  </div>
+                </div>
+                <div className="absolute bottom-0 inset-x-0 p-5">
+                  <p className="font-heading italic text-[24px] text-cream leading-tight font-medium">
+                    Where little ones
+                    <span className="block text-gradient-gold not-italic font-semibold">dream big</span>
+                  </p>
+                </div>
+              </RevealItem>
+              <div className="grid grid-cols-2 gap-3">
+                <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(3deg)" }}>
+                  <Image src="/gallery/independence-day-2.png" alt="Independence Day" fill sizes="50vw" className="object-cover" />
+                </RevealItem>
+                <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(-3deg)" }}>
+                  <Image src="/gallery/cultural-day.png" alt="Cultural Day" fill sizes="50vw" className="object-cover" />
+                </RevealItem>
+              </div>
             </div>
           </RevealGroup>
 
