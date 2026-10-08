@@ -234,7 +234,7 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-              placeholder="9999344965"
+              placeholder="Your 10-digit phone"
               required
               className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-3 text-[14.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
             />

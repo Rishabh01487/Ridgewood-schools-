@@ -242,7 +242,7 @@ export function AdmissionForm() {
                   </p>
                   <p className="flex items-start gap-2.5">
                     <Phone className="h-4 w-4 text-gold mt-0.5 shrink-0" />
-                    For assistance, call us at <span className="text-gold-light font-medium">+91 99993 44965</span>
+                    For assistance, call us at <span className="text-gold-light font-medium">+91 70522 24726</span>
                   </p>
                   <p className="flex items-start gap-2.5">
                     <Sparkles className="h-4 w-4 text-gold mt-0.5 shrink-0" />

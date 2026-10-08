@@ -228,7 +228,7 @@ export function Contact() {
                       <span>
                         Rajmohan Colony, Dr B N Chaudhary Lane,
                         <br />
-                        Hathua Mor, Mirganj,
+                        Near Hathwa Mor, Mirganj,
                         <br />
                         Bihar 841438, India
                       </span>
@@ -267,7 +267,7 @@ export function Contact() {
             <div className="lg:col-span-7">
               <div className="relative h-full min-h-[360px] rounded-[2rem] overflow-hidden border border-gold/25 shadow-luxe bg-cream">
                 <iframe
-                  title="Bachpan Play School, Hathua Mor, Mirganj — Google Maps location"
+                  title="Ridgewood School, Mirganj — Google Maps location"
                   src="https://www.google.com/maps?q=Rajmohan+Colony+Dr+B+N+Chaudhary+Lane+Near+Hathwa+Mor+Mirganj+841438&z=17&output=embed"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

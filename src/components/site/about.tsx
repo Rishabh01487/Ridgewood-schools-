@@ -303,7 +303,7 @@ export function About() {
                 </p>
                 <p>
                   We are ideally situated in the heart of Mirganj — near Alam
-                  Hospital, Dakshin Muhala, Hathua Mor — and began our journey
+                  Hospital, Dr B N Chaudhary Lane, Near Hathwa Mor — and began our journey
                   in April 2023 with a Pre-Primary section in collaboration with
                   Bachpan, A Play School.
                 </p>
