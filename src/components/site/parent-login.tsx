@@ -641,18 +641,31 @@ function GalleryTab() {
   const [selected, setSelected] = React.useState<GalleryItem | null>(null);
   const { toast } = useToast();
 
+  // Static fallback (used if DB is empty on fresh Vercel deploy)
+  const STATIC_ITEMS = [
+    { id: "s1", src: "/gallery/independence-day-1.png", title: "Independence Day Celebration", date: "Aug 15, 2025", tag: "Patriotic", type: "photo" },
+    { id: "s2", src: "/gallery/bachpan-teachers-day.png", title: "Teachers' Day with Bachpan", date: "Sep 05, 2025", tag: "Event", type: "photo" },
+    { id: "s3", src: "/gallery/cultural-day.png", title: "Cultural Day Performance", date: "Jul 22, 2025", tag: "Cultural", type: "photo" },
+    { id: "s4", src: "/gallery/friendship-day.png", title: "Friendship Day", date: "Aug 03, 2025", tag: "Event", type: "photo" },
+    { id: "s5", src: "/gallery/uniform-students-1.png", title: "Classroom Moments", date: null, tag: "Classroom", type: "photo" },
+    { id: "s6", src: "/gallery/cultural-2.png", title: "Festive Dress-up", date: "Jul 18, 2025", tag: "Cultural", type: "photo" },
+  ];
+
   React.useEffect(() => {
     fetch("/api/gallery")
       .then((r) => r.json())
-      .then((d) => setItems(d.items.map((it: any) => ({
-        id: it.id,
-        src: it.imageUrl,
-        title: it.title,
-        date: it.date,
-        tag: it.tag,
-        type: it.type,
-      }))))
-      .catch(() => {})
+      .then((d) => {
+        const mapped = (d.items || []).map((it: any) => ({
+          id: it.id,
+          src: it.imageUrl,
+          title: it.title,
+          date: it.date,
+          tag: it.tag,
+          type: it.type,
+        }));
+        setItems(mapped.length > 0 ? mapped : STATIC_ITEMS);
+      })
+      .catch(() => setItems(STATIC_ITEMS))
       .finally(() => setLoading(false));
   }, []);
 

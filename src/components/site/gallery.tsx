@@ -32,7 +32,23 @@ export function Gallery() {
   const [filter, setFilter] = React.useState("All");
   const [selected, setSelected] = React.useState<GalleryItem | null>(null);
 
-  // Fetch from /api/gallery
+  // Static fallback images (used if DB is empty — e.g. fresh Vercel deploy without seed)
+  const STATIC_GALLERY: GalleryItem[] = [
+    { id: "s1", src: "/gallery/independence-day-1.png", title: "Independence Day Celebration", date: "Aug 15, 2025", tag: "Patriotic", type: "photo", size: "tall" as const },
+    { id: "s2", src: "/gallery/bachpan-teachers-day.png", title: "Teachers' Day with Bachpan", date: "Sep 05, 2025", tag: "Event", type: "photo", size: "regular" as const },
+    { id: "s3", src: "/gallery/my-country-pride-1.png", title: "My Country, My Pride", date: "Aug 14, 2025", tag: "Patriotic", type: "photo", size: "regular" as const },
+    { id: "s4", src: "/gallery/friendship-day.png", title: "Friendship Day", date: "Aug 03, 2025", tag: "Event", type: "photo", size: "wide" as const },
+    { id: "s5", src: "/gallery/cultural-day.png", title: "Cultural Day Performance", date: "Jul 22, 2025", tag: "Cultural", type: "photo", size: "regular" as const },
+    { id: "s6", src: "/gallery/uniform-students-1.png", title: "Classroom Moments", date: null, tag: "Classroom", type: "photo", size: "regular" as const },
+    { id: "s7", src: "/gallery/cultural-2.png", title: "Festive Dress-up", date: "Jul 18, 2025", tag: "Cultural", type: "photo", size: "tall" as const },
+    { id: "s8", src: "/gallery/classroom-2.png", title: "Free Activity Zone", date: "Jul 12, 2025", tag: "Classroom", type: "photo", size: "regular" as const },
+    { id: "s9", src: "/gallery/independence-day-2.png", title: "Tiny Flag-Bearers", date: "Aug 15, 2025", tag: "Patriotic", type: "photo", size: "regular" as const },
+    { id: "s10", src: "/gallery/cultural-3.png", title: "Traditional Day", date: "Jul 04, 2025", tag: "Cultural", type: "photo", size: "regular" as const },
+    { id: "s11", src: "/gallery/my-country-pride-3.png", title: "My Country My Pride", date: "Aug 14, 2025", tag: "Patriotic", type: "photo", size: "wide" as const },
+    { id: "s12", src: "/gallery/classroom-1.png", title: "Lesson Time", date: null, tag: "Classroom", type: "photo", size: "regular" as const },
+  ];
+
+  // Fetch from /api/gallery, fall back to static images if DB is empty
   React.useEffect(() => {
     fetch("/api/gallery")
       .then((r) => r.json())
@@ -46,9 +62,13 @@ export function Gallery() {
           type: it.type,
           size: SIZE_CYCLE[i % SIZE_CYCLE.length],
         }));
-        setAllItems(mapped);
+        // If DB has items, use them; otherwise use static fallback
+        setAllItems(mapped.length > 0 ? mapped : STATIC_GALLERY);
       })
-      .catch(() => {})
+      .catch(() => {
+        // If API fails entirely, use static images
+        setAllItems(STATIC_GALLERY);
+      })
       .finally(() => setLoading(false));
   }, []);
 
