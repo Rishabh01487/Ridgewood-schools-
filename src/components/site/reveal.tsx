@@ -37,7 +37,8 @@ export function Reveal({
       variants={buildVariants(y, delay)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, amount: 0.2 }}
+      viewport={{ once, amount: 0.1 }}
+      style={{ opacity: 1 }}
     >
       {children}
     </motion.div>
@@ -59,7 +60,8 @@ export function RevealGroup({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.05 }}
+      style={{ opacity: 1 }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: stagger } },
@@ -83,6 +85,7 @@ export function RevealItem({
   return (
     <motion.div
       className={className}
+      style={{ opacity: 1 }}
       variants={{
         hidden: { opacity: 0, y },
         show: {
