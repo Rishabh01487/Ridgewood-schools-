@@ -30,7 +30,7 @@ export function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex items-center pt-28 pb-16 sm:pt-32 sm:pb-20"
+      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex items-center pt-20 pb-16 sm:pt-28 sm:pb-20"
     >
       {/* Layer 1 — cream gradient with subtle navy circle pattern */}
       <div className="absolute inset-0 -z-20 bg-cream-gradient" aria-hidden />
@@ -76,7 +76,7 @@ export function Hero() {
             className="flex items-center justify-center lg:justify-start mb-8"
           >
             {/* FULL Ridgewood logo — bigger on mobile (56px), full size on desktop (68px) */}
-            <BrandLogo variant="full" size={72} className="shrink-0 sm:hidden" />
+            <BrandLogo variant="full" size={80} className="shrink-0 sm:hidden" />
             <BrandLogo variant="full" size={80} className="hidden sm:block shrink-0" />
           </motion.div>
 
