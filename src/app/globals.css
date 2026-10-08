@@ -702,37 +702,6 @@
   }
 }
 
-/* Mobile heading colors — keep gradients animated on all screens */
-
-  /* For headings on navy-fusion sections (now cream bg on mobile), keep navy text */
-  .bg-navy-fusion .text-royal-cream-gradient.animate-gradient-flow {
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    color: oklch(0.235 0.07 264) !important;
-    -webkit-text-fill-color: oklch(0.235 0.07 264) !important;
-    animation: none !important;
-  }
-
-  /* Hero headline: simpler, cleaner on mobile */
-  .text-sunset-gradient.animate-gradient-flow {
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    color: oklch(0.235 0.07 264) !important;
-    -webkit-text-fill-color: oklch(0.235 0.07 264) !important;
-    animation: none !important;
-  }
-
-  .text-royal-gradient.animate-gradient-flow {
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    color: oklch(0.31 0.07 264) !important;
-    -webkit-text-fill-color: oklch(0.31 0.07 264) !important;
-    animation: none !important;
-  }
-}
 
 /* Keep gradient headings colorful on all screen sizes */
 

@@ -1,26 +1,17 @@
-// Ridgewood School, Mirganj — Prisma schema
+// Ridgewood School, Mirganj — Prisma schema (MongoDB)
 // Parents, Students, Report Cards, Notices, Participation, Gallery Items
-//
-// Database provider is chosen at build time via the DATABASE_URL env var:
-//   - SQLite (local dev):     DATABASE_URL=file:./db/custom.db
-//   - PostgreSQL (Vercel):    DATABASE_URL=postgresql://...
-//
-// The `prisma` CLI auto-detects the provider from the datasource block,
-// but Vercel needs the provider to be a literal string at build time.
-// We use the env var PRISMA_DATABASE_PROVIDER to switch providers via
-// a prebuild script (scripts/switch-db-provider.js).
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Parent {
-  id           String   @id @default(cuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   phone        String   @unique
   passwordHash String
@@ -33,15 +24,15 @@ model Parent {
 }
 
 model Student {
-  id           String   @id @default(cuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   rollNo       String
-  classSection String   // e.g. "Year 3 · Section B"
+  classSection String
   classTeacher String
   parentName   String
-  parentId     String
+  parentId     String   @db.ObjectId
   parent       Parent   @relation(fields: [parentId], references: [id], onDelete: Cascade)
-  attendance   Int      @default(95) // percentage
+  attendance   Int      @default(95)
   averageGrade String   @default("A")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -51,11 +42,11 @@ model Student {
 }
 
 model ReportCard {
-  id          String   @id @default(cuid())
-  studentId   String
-  term        String   // e.g. "Term 1 · 2025–26"
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId   String   @db.ObjectId
+  term        String
   remarks     String?
-  pdfUrl      String?  // optional Cloudinary URL for downloadable PDF
+  pdfUrl      String?
   createdAt   DateTime @default(now())
 
   student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
@@ -63,19 +54,19 @@ model ReportCard {
 }
 
 model Subject {
-  id          String   @id @default(cuid())
-  reportCardId String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  reportCardId String  @db.ObjectId
   name        String
-  marks       Int      // out of 100
-  grade       String   // A+, A, B, etc.
+  marks       Int
+  grade       String
   reportCard  ReportCard @relation(fields: [reportCardId], references: [id], onDelete: Cascade)
 }
 
 model Notice {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   body        String
-  tag         String   @default("General") // Important / Holiday / Event / General
+  tag         String   @default("General")
   date        String
   createdAt   DateTime @default(now())
 
@@ -83,37 +74,37 @@ model Notice {
 }
 
 model NoticeRead {
-  id          String   @id @default(cuid())
-  noticeId    String
-  parentId    String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  noticeId    String   @db.ObjectId
+  parentId    String   @db.ObjectId
   readAt      DateTime @default(now())
   notice      Notice    @relation(fields: [noticeId], references: [id], onDelete: Cascade)
   parent      Parent    @relation(fields: [parentId], references: [id], onDelete: Cascade)
 }
 
 model Participation {
-  id          String   @id @default(cuid())
-  studentId   String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId   String   @db.ObjectId
   event       String
   date        String
-  result      String   // "1st Place", "Participation", etc.
-  category    String   // Literary / Sports / Art / Music / Academics
+  result      String
+  category    String
   student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
 }
 
 model GalleryItem {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String?
-  imageUrl    String   // Cloudinary URL (or local fallback)
+  imageUrl    String
   thumbnailUrl String?
-  publicId    String?  // Cloudinary public_id for deletion
-  type        String   @default("photo") // "photo" | "video"
-  tag         String   @default("General") // Classroom / Patriotic / Cultural / Event
+  publicId    String?
+  type        String   @default("photo")
+  tag         String   @default("General")
   date        String?
-  isPublic    Boolean  @default(true) // shown in public gallery
-  studentId   String?  // optional: if this photo is of a specific child (for parent portal)
-  uploadedBy  String?  // admin email
+  isPublic    Boolean  @default(true)
+  studentId   String?
+  uploadedBy  String?
   createdAt   DateTime @default(now())
 }
