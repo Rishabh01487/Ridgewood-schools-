@@ -98,12 +98,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-bold leading-[1.02] tracking-tight text-balance text-[42px] sm:text-[58px] lg:text-[72px]"
+            className="font-heading font-bold leading-[1.1] tracking-tight text-[30px] sm:text-[42px] lg:text-[58px] text-center lg:text-left"
           >
-            <span className="text-sunset-gradient animate-gradient-flow inline-block">
+            <span className="text-sunset-gradient animate-gradient-flow block">
               Where curious minds
             </span>
-            <span className="block font-elegant-italic font-medium text-royal-gradient animate-gradient-flow mt-1">
+            <span className="font-elegant-italic font-medium text-royal-gradient animate-gradient-flow block mt-1">
               flourish joyfully
             </span>
           </motion.h1>
