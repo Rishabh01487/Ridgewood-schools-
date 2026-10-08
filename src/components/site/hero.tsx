@@ -98,12 +98,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-bold leading-[1.02] tracking-tight text-balance text-[42px] sm:text-[58px] lg:text-[72px]"
+            className="font-heading font-bold leading-[1.15] tracking-tight text-[28px] sm:text-[42px] lg:text-[58px] text-center lg:text-left"
           >
-            <span className="text-sunset-gradient animate-gradient-flow inline-block">
+            <span className="text-sunset-gradient animate-gradient-flow block whitespace-nowrap">
               Where curious minds
             </span>
-            <span className="block font-elegant-italic font-medium text-royal-gradient animate-gradient-flow mt-1">
+            <span className="font-elegant-italic font-medium text-royal-gradient animate-gradient-flow block whitespace-nowrap mt-1">
               flourish joyfully
             </span>
           </motion.h1>
@@ -213,7 +213,7 @@ export function Hero() {
 
           {/* Floating mini accent photo — slightly tilted, top-right */}
           <div
-            className="absolute -top-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden sm:block"
+            className="absolute -top-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden md:block"
             style={{ transform: "rotate(6deg)" }}
           >
             <div className="relative w-full h-full">
@@ -227,7 +227,7 @@ export function Hero() {
 
           {/* Floating mini accent photo — bottom-left, slight tilt */}
           <div
-            className="absolute -bottom-8 -left-6 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden sm:block"
+            className="absolute -bottom-8 -left-6 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden md:block"
             style={{ transform: "rotate(-4deg)" }}
           >
             <div className="relative w-full h-full">
