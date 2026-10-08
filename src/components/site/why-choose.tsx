@@ -53,7 +53,7 @@ export function WhyChoose() {
             <LeafMark size={18} />
             Why Choose Ridgewood
           </div>
-          <h2 className="font-heading text-royal-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+          <h2 className="font-heading text-sunset-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
             A premium primary education, gently shaped around every child
           </h2>
           <div className="mt-6">

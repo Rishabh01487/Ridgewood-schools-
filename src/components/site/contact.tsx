@@ -78,7 +78,7 @@ export function Contact() {
             <LeafMark size={18} />
             Get in Touch
           </div>
-          <h2 className="font-heading text-royal-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+          <h2 className="font-heading text-sunset-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
             We&apos;d love to welcome you to the family
           </h2>
           <div className="mt-6">

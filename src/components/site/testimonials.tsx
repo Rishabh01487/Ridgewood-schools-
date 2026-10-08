@@ -88,7 +88,7 @@ export function Testimonials() {
             <LeafMark size={18} />
             Voices from Our Community
           </div>
-          <h2 className="font-heading text-royal-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+          <h2 className="font-heading text-sunset-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
             What parents say about the Ridgewood journey
           </h2>
           <div className="mt-6">

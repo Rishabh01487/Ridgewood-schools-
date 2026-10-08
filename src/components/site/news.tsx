@@ -61,7 +61,7 @@ export function News() {
               <LeafMark size={18} />
               News & Updates
             </div>
-            <h2 className="font-heading text-royal-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+            <h2 className="font-heading text-emerald-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
               From the Ridgewood chronicle
             </h2>
             <div className="mt-6">
