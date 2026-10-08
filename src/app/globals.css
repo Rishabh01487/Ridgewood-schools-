@@ -796,3 +796,60 @@
     animation: none !important;
   }
 }
+
+/* ===== Premium Navy Section Enhancement =====
+   Adds a radial gradient glow (lighter center, darker edges) + 
+   gold gradient accents at top and bottom to make solid navy sections
+   feel more premium and dimensional instead of flat. */
+
+.navy-premium {
+  position: relative;
+}
+.navy-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%,
+    oklch(0.28 0.07 264 / 0.5) 0%,
+    oklch(0.22 0.06 264 / 0.8) 60%,
+    oklch(0.18 0.06 264 / 1) 100%);
+}
+.navy-premium::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    oklch(0.78 0.13 75 / 0.4) 15%,
+    oklch(0.78 0.13 75 / 0.7) 50%,
+    oklch(0.78 0.13 75 / 0.4) 85%,
+    transparent 100%);
+}
+/* Gold glow at top edge */
+.navy-premium > .navy-top-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    oklch(0.78 0.13 75 / 0.4) 15%,
+    oklch(0.78 0.13 75 / 0.7) 50%,
+    oklch(0.78 0.13 75 / 0.4) 85%,
+    transparent 100%);
+}
+/* Ensure content sits above the premium overlay */
+.navy-premium > *:not(.navy-top-glow):not(.craft-pattern):not(svg):not(.absolute) {
+  position: relative;
+  z-index: 2;
+}

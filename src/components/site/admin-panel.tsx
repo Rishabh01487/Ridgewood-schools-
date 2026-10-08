@@ -62,7 +62,7 @@ export function AdminPanel() {
 
         {status !== "authenticated" ? (
           <div className="rounded-[1.75rem] bg-navy-gradient text-cream p-7 sm:p-9 text-center shadow-navy relative overflow-hidden">
-            <CirclePattern color="oklch(0.78 0.13 75 / 0.12)" />
+            <CirclePattern color="oklch(0.78 0.13 75 / 0.28)" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-gold/10 blur-[100px]" />
             <div className="relative">
               <BrandLogo variant="full" size={56} tone="white" className="mx-auto" />

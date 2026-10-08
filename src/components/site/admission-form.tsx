@@ -179,7 +179,7 @@ export function AdmissionForm() {
           {/* Left — info side panel */}
           <Reveal className="lg:col-span-4" delay={0.05}>
             <div className="relative rounded-[2rem] bg-navy-gradient text-cream p-7 sm:p-9 shadow-navy overflow-hidden h-full">
-              <CirclePattern color="oklch(0.78 0.13 75 / 0.10)" />
+              <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />
               <div className="absolute -top-10 -right-10 h-56 w-56 rounded-full bg-gold/10 blur-[80px]" />
               <div className="absolute -bottom-10 -left-10 h-56 w-56 rounded-full bg-navy-light/30 blur-[80px]" />
 

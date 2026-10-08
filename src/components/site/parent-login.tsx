@@ -97,10 +97,15 @@ export function ParentLogin() {
   return (
     <section
       id="parent-login"
-      className="relative anchor-offset bg-navy-gradient text-cream py-24 sm:py-32 overflow-hidden bg-navy-fusion navy-craft-overlay"
+      className="relative anchor-offset bg-navy-gradient text-cream py-24 sm:py-32 overflow-hidden bg-navy-fusion navy-craft-overlay navy-premium"
     >
       {/* Subtle gold circle pattern across the navy section */}
-      <CirclePattern color="oklch(0.78 0.13 75 / 0.10)" />
+      <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />
+      {/* Premium gold orbs */}
+      <div className="absolute top-1/4 -right-20 h-[400px] w-[400px] rounded-full bg-gold/15 blur-[100px]" aria-hidden />
+      <div className="absolute bottom-1/4 -left-20 h-[350px] w-[350px] rounded-full bg-gold/10 blur-[100px]" aria-hidden />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
       {/* gold orbs */}
       <div className="absolute top-1/4 -right-20 h-80 w-80 rounded-full bg-gold/15 blur-[120px]" />
       <div className="absolute bottom-1/4 -left-20 h-72 w-72 rounded-full bg-navy-light/30 blur-[120px]" />
