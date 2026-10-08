@@ -30,7 +30,7 @@ export function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex items-center pt-16 pb-16 sm:pt-24 sm:pb-20"
+      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex items-center pt-28 pb-16 sm:pt-32 sm:pb-20"
     >
       {/* Layer 1 — cream gradient with subtle navy circle pattern */}
       <div className="absolute inset-0 -z-20 bg-cream-gradient" aria-hidden />
@@ -51,11 +51,11 @@ export function Hero() {
         >
           <path
             d="M0,200 L0,120 C160,100 220,40 360,50 C520,60 580,110 720,110 C880,110 940,30 1100,40 C1240,48 1300,100 1440,90 L1440,200 Z"
-            fill="var(--brand-navy)"
+            fillfill="var(--brand-navy)"
           />
           <path
             d="M0,200 L0,160 C140,140 200,100 340,110 C500,122 560,160 700,158 C860,156 920,110 1080,120 C1220,128 1280,170 1440,160 L1440,200 Z"
-            fill="var(--brand-navy)"
+            fillfill="var(--brand-navy)"
             opacity="0.7"
           />
         </svg>
@@ -73,11 +73,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:justify-start mb-6"
+            className="flex items-center justify-center lg:justify-start mb-8"
           >
-            {/* FULL Ridgewood logo in hero — visible on all screens, slightly bigger */}
-            <BrandLogo variant="full" size={64} className="shrink-0 sm:hidden" />
-            <BrandLogo variant="full" size={68} className="shrink-0 hidden sm:block" />
+            {/* FULL Ridgewood logo: shield + RIDGEWOOD SCHOOL + A CBSE Curriculum School subtitle (matches the user's original uploaded logo) */}
+            <BrandLogo variant="full" size={72} priority className="shrink-0" />
           </motion.div>
 
           {/* Eyebrow */}
@@ -99,12 +98,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-bold leading-[1.1] tracking-tight text-[30px] sm:text-[42px] lg:text-[58px] text-center lg:text-left"
+            className="font-heading font-bold leading-[1.02] tracking-tight text-balance text-[42px] sm:text-[58px] lg:text-[72px]"
           >
-            <span className="text-sunset-gradient animate-gradient-flow block">
+            <span className="text-sunset-gradient animate-gradient-flow inline-block">
               Where curious minds
             </span>
-            <span className="font-elegant-italic font-medium text-royal-gradient animate-gradient-flow block mt-1">
+            <span className="block font-elegant-italic font-medium text-royal-gradient animate-gradient-flow mt-1">
               flourish joyfully
             </span>
           </motion.h1>
@@ -190,9 +189,6 @@ export function Hero() {
             <img
               src="/gallery/uniform-students-1.png"
               alt="Ridgewood students in classroom uniform"
-             
-             
-             
               className="absolute inset-0 w-full h-full object-cover"
             />
             {/* Subtle warm gradient at bottom for caption legibility */}
@@ -224,8 +220,6 @@ export function Hero() {
               <img
                 src="/gallery/independence-day-1.png"
                 alt="Ridgewood Independence Day celebration"
-               
-               
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
@@ -240,11 +234,17 @@ export function Hero() {
               <img
                 src="/gallery/bachpan-teachers-day.png"
                 alt="Teachers Day celebration"
-               
-               
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
+          </div>
+
+          {/* Floating "Top of section" badge — gold pill */}
+          <div className="absolute top-1/2 -left-10 -translate-y-1/2 hidden xl:flex flex-col items-center gap-1">
+            <span className="text-[10px] tracking-luxe uppercase text-navy/70 font-semibold [writing-mode:vertical-rl] rotate-180">
+              Joyful Learning
+            </span>
+            <span className="h-12 w-px bg-gold/40" />
           </div>
         </motion.div>
       </motion.div>
