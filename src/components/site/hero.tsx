@@ -75,9 +75,9 @@ export function Hero() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center justify-center lg:justify-start mb-6"
           >
-            {/* FULL Ridgewood logo in hero — visible on all screens */}
-            <BrandLogo variant="full" size={56} className="shrink-0 sm:hidden" />
-            <BrandLogo variant="full" size={64} className="shrink-0 hidden sm:block" />
+            {/* FULL Ridgewood logo in hero — visible on all screens, slightly bigger */}
+            <BrandLogo variant="full" size={64} className="shrink-0 sm:hidden" />
+            <BrandLogo variant="full" size={68} className="shrink-0 hidden sm:block" />
           </motion.div>
 
           {/* Eyebrow */}
