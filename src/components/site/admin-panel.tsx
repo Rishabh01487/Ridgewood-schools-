@@ -19,7 +19,7 @@ import {
   Eye,
 } from "lucide-react";
 
-const STAFF_EMAILS = ["ankurarchi06@gmail.com", "admin@ridgewoodmirganj.in"];
+const STAFF_EMAILS = ["Ridgewoodmirganj@gmail.com", "admin@ridgewoodmirganj.in"];
 function isStaff(email?: string | null): boolean {
   if (!email) return false;
   return STAFF_EMAILS.includes(email.toLowerCase());

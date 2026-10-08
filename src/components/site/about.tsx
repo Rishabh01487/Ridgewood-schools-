@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "./reveal";
 import { GoldRule, LeafMark, RidgeCrest, CirclePattern } from "./ornament";
@@ -45,12 +44,12 @@ export function About() {
             <div className="relative h-[540px] sm:h-[600px] lg:h-[640px] hidden lg:block">
               {/* MAIN — real Ridgewood classroom photo */}
               <RevealItem className="absolute left-0 top-0 w-[62%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream z-10">
-                <Image
+                <img
                   src="/gallery/uniform-students-2.png"
                   alt="Ridgewood students in classroom uniform"
-                  fill
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
+                 
+                 
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/10 to-transparent" />
 
@@ -81,12 +80,12 @@ export function About() {
               >
                 <div style={{ transform: "rotate(4deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
-                    <Image
+                    <img
                       src="/gallery/independence-day-2.png"
                       alt="Ridgewood Independence Day celebration"
-                      fill
-                      sizes="(min-width: 1024px) 25vw, 50vw"
-                      className="object-cover"
+                     
+                     
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
                 </div>
@@ -99,12 +98,12 @@ export function About() {
               >
                 <div style={{ transform: "rotate(-5deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
-                    <Image
+                    <img
                       src="/gallery/cultural-day.png"
                       alt="Ridgewood cultural day performance"
-                      fill
-                      sizes="(min-width: 1024px) 22vw, 50vw"
-                      className="object-cover"
+                     
+                     
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
                 </div>
@@ -117,12 +116,12 @@ export function About() {
               >
                 <div style={{ transform: "rotate(-3deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
-                    <Image
+                    <img
                       src="/gallery/friendship-day.png"
                       alt="Ridgewood Friendship Day"
-                      fill
-                      sizes="(min-width: 1024px) 28vw, 50vw"
-                      className="object-cover"
+                     
+                     
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
                 </div>
@@ -168,12 +167,12 @@ export function About() {
             {/* Mobile stacked layout (simple, clean) */}
             <div className="lg:hidden space-y-4">
               <RevealItem className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
-                <Image
+                <img
                   src="/gallery/uniform-students-2.png"
                   alt="Ridgewood students in classroom uniform"
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
+                 
+                 
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/10 to-transparent" />
                 <div className="absolute top-4 left-4">
@@ -191,10 +190,10 @@ export function About() {
               </RevealItem>
               <div className="grid grid-cols-2 gap-3">
                 <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(3deg)" }}>
-                  <Image src="/gallery/independence-day-2.png" alt="Independence Day" fill sizes="50vw" className="object-cover" />
+                  <img src="/gallery/independence-day-2.png" alt="Independence Day" className="absolute inset-0 w-full h-full object-cover" />
                 </RevealItem>
                 <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(-3deg)" }}>
-                  <Image src="/gallery/cultural-day.png" alt="Cultural Day" fill sizes="50vw" className="object-cover" />
+                  <img src="/gallery/cultural-day.png" alt="Cultural Day" className="absolute inset-0 w-full h-full object-cover" />
                 </RevealItem>
               </div>
             </div>

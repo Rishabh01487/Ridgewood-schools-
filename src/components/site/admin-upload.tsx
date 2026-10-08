@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { GoldRule, LeafMark, BrandLogo, CirclePattern } from "./ornament";
@@ -21,7 +20,7 @@ import {
 } from "lucide-react";
 
 const TAGS = ["Classroom", "Patriotic", "Cultural", "Event"];
-const STAFF_EMAILS = ["ankurarchi06@gmail.com", "admin@ridgewoodmirganj.in"]; // mirrors .env STAFF_EMAILS for client-side UI
+const STAFF_EMAILS = ["Ridgewoodmirganj@gmail.com", "admin@ridgewoodmirganj.in"]; // mirrors .env STAFF_EMAILS for client-side UI
 
 interface GalleryItem {
   id: string;
@@ -158,7 +157,7 @@ export function AdminUpload() {
             <CirclePattern color="oklch(0.78 0.13 75 / 0.12)" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-gold/10 blur-[100px]" />
             <div className="relative">
-              <BrandLogo variant="shield" size={56} tone="white" className="mx-auto" />
+              <BrandLogo variant="full" size={48} tone="white" className="mx-auto" />
               <h3 className="font-heading text-[18px] font-bold mt-3 mb-2">Staff sign-in required</h3>
               <p className="text-cream/80 text-[13.5px] mb-4 max-w-sm mx-auto">
                 Sign in with a school staff account to upload.
@@ -201,7 +200,7 @@ export function AdminUpload() {
                       type === "video" ? (
                         <video src={preview} controls className="w-full h-full object-contain" />
                       ) : (
-                        <Image src={preview} alt="preview" fill className="object-contain" unoptimized />
+                        <img src={preview} alt="preview" className="absolute inset-0 w-full h-full object-contain" />
                       )
                     ) : (
                       <div className="text-center px-6">
@@ -340,7 +339,7 @@ export function AdminUpload() {
                         {it.type === "video" ? (
                           <video src={it.imageUrl} className="w-full h-full object-cover" />
                         ) : (
-                          <Image src={it.imageUrl} alt={it.title} fill sizes="200px" className="object-cover" unoptimized={it.imageUrl.startsWith("/gallery/uploads/")} />
+                          <img src={it.imageUrl} alt={it.title} className="absolute inset-0 w-full h-full object-cover" />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-transparent to-transparent" />
                         <div className="absolute bottom-0 inset-x-0 p-2.5">

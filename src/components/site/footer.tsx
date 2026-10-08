@@ -30,14 +30,14 @@ const QUICK_LINKS = [
 
 const PROGRAMS = [
   "Pre-Primary (Bachpan)",
-  "Year 1",
-  "Year 2",
-  "Year 3",
-  "Year 4",
-  "Year 5",
-  "Year 6",
-  "Year 7",
-  "Year 8",
+  "1st Standard",
+  "2nd Standard",
+  "3rd Standard",
+  "4th Standard",
+  "5th Standard",
+  "6th Standard",
+  "7th Standard",
+  "8th Standard",
 ];
 
 const FACILITIES_LIST = [
@@ -92,9 +92,9 @@ export function Footer() {
             {/* Social */}
             <div className="mt-7 flex items-center gap-3">
               {[
-                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ridgewoodmirganj/" },
-                { icon: Facebook, label: "Facebook", href: "#" },
-                { icon: Youtube, label: "YouTube", href: "#" },
+                { icon: Instagram, label: "Instagram", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
+                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
+                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ridgewoodmirganj" },
               ].map((s) => {
                 const Icon = s.icon;
                 return (
@@ -166,24 +166,24 @@ export function Footer() {
             <div className="space-y-2.5 text-[13px] text-cream/75">
               <p className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 text-gold mt-0.5 shrink-0" />
-                Near Alam Hospital, Dakshin Muhala,
+                Rajmohan Colony, Dr B N Chaudhary Lane,
                 <br />
-                Hathua Mor, Mirganj, Bihar 841438
+                Near Hathwa Mor, Mirganj 841438
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5 text-gold" />
-                <a href="tel:+919999344965" className="hover:text-gold transition-colors">
-                  +91 99993 44965
+                <a href="tel:+917052224726" className="hover:text-gold transition-colors">
+                  +91 70522 24726
                 </a>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5 text-gold" />
-                <a href="mailto:ankurarchi06@gmail.com" className="hover:text-gold transition-colors break-all">
-                  ankurarchi06@gmail.com
+                <a href="mailto:Ridgewoodmirganj@gmail.com" className="hover:text-gold transition-colors break-all">
+                  Ridgewoodmirganj@gmail.com
                 </a>
               </p>
               <a
-                href="https://www.google.com/maps/place/Bachpan+Play+School,+Hathua+Mor,+Mirganj/@26.3642911,84.3352953,17z/data=!3m1!4b1!4m6!3m5!1s0x3993016218185be5:0x91f3f8a63739d5b8!8m2!3d26.3642911!4d84.3378702!16s%2Fg%2F11kb6tp_50?entry=ttu"
+                href="https://www.google.com/maps/search/?api=1&query=Rajmohan+Colony+Dr+B+N+Chaudhary+Lane+Near+Hathwa+Mor+Mirganj+841438"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 mt-1 text-gold-light hover:text-gold transition-colors text-[12.5px] font-medium"

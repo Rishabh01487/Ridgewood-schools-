@@ -66,31 +66,31 @@ export function Navbar() {
           <span className="hidden md:flex items-center gap-2 shrink-0 min-w-0">
             <MapPin className="h-4 w-4 text-gold shrink-0" />
             <span className="truncate text-cream/95">
-              Near Alam Hospital, Dakshin Muhala, Hathua Mor, Mirganj, Bihar 841438
+              Rajmohan Colony, Dr B N Chaudhary Lane, Near Hathwa Mor, Mirganj 841438
             </span>
           </span>
 
           {/* Phone (always visible) */}
           <a
-            href="tel:+919999344965"
+            href="tel:+917052224726"
             className="flex items-center gap-2 hover:text-gold transition-colors shrink-0 font-medium"
           >
             <Phone className="h-4 w-4 text-gold shrink-0" />
-            <span className="whitespace-nowrap">+91 99993 44965</span>
+            <span className="whitespace-nowrap">+91 70522 24726</span>
           </a>
 
           {/* Email (hidden on small mobile, shown sm+) */}
           <a
-            href="mailto:ankurarchi06@gmail.com"
+            href="mailto:Ridgewoodmirganj@gmail.com"
             className="hidden sm:flex items-center gap-2 hover:text-gold transition-colors shrink-0 font-medium"
           >
             <Mail className="h-4 w-4 text-gold shrink-0" />
-            <span className="truncate max-w-[200px] md:max-w-none">ankurarchi06@gmail.com</span>
+            <span className="truncate max-w-[200px] md:max-w-none">Ridgewoodmirganj@gmail.com</span>
           </a>
 
           {/* Admissions badge (hidden on small mobile, shown md+) */}
           <span className="hidden md:inline-block text-gold tracking-luxe font-semibold text-[11px] uppercase shrink-0">
-            Admissions Open · 2025–26
+            Admissions Open · 2026–27
           </span>
         </div>
       </div>
@@ -233,18 +233,18 @@ export function Navbar() {
                   <div className="mt-4 space-y-2 text-[12px] text-navy/70">
                     <p className="flex items-start gap-2">
                       <MapPin className="h-4 w-4 text-gold mt-0.5 shrink-0" />
-                      Near Alam Hospital, Dakshin Muhala, Hathua Mor, Mirganj, Bihar 841438
+                      Rajmohan Colony, Dr B N Chaudhary Lane, Near Hathwa Mor, Mirganj 841438
                     </p>
                     <p className="flex items-center gap-2">
                       <Phone className="h-4 w-4 text-gold" />
-                      <a href="tel:+919999344965" className="hover:text-gold transition-colors">
-                        +91 99993 44965
+                      <a href="tel:+917052224726" className="hover:text-gold transition-colors">
+                        +91 70522 24726
                       </a>
                     </p>
                     <p className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-gold" />
-                      <a href="mailto:ankurarchi06@gmail.com" className="hover:text-gold transition-colors">
-                        ankurarchi06@gmail.com
+                      <a href="mailto:Ridgewoodmirganj@gmail.com" className="hover:text-gold transition-colors">
+                        Ridgewoodmirganj@gmail.com
                       </a>
                     </p>
                   </div>

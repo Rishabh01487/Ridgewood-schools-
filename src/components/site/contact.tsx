@@ -23,19 +23,19 @@ const CONTACT_INFO = [
     icon: MapPin,
     label: "Visit Us",
     lines: [
-      "Near Alam Hospital, Dakshin Muhala,",
-      "Hathua Mor, Mirganj, Bihar 841438",
+      "Rajmohan Colony, Dr B N Chaudhary Lane,",
+      "Near Hathwa Mor, Mirganj 841438",
     ],
   },
   {
     icon: Phone,
     label: "Call Us",
-    lines: ["+91 99993 44965", "Mon–Sat · 8 AM – 4 PM"],
+    lines: ["+91 70522 24726", "70522 24726 · 73522 24726"],
   },
   {
     icon: Mail,
     label: "Email Us",
-    lines: ["ankurarchi06@gmail.com", "Quick response guaranteed"],
+    lines: ["Ridgewoodmirganj@gmail.com", "Quick response guaranteed"],
   },
   {
     icon: Clock,
@@ -127,9 +127,9 @@ export function Contact() {
                 Follow
               </span>
               {[
-                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ridgewoodmirganj/" },
-                { icon: Facebook, label: "Facebook", href: "#" },
-                { icon: Youtube, label: "YouTube", href: "#" },
+                { icon: Instagram, label: "Instagram", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
+                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
+                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ridgewoodmirganj" },
               ].map((s) => {
                 const Icon = s.icon;
                 return (
@@ -162,7 +162,7 @@ export function Contact() {
 
               <div className="grid sm:grid-cols-2 gap-5 mt-7">
                 <Field label="Parent's Name" name="parent" placeholder="e.g. Ashok Kumar" required />
-                <Field label="Phone Number" name="phone" type="tel" placeholder="+91 99993 44965" required />
+                <Field label="Phone Number" name="phone" type="tel" placeholder="+91 70522 24726" required />
                 <Field label="Email" name="email" type="email" placeholder="you@example.com" required />
                 <Field label="Child's Age" name="age" placeholder="e.g. 6 years" />
                 <div className="sm:col-span-2">
@@ -226,7 +226,7 @@ export function Contact() {
                     <p className="flex items-start gap-3 text-[15px] leading-relaxed">
                       <MapPin className="h-5 w-5 text-gold mt-0.5 shrink-0" />
                       <span>
-                        Near Alam Hospital, Dakshin Muhala,
+                        Rajmohan Colony, Dr B N Chaudhary Lane,
                         <br />
                         Hathua Mor, Mirganj,
                         <br />
@@ -235,14 +235,14 @@ export function Contact() {
                     </p>
                     <p className="flex items-center gap-3 text-[15px]">
                       <Phone className="h-5 w-5 text-gold shrink-0" />
-                      <a href="tel:+919999344965" className="hover:text-gold transition-colors">
-                        +91 99993 44965
+                      <a href="tel:+917052224726" className="hover:text-gold transition-colors">
+                        +91 70522 24726
                       </a>
                     </p>
                     <p className="flex items-center gap-3 text-[15px]">
                       <Mail className="h-5 w-5 text-gold shrink-0" />
-                      <a href="mailto:ankurarchi06@gmail.com" className="hover:text-gold transition-colors">
-                        ankurarchi06@gmail.com
+                      <a href="mailto:Ridgewoodmirganj@gmail.com" className="hover:text-gold transition-colors">
+                        Ridgewoodmirganj@gmail.com
                       </a>
                     </p>
                     <p className="flex items-center gap-3 text-[15px]">
@@ -251,7 +251,7 @@ export function Contact() {
                     </p>
                   </div>
                   <a
-                    href="https://www.google.com/maps/place/Bachpan+Play+School,+Hathua+Mor,+Mirganj/@26.3642911,84.3352953,17z/data=!3m1!4b1!4m6!3m5!1s0x3993016218185be5:0x91f3f8a63739d5b8!8m2!3d26.3642911!4d84.3378702!16s%2Fg%2F11kb6tp_50?entry=ttu"
+                    href="https://www.google.com/maps/search/?api=1&query=Rajmohan+Colony+Dr+B+N+Chaudhary+Lane+Near+Hathwa+Mor+Mirganj+841438"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-gold-gradient text-navy-dark font-semibold px-6 py-3 text-[13.5px] hover:shadow-gold transition-all"
@@ -268,7 +268,7 @@ export function Contact() {
               <div className="relative h-full min-h-[360px] rounded-[2rem] overflow-hidden border border-gold/25 shadow-luxe bg-cream">
                 <iframe
                   title="Bachpan Play School, Hathua Mor, Mirganj — Google Maps location"
-                  src="https://www.google.com/maps?q=Bachpan+Play+School+Hathua+Mor+Mirganj+26.3642911,84.3378702&z=17&output=embed"
+                  src="https://www.google.com/maps?q=Rajmohan+Colony+Dr+B+N+Chaudhary+Lane+Near+Hathwa+Mor+Mirganj+841438&z=17&output=embed"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen

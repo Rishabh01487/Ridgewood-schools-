@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import { BrandLogo, GoldRule, LeafMark, CirclePattern } from "./ornament";
@@ -76,8 +75,9 @@ export function Hero() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center justify-center lg:justify-start mb-8"
           >
-            {/* FULL Ridgewood logo: shield + RIDGEWOOD SCHOOL + A CBSE Curriculum School subtitle (matches the user's original uploaded logo) */}
-            <BrandLogo variant="full" size={68} priority className="shrink-0" />
+            {/* FULL Ridgewood logo — bigger on mobile (56px), full size on desktop (68px) */}
+            <BrandLogo variant="full" size={56} className="shrink-0 sm:hidden" />
+            <BrandLogo variant="full" size={68} className="hidden sm:block shrink-0" />
           </motion.div>
 
           {/* Eyebrow */}
@@ -187,13 +187,13 @@ export function Hero() {
         >
           {/* Main framed photo */}
           <div className="relative aspect-[16/10] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
-            <Image
+            <img
               src="/gallery/uniform-students-1.png"
               alt="Ridgewood students in classroom uniform"
-              fill
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
+             
+             
+             
+              className="absolute inset-0 w-full h-full object-cover"
             />
             {/* Subtle warm gradient at bottom for caption legibility */}
             <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent" />
@@ -221,12 +221,12 @@ export function Hero() {
             style={{ transform: "rotate(6deg)" }}
           >
             <div className="relative w-full h-full">
-              <Image
+              <img
                 src="/gallery/independence-day-1.png"
                 alt="Ridgewood Independence Day celebration"
-                fill
-                sizes="160px"
-                className="object-cover"
+               
+               
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
           </div>
@@ -237,22 +237,14 @@ export function Hero() {
             style={{ transform: "rotate(-4deg)" }}
           >
             <div className="relative w-full h-full">
-              <Image
+              <img
                 src="/gallery/bachpan-teachers-day.png"
                 alt="Teachers Day celebration"
-                fill
-                sizes="144px"
-                className="object-cover"
+               
+               
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
-          </div>
-
-          {/* Floating "Top of section" badge — gold pill */}
-          <div className="absolute top-1/2 -left-10 -translate-y-1/2 hidden xl:flex flex-col items-center gap-1">
-            <span className="text-[10px] tracking-luxe uppercase text-navy/70 font-semibold [writing-mode:vertical-rl] rotate-180">
-              Joyful Learning
-            </span>
-            <span className="h-12 w-px bg-gold/40" />
           </div>
         </motion.div>
       </motion.div>

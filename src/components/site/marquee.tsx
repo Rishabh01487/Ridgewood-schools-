@@ -4,7 +4,7 @@ import * as React from "react";
 import { Sparkles, BookOpen, Trophy, Music, Heart, Leaf } from "lucide-react";
 
 const ITEMS = [
-  { icon: Sparkles, text: "Admissions Open for 2025–26" },
+  { icon: Sparkles, text: "Admissions Open for 2026–27" },
   { icon: BookOpen, text: "NEP 2020 Aligned Curriculum" },
   { icon: Trophy, text: "Inter-School Sports Champions" },
   { icon: Music, text: "Music & Dance Annual Showcase" },

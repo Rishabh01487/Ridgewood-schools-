@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Reveal } from "./reveal";
@@ -719,12 +718,12 @@ function GalleryTab() {
             onClick={() => setSelected(item)}
             className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold/25 hover:border-gold/60 transition-all"
           >
-            <Image
+            <img
               src={item.src}
               alt={item.title}
-              fill
-              sizes="(min-width: 640px) 33vw, 50vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+             
+             
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/10 to-transparent opacity-90" />
             <span className="absolute top-2.5 left-2.5 rounded-full bg-navy-dark/70 backdrop-blur-sm border border-gold/40 px-2 py-0.5 text-[9.5px] tracking-luxe uppercase text-gold-light font-semibold">{item.tag}</span>
@@ -745,7 +744,7 @@ function GalleryTab() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={() => setSelected(null)} className="fixed inset-0 z-[100] bg-navy-dark/90 backdrop-blur-md grid place-items-center p-4 sm:p-8">
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.25 }} onClick={(e) => e.stopPropagation()} className="relative max-w-4xl w-full grid lg:grid-cols-12 gap-4 bg-navy-gradient rounded-3xl border border-gold/30 overflow-hidden shadow-luxe">
               <div className="lg:col-span-7 relative aspect-[4/3] lg:aspect-auto">
-                <Image src={selected.src} alt={selected.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+                <img src={selected.src} alt={selected.title} className="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col">
                 <div className="flex items-start justify-between mb-4">

@@ -1,6 +1,6 @@
 /**
  * Seed Ridgewood School demo data:
- *  - Parent: Mr & Mrs Sharma (phone: 9999344965, password: ridgewood123)
+ *  - Parent: Mr & Mrs Sharma (phone: 7052224726, password: ridgewood123)
  *  - Student: Aarohi Sharma
  *  - Report Card (Term 1, 2025-26) with 6 subjects
  *  - 3 Notices (Important / Holiday / Event)
@@ -28,9 +28,9 @@ async function main() {
   const parent = await db.parent.create({
     data: {
       name: "Mr & Mrs Sharma",
-      phone: "9999344965",
+      phone: "7052224726",
       passwordHash,
-      email: "sharma.parent@example.com", // parent email — NOT a staff email, so they can't upload
+      email: "parent.ridgewood@example.com", // parent email — NOT a staff email, so they can't upload
     },
   });
 
@@ -40,9 +40,9 @@ async function main() {
   const staff = await db.parent.create({
     data: {
       name: "Ridgewood Admin",
-      phone: "9999344966",
+      phone: "7352224726",
       passwordHash: staffHash,
-      email: "ankurarchi06@gmail.com", // STAFF email — can upload photos/videos
+      email: "Ridgewoodmirganj@gmail.com", // STAFF email — can upload photos/videos
     },
   });
 
@@ -163,7 +163,7 @@ async function main() {
   }
 
   console.log("\n✅ Seed complete!");
-  console.log("   Parent login — phone: 9999344965, password: ridgewood123");
+  console.log("   Parent login — phone: 7052224726, password: ridgewood123");
   console.log("   Student: Aarohi Sharma (Year 3, Section B)");
   console.log("   6 subjects in report card");
   console.log("   3 notices, 5 participation events, 12 gallery items");

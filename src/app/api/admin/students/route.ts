@@ -11,7 +11,7 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
-const STAFF_EMAILS = (process.env.STAFF_EMAILS || "ankurarchi06@gmail.com,admin@ridgewoodmirganj.in")
+const STAFF_EMAILS = (process.env.STAFF_EMAILS || "Ridgewoodmirganj@gmail.com,admin@ridgewoodmirganj.in")
   .split(",")
   .map((s) => s.trim().toLowerCase())
   .filter(Boolean);

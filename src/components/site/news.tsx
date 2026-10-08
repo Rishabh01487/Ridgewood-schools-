@@ -21,9 +21,9 @@ const NEWS: NewsItem[] = [
     day: "12",
     month: "Sep",
     category: "Admissions",
-    title: "Admissions now open for the 2025–26 academic year",
+    title: "Admissions now open for the 2026–27 academic year",
     excerpt:
-      "We are now accepting applications for Pre-Primary through Year 8. Schedule a campus visit and meet our teachers to discover the Ridgewood difference for your child.",
+      "We are now accepting applications for Pre-Primary through 8th Standard. Schedule a campus visit and meet our teachers to discover the Ridgewood difference for your child.",
     readTime: "3 min read",
   },
   {

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./reveal";
-import { GoldRule, LeafMark, RidgeCrest, CirclePattern } from "./ornament";
+import { GoldRule, LeafMark, BrandLogo, CirclePattern } from "./ornament";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -27,17 +27,17 @@ const CLASSES = [
   "Pre-Primary (Nursery)",
   "LKG (Lower KG)",
   "UKG (Upper KG)",
-  "Year 1",
-  "Year 2",
-  "Year 3",
-  "Year 4",
-  "Year 5",
-  "Year 6",
-  "Year 7",
-  "Year 8",
+  "1st Standard",
+  "2nd Standard",
+  "3rd Standard",
+  "4th Standard",
+  "5th Standard",
+  "6th Standard",
+  "7th Standard",
+  "8th Standard",
 ];
 
-const ACADEMIC_YEARS = ["2025–2026", "2026–2027", "2027–2028"];
+const ACADEMIC_YEARS = ["2026–2027", "2026–2027", "2027–2028"];
 
 const COUNTRY_CODES = [
   { code: "+91", label: "+91 (India)" },
@@ -160,7 +160,7 @@ export function AdmissionForm() {
         <Reveal className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold-dark font-medium mb-4">
             <LeafMark size={18} />
-            Admissions Open · 2025–26
+            Admissions Open · 2026–27
           </div>
           <h2 className="font-heading text-royal-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
             Start your child&apos;s journey with Ridgewood
@@ -169,8 +169,8 @@ export function AdmissionForm() {
             <GoldRule />
           </div>
           <p className="mt-6 text-[16px] leading-relaxed text-navy/70 text-pretty">
-            Applications are now open for the 2025–2026 academic year from
-            Pre-Primary through Year 8. Complete the application below — we
+            Applications are now open for the 2026–2027 academic year from
+            Pre-Primary through 8th Standard. Complete the application below — we
             will contact you within one working day to start the process.
           </p>
         </Reveal>
@@ -185,7 +185,7 @@ export function AdmissionForm() {
 
               <div className="relative">
                 <span className="grid place-items-center h-14 w-14 rounded-2xl bg-navy border border-gold/30 mb-5">
-                  <RidgeCrest size={32} color="var(--brand-cream)" accent="var(--brand-gold)" cream="transparent" />
+                  <BrandLogo variant="shield" size={48} tone="white" />
                 </span>
                 <h3 className="font-heading text-[24px] font-bold text-cream leading-tight mb-2">
                   Apply in 3 simple steps

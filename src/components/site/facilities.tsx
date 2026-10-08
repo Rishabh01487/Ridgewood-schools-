@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "./reveal";
 import { GoldRule, LeafMark } from "./ornament";
 import {
@@ -224,12 +223,10 @@ function FeatureVisual({ facility }: { facility: Facility }) {
   return (
     <div className="relative aspect-[5/6] sm:aspect-[4/5] lg:aspect-[5/6] rounded-[2rem] overflow-hidden border border-gold/25 shadow-luxe bg-navy">
       {/* real campus photo backdrop */}
-      <Image
+      <img
         src={facility.image}
         alt={facility.title}
-        fill
-        sizes="(min-width: 1024px) 50vw, 100vw"
-        className="object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       {/* gradient backdrop for legibility */}
       <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/95 via-navy-dark/45 to-navy-dark/30" />

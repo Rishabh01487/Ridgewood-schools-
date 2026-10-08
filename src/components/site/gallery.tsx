@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "./reveal";
 import { GoldRule, LeafMark, CirclePattern } from "./ornament";
@@ -129,12 +128,12 @@ export function Gallery() {
                   {item.type === "video" ? (
                     <video src={item.src} className="absolute inset-0 w-full h-full object-cover" />
                   ) : (
-                    <Image
+                    <img
                       src={item.src}
                       alt={item.title}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                     
+                     
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/10 to-transparent opacity-90" />
@@ -216,7 +215,7 @@ export function Gallery() {
                 {selected.type === "video" ? (
                   <video src={selected.src} controls className="absolute inset-0 w-full h-full object-cover" />
                 ) : (
-                  <Image src={selected.src} alt={selected.title} fill sizes="(min-width: 1024px) 66vw, 100vw" className="object-cover" />
+                  <img src={selected.src} alt={selected.title} className="absolute inset-0 w-full h-full object-cover" />
                 )}
               </div>
               <div className="p-6 sm:p-8 flex flex-wrap items-center justify-between gap-4">
