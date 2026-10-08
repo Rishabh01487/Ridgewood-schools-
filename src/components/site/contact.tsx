@@ -127,7 +127,7 @@ export function Contact() {
                 Follow
               </span>
               {[
-                { icon: Instagram, label: "Instagram", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
+                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ridgewoodmirganj/" },
                 { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DoZFeZJ41/" },
                 { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ridgewoodmirganj" },
               ].map((s) => {

@@ -182,14 +182,14 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-12 lg:col-span-5 relative mt-6 lg:mt-0"
+          className="col-span-12 lg:col-span-5 relative mt-6 lg:mt-0 w-full"
         >
           {/* Main framed photo */}
           <div className="relative aspect-[16/10] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
             <img
               src="/gallery/uniform-students-1.png"
               alt="Ridgewood students in classroom uniform"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
             {/* Subtle warm gradient at bottom for caption legibility */}
             <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent" />
@@ -220,7 +220,7 @@ export function Hero() {
               <img
                 src="/gallery/independence-day-1.png"
                 alt="Ridgewood Independence Day celebration"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
             </div>
           </div>
@@ -234,7 +234,7 @@ export function Hero() {
               <img
                 src="/gallery/bachpan-teachers-day.png"
                 alt="Teachers Day celebration"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
             </div>
           </div>

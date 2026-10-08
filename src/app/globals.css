@@ -792,3 +792,37 @@
   position: relative;
   z-index: 2;
 }
+
+/* ===== Fix: gradient text colors on small screens =====
+   The animated gradient (background-size: 200%) causes colors to disappear
+   on small text elements on mobile. This ensures the gradient is always
+   visible by adjusting background-size for small screens. */
+
+@media (max-width: 640px) {
+  .text-sunset-gradient.animate-gradient-flow,
+  .text-royal-gradient.animate-gradient-flow,
+  .text-aurora-gradient.animate-gradient-flow,
+  .text-emerald-gradient.animate-gradient-flow,
+  .text-royal-cream-gradient.animate-gradient-flow {
+    background-size: 100% 100% !important;
+    animation: none !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .text-sunset-gradient.animate-gradient-flow,
+  .text-royal-gradient.animate-gradient-flow,
+  .text-aurora-gradient.animate-gradient-flow,
+  .text-emerald-gradient.animate-gradient-flow,
+  .text-royal-cream-gradient.animate-gradient-flow {
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+  }
+}
