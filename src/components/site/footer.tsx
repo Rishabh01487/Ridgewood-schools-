@@ -51,7 +51,7 @@ const FACILITIES_LIST = [
 
 export function Footer() {
   return (
-    <footer className="relative bg-navy-dark text-cream overflow-hidden bg-navy-fusion navy-craft-overlay">
+    <footer className="relative bg-navy-dark text-cream overflow-hidden">
       {/* Top ridge ornament */}
       <div className="absolute top-0 inset-x-0 h-12 opacity-50" aria-hidden>
         <svg viewBox="0 0 1440 50" preserveAspectRatio="none" className="w-full h-full">

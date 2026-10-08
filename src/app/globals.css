@@ -561,146 +561,7 @@
 .aspect-gallery-landscape { aspect-ratio: 4 / 3; }
 .aspect-gallery-square { aspect-ratio: 1 / 1; }
 
-/* ===== Mobile Navy Section Fusion =====
-   On mobile, pure navy sections look flat/boring.
-   These utilities add a cream-white gradient "fusion" at the top and bottom edges
-   + a subtle dot-mandala craft pattern overlay to make navy sections more
-   interesting and crafted on small screens. */
-
-@media (max-width: 768px) {
-  /* Cream-white fusion at top and bottom edges of navy sections */
-  .bg-navy-fusion {
-    position: relative;
-  }
-  .bg-navy-fusion::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(180deg,
-      oklch(0.97 0.012 95 / 0.95) 0%,
-      oklch(0.97 0.012 95 / 0.6) 40%,
-      oklch(0.97 0.012 95 / 0) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .bg-navy-fusion::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(0deg,
-      oklch(0.97 0.012 95 / 0.95) 0%,
-      oklch(0.97 0.012 95 / 0.6) 40%,
-      oklch(0.97 0.012 95 / 0) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* Subtle dot-mandala craft pattern overlay on navy sections */
-  .navy-craft-overlay {
-    position: relative;
-  }
-  .navy-craft-overlay > .craft-pattern {
-    display: block !important;
-  }
-  .craft-pattern {
-    display: none;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.06;
-    background-image:
-      radial-gradient(circle at 50% 50%, oklch(0.97 0.012 95) 1.5px, transparent 1.5px),
-      radial-gradient(circle at 0% 0%, oklch(0.97 0.012 95) 1px, transparent 1px),
-      radial-gradient(circle at 100% 100%, oklch(0.97 0.012 95) 1px, transparent 1px),
-      radial-gradient(circle at 100% 0%, oklch(0.97 0.012 95) 1px, transparent 1px),
-      radial-gradient(circle at 0% 100%, oklch(0.97 0.012 95) 1px, transparent 1px);
-    background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px, 32px 32px;
-    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
-  }
-
-  /* Mandala-inspired decorative SVG pattern — more craft-like */
-  .navy-craft-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23faf7f0' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3Ccircle cx='30' cy='30' r='18'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Ccircle cx='30' cy='30' r='6'/%3E%3Cpath d='M30 5 L30 55 M5 30 L55 30 M12 12 L48 48 M12 48 L48 12'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 60px 60px;
-  }
-
-  /* Ensure content sits above the craft overlay */
-  .navy-craft-overlay > *:not(.craft-pattern) {
-    position: relative;
-    z-index: 2;
-  }
-}
-
-/* ===== Mobile Navy-to-Cream Fusion =====
-   On mobile, pure navy sections look like flat blue blocks.
-   This transforms them into cream-based sections with navy accents —
-   a "fusion" that feels lighter, warmer, and more premium. */
-
-@media (max-width: 768px) {
-  /* Philosophy: navy → cream background with navy text */
-  .bg-navy-fusion {
-    background: oklch(0.97 0.012 95) !important;
-    color: oklch(0.235 0.07 264) !important;
-  }
-  .bg-navy-fusion::before,
-  .bg-navy-fusion::after {
-    display: none !important;
-  }
-  .bg-navy-fusion .text-cream,
-  .bg-navy-fusion .text-cream\/80,
-  .bg-navy-fusion .text-cream\/85,
-  .bg-navy-fusion .text-cream\/90,
-  .bg-navy-fusion .text-cream\/75,
-  .bg-navy-fusion .text-cream\/65,
-  .bg-navy-fusion .text-cream\/55 {
-    color: oklch(0.235 0.07 264) !important;
-  }
-  .bg-navy-fusion .text-cream\/60,
-  .bg-navy-fusion .text-cream\/70 {
-    color: oklch(0.45 0.07 264) !important;
-  }
-  .bg-navy-fusion .text-gold {
-    color: oklch(0.62 0.12 68) !important;
-  }
-  .bg-navy-fusion .text-gold-light {
-    color: oklch(0.62 0.12 68) !important;
-  }
-  .bg-navy-fusion .border-cream\/12,
-  .bg-navy-fusion .border-cream\/15,
-  .bg-navy-fusion .border-cream\/20 {
-    border-color: oklch(0.88 0.015 95) !important;
-  }
-  /* Cards inside navy sections → white cards with navy text */
-  .bg-navy-fusion .bg-navy\/40,
-  .bg-navy-fusion .bg-navy-dark\/40,
-  .bg-navy-fusion .bg-navy-dark\/50,
-  .bg-navy-fusion .bg-navy-dark\/60 {
-    background: oklch(1 0 0) !important;
-  }
-  .bg-navy-fusion .glass-navy,
-  .bg-navy-fusion .glass-dark {
-    background: oklch(1 0 0 / 0.9) !important;
-    border-color: oklch(0.78 0.13 75 / 0.25) !important;
-  }
-  /* Gold accent lines and circles stay */
-  .bg-navy-fusion .bg-gold\/10,
-  .bg-navy-fusion .bg-gold\/15 {
-    background: oklch(0.78 0.13 75 / 0.08) !important;
-  }
-}
+/* Mobile navy sections — keep original navy background, just add gold accents */
 
 
 /* Keep gradient headings colorful on all screen sizes */
@@ -757,7 +618,7 @@
     transparent 100%);
 }
 /* Ensure content sits above the premium overlay */
-.navy-premium > *:not(.navy-top-glow):not(.craft-pattern):not(svg):not(.absolute) {
+.navy-premium > *:not(.navy-top-glow) {
   position: relative;
   z-index: 2;
 }
@@ -793,5 +654,30 @@
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
+  }
+}
+
+/* ===== Mobile Navy Section Improvements =====
+   Keep the navy background (don't change to cream — that caused blank sections),
+   just reduce padding and add gold accents for premium feel on mobile. */
+
+@media (max-width: 768px) {
+  /* Reduce padding on navy sections so more content fits */
+  section[class*="bg-navy"] {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  /* Add a subtle gold gradient line at the top of navy sections */
+  section[class*="bg-navy"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--brand-gold), transparent);
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
