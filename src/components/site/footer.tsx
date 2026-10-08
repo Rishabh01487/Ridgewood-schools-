@@ -75,7 +75,7 @@ export function Footer() {
           {/* Brand — FULL white Ridgewood logo (shield + RIDGEWOOD SCHOOL + CBSE subtitle) */}
           <div className="lg:col-span-5">
             <div className="mb-5">
-              <BrandLogo variant="full" size={80} tone="white" className="shrink-0" />
+              <BrandLogo variant="full" size={88} tone="white" className="shrink-0" />
             </div>
             <p className="text-[15.5px] leading-relaxed text-cream/75 max-w-md text-pretty">
               A CBSE curriculum school in Mirganj nurturing curious, confident, and

@@ -76,8 +76,8 @@ export function Hero() {
             className="flex items-center justify-center lg:justify-start mb-8"
           >
             {/* FULL Ridgewood logo — bigger on mobile (56px), full size on desktop (68px) */}
-            <BrandLogo variant="full" size={64} className="shrink-0 sm:hidden" />
-            <BrandLogo variant="full" size={72} className="hidden sm:block shrink-0" />
+            <BrandLogo variant="full" size={72} className="shrink-0 sm:hidden" />
+            <BrandLogo variant="full" size={80} className="hidden sm:block shrink-0" />
           </motion.div>
 
           {/* Eyebrow */}

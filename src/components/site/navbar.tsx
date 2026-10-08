@@ -114,7 +114,7 @@ export function Navbar() {
         >
           {/* Brand — FULL Ridgewood logo (shield + RIDGEWOOD SCHOOL + CBSE Curriculum subtitle) */}
           <Link href="#home" className="group flex items-center shrink-0" aria-label="Ridgewood School, Mirganj — Home">
-            <BrandLogo variant="full" size={62} priority className="shrink-0" />
+            <BrandLogo variant="full" size={68} priority className="shrink-0" />
           </Link>
 
           {/* Desktop links */}
@@ -182,7 +182,7 @@ export function Navbar() {
               >
                 <SheetHeader className="px-6 pt-6 pb-4 border-b border-gold/20">
                   <SheetTitle className="flex items-center">
-                    <BrandLogo variant="full" size={56} className="shrink-0" />
+                    <BrandLogo variant="full" size={64} className="shrink-0" />
                   </SheetTitle>
                 </SheetHeader>
 

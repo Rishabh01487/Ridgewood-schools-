@@ -65,7 +65,7 @@ export function AdminPanel() {
             <CirclePattern color="oklch(0.78 0.13 75 / 0.12)" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-gold/10 blur-[100px]" />
             <div className="relative">
-              <BrandLogo variant="full" size={48} tone="white" className="mx-auto" />
+              <BrandLogo variant="full" size={56} tone="white" className="mx-auto" />
               <h3 className="font-heading text-[18px] font-bold mt-3 mb-2">Staff sign-in required</h3>
               <p className="text-cream/80 text-[13.5px] mb-4">Sign in with a staff account to manage school data.</p>
               <a href="#parent-login" className="inline-flex items-center gap-1.5 rounded-full bg-gold-gradient text-navy-dark font-semibold px-5 py-2.5 text-[13px] hover:shadow-gold transition-all">
