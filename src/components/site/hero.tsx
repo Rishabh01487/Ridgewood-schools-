@@ -73,10 +73,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:justify-start mb-8"
+            className="flex items-center justify-center lg:justify-start mb-6"
           >
             {/* FULL Ridgewood logo in hero */}
-            <BrandLogo variant="full" size={76} className="shrink-0" />
+            <BrandLogo variant="full" size={64} className="shrink-0" />
           </motion.div>
 
           {/* Eyebrow */}
