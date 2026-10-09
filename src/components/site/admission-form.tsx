@@ -22,6 +22,7 @@ import {
   HeartHandshake,
   FileText,
   Loader2,
+  Download,
   Hash,
 } from "lucide-react";
 
@@ -215,11 +216,23 @@ export function AdmissionForm() {
                     </div>
                     <div className="flex items-center justify-between pt-3">
                       <Btn1 onBack={back} />
-                      <Button type="submit" disabled={submitting} className="rounded-full bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold px-6 py-2.5 text-[14px]">
-                        {submitting ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Submitting…</> : <><Send className="h-4 w-4 mr-1.5" /> Submit Registration</>}
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button type="button" variant="outline" className="rounded-full border-navy/25 text-navy hover:bg-navy hover:text-cream px-5 py-2.5 text-[13px]" onClick={() => {
+                          // Trigger download of a blank form PDF
+                          const link = document.createElement("a");
+                          link.href = "/Ridgewood-Registration-Form.pdf";
+                          link.download = "Ridgewood-Registration-Form.pdf";
+                          link.click();
+                          toast({ title: "Form downloaded", description: "Print, fill, and submit at the school office." });
+                        }}>
+                          <Download className="h-4 w-4 mr-1.5" /> Download Form
+                        </Button>
+                        <Button type="submit" disabled={submitting} className="rounded-full bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold px-6 py-2.5 text-[14px]">
+                          {submitting ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Submitting…</> : <><Send className="h-4 w-4 mr-1.5" /> Submit Online</>}
+                        </Button>
+                      </div>
                     </div>
-                    <p className="text-center text-[11px] text-navy/50 pt-1">After submission, we&apos;ll contact you within 1 working day.</p>
+                    <p className="text-center text-[11px] text-navy/50 pt-1">Submit online or download the form, print, and submit at the school office.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
