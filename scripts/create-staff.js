@@ -1,14 +1,18 @@
 /**
  * Create staff + seed parent account in MongoDB.
  *
- * Usage:
- *   DATABASE_URL="mongodb+srv://..." node scripts/create-staff.js
+ * Two ways to use:
  *
- * This creates a parent record with:
- *   - name: "School Admin"
- *   - phone: <your phone, 10 digits>
- *   - email: "Ridgewoodmirganj@gmail.com"  (this is what triggers admin access)
- *   - password: <your password>  (bcrypt-encrypted)
+ * 1) Interactive (you'll be prompted for name, phone, email, password):
+ *      node scripts/create-staff.js
+ *
+ * 2) Non-interactive (pass args directly):
+ *      node scripts/create-staff.js --phone=7052224726 --password=ridgewood123
+ *      node scripts/create-staff.js --name="Ashok Kumar" --phone=7052224726 \
+ *          --email=Ridgewoodmirganj@gmail.com --password=ridgewood123
+ *
+ * Requires DATABASE_URL in .env to be a valid MongoDB connection string:
+ *   mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/ridgewood?retryWrites=true&w=majority
  *
  * After running this, you can log in at the Parent Portal using:
  *   Phone: <your phone>
@@ -22,41 +26,80 @@ const readline = require("readline");
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const ask = (q) => new Promise((r) => rl.question(q, r));
 
+// Parse command-line args like --phone=7052224726
+function parseArgs() {
+  const args = {};
+  for (const a of process.argv.slice(2)) {
+    const m = a.match(/^--([a-z]+)=(.*)$/i);
+    if (m) args[m[1]] = m[2];
+  }
+  return args;
+}
+
 (async () => {
   const uri = process.env.DATABASE_URL;
-  if (!uri || uri.includes("YOUR_CLUSTER")) {
-    console.error("❌ Set DATABASE_URL in .env first (MongoDB Atlas connection string)");
+  if (!uri) {
+    console.error("❌ DATABASE_URL is not set in .env");
+    console.error("   Add a MongoDB Atlas connection string to .env first:");
+    console.error('   DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/ridgewood?retryWrites=true&w=majority"');
     process.exit(1);
   }
+  if (!uri.startsWith("mongodb://") && !uri.startsWith("mongodb+srv://")) {
+    console.error("❌ DATABASE_URL must be a MongoDB connection string");
+    console.error("   Current value: " + uri);
+    console.error("   Expected format: mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/ridgewood?retryWrites=true&w=majority");
+    console.error("");
+    console.error("   Get a free MongoDB Atlas cluster at https://www.mongodb.com/atlas");
+    console.error("   Then put the connection string in your .env file as DATABASE_URL");
+    process.exit(1);
+  }
+
+  const args = parseArgs();
 
   console.log("=".repeat(60));
   console.log("  RIDGEWOOD SCHOOL — Staff Account Creator");
   console.log("=".repeat(60));
 
-  const name = (await ask("Staff name (e.g. Ashok Kumar): ")).trim() || "School Admin";
-  const phone = (await ask("10-digit phone (e.g. 7052224726): ")).trim();
-  const email = (await ask("Staff email (ENTER for Ridgewoodmirganj@gmail.com): ")).trim()
-    || "Ridgewoodmirganj@gmail.com";
-  const password = (await ask("Password (ENTER for ridgewood123): ")).trim() || "ridgewood123";
+  const name =
+    args.name ||
+    ((await ask("Staff name (e.g. Ashok Kumar): ")).trim() || "School Admin");
+  const phone =
+    args.phone ||
+    (await ask("10-digit phone (e.g. 7052224726): ")).trim();
+  const email =
+    args.email ||
+    (await ask("Staff email (ENTER for Ridgewoodmirganj@gmail.com): ")).trim() ||
+    "Ridgewoodmirganj@gmail.com";
+  const password =
+    args.password ||
+    (await ask("Password (ENTER for ridgewood123): ")).trim() ||
+    "ridgewood123";
 
   if (!/^\d{10}$/.test(phone)) {
-    console.error("❌ Phone must be exactly 10 digits");
+    console.error("❌ Phone must be exactly 10 digits (got: " + phone + ")");
     process.exit(1);
   }
 
   console.log("\n⏳ Connecting to MongoDB...");
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 10000 });
   try {
     await client.connect();
     const db = client.db();
     const parents = db.collection("parents");
 
-    // Upsert: update if phone exists, insert if not
     const passwordHash = await bcrypt.hash(password, 10);
     const result = await parents.updateOne(
       { phone },
-      { $set: { name, phone, email: email.toLowerCase(), passwordHash, updatedAt: new Date() },
-        $setOnInsert: { createdAt: new Date() } },
+      {
+        $set: {
+          name,
+          phone,
+          email: email.toLowerCase(),
+          passwordHash,
+          updatedAt: new Date(),
+        },
+        $setOnInsert: { createdAt: new Date() },
+      },
       { upsert: true }
     );
 
@@ -64,15 +107,19 @@ const ask = (q) => new Promise((r) => rl.question(q, r));
     console.log("=".repeat(60));
     console.log("  LOGIN DETAILS (save these!)");
     console.log("=".repeat(60));
-    console.log(`  Phone:    ${phone}`);
-    console.log(`  Password: ${password}`);
-    console.log(`  Email:    ${email}`);
+    console.log("  Phone:    " + phone);
+    console.log("  Password: " + password);
+    console.log("  Email:    " + email);
     console.log("=".repeat(60));
     console.log("\nYou can now log in at the Parent Portal section of your website.");
     console.log("Because your email matches STAFF_EMAILS, you'll get admin access automatically.");
     console.log("\nTo create PARENT accounts for students, log in → Admin Dashboard → Add Student.");
   } catch (err) {
-    console.error("❌ Failed:", err.message);
+    console.error("\n❌ Failed to connect to MongoDB:");
+    console.error("   " + err.message);
+    console.error("");
+    console.error("   Check your DATABASE_URL in .env is correct and your IP is whitelisted in MongoDB Atlas.");
+    process.exit(1);
   } finally {
     await client.close();
     rl.close();
