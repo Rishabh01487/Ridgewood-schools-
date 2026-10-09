@@ -219,9 +219,7 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
         </div>
 
         <div className="flex flex-col items-center text-center mb-7">
-          <span className="grid place-items-center h-16 w-16 rounded-full bg-cream mb-4">
-            <BrandLogo variant="shield" size={36} tone="navy" />
-          </span>
+          <BrandLogo variant="full" size={56} className="mb-4" />
           <h3 className="font-heading text-[26px] font-bold text-cream mb-1.5">
             Parent Sign-In
           </h3>
