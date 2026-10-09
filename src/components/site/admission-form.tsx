@@ -71,19 +71,67 @@ export function AdmissionForm() {
   };
   const back = () => setStep((s) => (s > 1 ? ((s - 1) as 1 | 2 | 3 | 4) : 1));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!s4.undertaking) { toast({ title: "Please accept the undertaking", variant: "destructive" }); return; }
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      toast({ title: "Registration submitted! 🎉", description: `Registration for ${s1.studentName} (${s1.admissionClass}) received. We'll contact you at ${s2.fatherMobile} within 1 working day.` });
+    try {
+      // Submit to MongoDB via API
+      const res = await fetch("/api/admission", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentName: s1.studentName,
+          dob: s1.dob,
+          ageYears: s1.ageYears,
+          gender: s1.gender,
+          admissionClass: s1.admissionClass,
+          academicYear: s1.academicYear,
+          previousSchool: s1.previousSchool,
+          previousClass: s1.previousClass,
+          fatherName: s2.fatherName,
+          fatherOccupation: s2.fatherOccupation,
+          fatherMobile: s2.fatherMobile,
+          fatherEmail: s2.fatherEmail,
+          motherName: s2.motherName,
+          motherOccupation: s2.motherOccupation,
+          motherMobile: s2.motherMobile,
+          motherEmail: s2.motherEmail,
+          residentialAddress: s2.residentialAddress,
+          transport: s2.transport,
+          siblingName: s3.siblingName,
+          siblingClass: s3.siblingClass,
+          specialNeeds: s3.specialNeeds,
+          motherTongue: s3.motherTongue,
+          category: s3.category,
+          documents: {
+            photo: s4.photo?.name || null,
+            birthCert: s4.birthCert?.name || null,
+            aadhaarStudent: s4.aadhaarStudent?.name || null,
+            aadhaarFather: s4.aadhaarFather?.name || null,
+            aadhaarMother: s4.aadhaarMother?.name || null,
+          },
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error);
+
+      toast({
+        title: "Registration submitted! 🎉",
+        description: `Registration for ${s1.studentName} (${s1.admissionClass}) received. We'll contact you at ${s2.fatherMobile} within 1 working day.`,
+      });
+
+      // Reset
       setStep(1);
       setS1({ studentName: "", dob: "", ageYears: "", gender: "", admissionClass: "", academicYear: ACADEMIC_YEARS[0], previousSchool: "", previousClass: "" });
       setS2({ fatherName: "", fatherOccupation: "", fatherMobile: "", fatherEmail: "", motherName: "", motherOccupation: "", motherMobile: "", motherEmail: "", residentialAddress: "", transport: "" });
       setS3({ siblingName: "", siblingClass: "", specialNeeds: "", motherTongue: "", category: "" });
       setS4({ photo: null, birthCert: null, aadhaarStudent: null, aadhaarFather: null, aadhaarMother: null, undertaking: false });
-    }, 1500);
+    } catch (err: any) {
+      toast({ title: "Submission failed", description: err.message || "Please try again.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
