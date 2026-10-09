@@ -21,13 +21,13 @@ export function AdmissionsBanner() {
         >
           {/* Cloud shape */}
           <div className="relative bg-card border-2 border-gold/30 rounded-full px-8 sm:px-14 py-5 sm:py-7 shadow-luxe">
-            {/* Cloud bumps */}
-            <div className="absolute -top-4 left-1/4 w-10 h-10 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-4 right-1/4 w-10 h-10 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            {/* Cloud bumps — sit ABOVE the cloud, do not overlap text */}
+            <div className="absolute -top-3 left-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 right-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             
-            {/* Text */}
-            <div className="flex flex-col items-center gap-1.5">
+            {/* Text — relative + z-10 ensures it always paints on top of bumps */}
+            <div className="relative z-10 flex flex-col items-center gap-1.5">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-gold" />
                 <span className="font-heading text-[18px] sm:text-[24px] font-bold text-sunset-gradient animate-gradient-flow leading-none">

@@ -41,16 +41,17 @@ export function Hero() {
           className="inline-block relative"
         >
           <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 py-3 sm:py-4 shadow-luxe">
-            {/* Cloud bumps */}
-            <div className="absolute -top-3 left-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 right-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="flex items-center gap-2 sm:gap-3">
+            {/* Cloud bumps — sit ABOVE the cloud, do not overlap text */}
+            <div className="absolute -top-3 left-1/4 w-6 h-6 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 right-1/4 w-6 h-6 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            {/* Text — relative + z-10 ensures it always paints on top of bumps */}
+            <div className="relative z-10 flex items-center gap-2 sm:gap-3">
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
-              <span className="font-heading text-[14px] sm:text-[20px] font-bold text-sunset-gradient animate-gradient-flow leading-none">
+              <span className="font-heading text-[14px] sm:text-[20px] font-bold text-sunset-gradient animate-gradient-flow leading-none whitespace-nowrap">
                 Admissions Open
               </span>
-              <span className="font-heading text-[16px] sm:text-[24px] font-bold text-royal-gradient animate-gradient-flow leading-none">
+              <span className="font-heading text-[16px] sm:text-[24px] font-bold text-royal-gradient animate-gradient-flow leading-none whitespace-nowrap">
                 2026–2027
               </span>
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />

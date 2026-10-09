@@ -3,12 +3,10 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "./reveal";
-import { GoldRule, LeafMark, CirclePattern } from "./ornament";
+import { GoldRule, LeafMark } from "./ornament";
 import {
   X,
   CalendarDays,
-  ChevronRight,
-  Image as ImageIcon,
   Loader2,
   Video,
 } from "lucide-react";
@@ -177,32 +175,6 @@ export function Gallery() {
             ))}
           </RevealGroup>
         )}
-
-        {/* CTA — login to see private albums */}
-        <Reveal className="mt-12" delay={0.1}>
-          <div className="rounded-[2rem] bg-navy-gradient text-cream p-7 sm:p-9 text-center shadow-navy overflow-hidden relative">
-            <CirclePattern color="oklch(0.78 0.13 75 / 0.12)" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-gold/10 blur-[100px]" />
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 text-[11px] tracking-luxe uppercase text-gold font-semibold mb-3">
-                <ImageIcon className="h-3.5 w-3.5" />
-                Want more?
-              </div>
-              <h3 className="font-heading text-[24px] sm:text-[28px] font-bold text-cream mb-2">
-                Parents see private albums of their own child
-              </h3>
-              <p className="text-[14.5px] text-cream/80 max-w-2xl mx-auto mb-6 text-pretty">
-                Log in to the Parent Portal to view photos and videos of your
-                child — your personal album updates every week. From the portal,
-                you can download and share those moments with family.
-              </p>
-              <a href="#parent-login" className="inline-flex items-center gap-1.5 rounded-full bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold px-7 py-3 text-[14px]">
-                Open Parent Portal
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </div>
 
       {/* Lightbox — view-only (no download or share buttons in the public gallery) */}

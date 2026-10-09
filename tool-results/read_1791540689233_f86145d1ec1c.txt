@@ -1,0 +1,805 @@
+     1→"use client";
+     2→
+     3→import * as React from "react";
+     4→import { motion, AnimatePresence } from "framer-motion";
+     5→import { signIn, signOut, useSession } from "next-auth/react";
+     6→import { Reveal } from "./reveal";
+     7→import { GoldRule, LeafMark, BrandLogo, CirclePattern } from "./ornament";
+     8→import { Button } from "@/components/ui/button";
+     9→import { useToast } from "@/hooks/use-toast";
+    10→import {
+    11→  LogIn,
+    12→  GraduationCap,
+    13→  Bell,
+    14→  Trophy,
+    15→  FileText,
+    16→  CalendarDays,
+    17→  Clock,
+    18→  TrendingUp,
+    19→  CheckCircle2,
+    20→  AlertCircle,
+    21→  ChevronRight,
+    22→  Download,
+    23→  Share2,
+    24→  Image as ImageIcon,
+    25→  Video,
+    26→  Star,
+    27→  X,
+    28→  Loader2,
+    29→} from "lucide-react";
+    30→
+    31→interface Subject { id: string; name: string; marks: number; grade: string; }
+    32→interface ReportCard { id: string; term: string; remarks: string | null; pdfUrl: string | null; subjects: Subject[]; }
+    33→interface Participation { id: string; event: string; date: string; result: string; category: string; }
+    34→interface Student {
+    35→  id: string;
+    36→  name: string;
+    37→  rollNo: string;
+    38→  classSection: string;
+    39→  classTeacher: string;
+    40→  attendance: number;
+    41→  averageGrade: string;
+    42→  reportCards: ReportCard[];
+    43→  participation: Participation[];
+    44→}
+    45→interface Notice {
+    46→  id: string;
+    47→  title: string;
+    48→  body: string;
+    49→  tag: string;
+    50→  date: string;
+    51→  read: boolean;
+    52→}
+    53→interface DashboardData {
+    54→  parent: { name?: string | null; email?: string | null };
+    55→  students: Student[];
+    56→  notices: Notice[];
+    57→}
+    58→
+    59→export function ParentLogin() {
+    60→  const { data: session, status } = useSession();
+    61→  const [data, setData] = React.useState<DashboardData | null>(null);
+    62→  const [loading, setLoading] = React.useState(false);
+    63→  const [tab, setTab] = React.useState<"overview" | "report" | "notice" | "participation" | "gallery">("overview");
+    64→  const { toast } = useToast();
+    65→
+    66→  // Fetch dashboard data when session is ready
+    67→  React.useEffect(() => {
+    68→    if (status === "authenticated") {
+    69→      setLoading(true);
+    70→      fetch("/api/parent/me")
+    71→        .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+    72→        .then((d) => setData(d))
+    73→        .catch(() => {
+    74→          toast({
+    75→            title: "Failed to load dashboard",
+    76→            description: "Please try again in a moment.",
+    77→            variant: "destructive",
+    78→          });
+    79→        })
+    80→        .finally(() => setLoading(false));
+    81→    } else {
+    82→      setData(null);
+    83→    }
+    84→  }, [status, toast]);
+    85→
+    86→  if (status === "loading") {
+    87→    return (
+    88→      <section id="parent-login" className="relative anchor-offset bg-navy-gradient text-cream py-16 sm:py-20">
+    89→        <div className="mx-auto max-w-7xl px-6 sm:px-8 text-center">
+    90→          <Loader2 className="h-8 w-8 animate-spin mx-auto text-gold" />
+    91→          <p className="mt-3 text-cream/70 text-sm">Loading…</p>
+    92→        </div>
+    93→      </section>
+    94→    );
+    95→  }
+    96→
+    97→  return (
+    98→    <section
+    99→      id="parent-login"
+   100→      className="relative anchor-offset bg-navy-gradient text-cream py-16 sm:py-20 overflow-hidden navy-premium"
+   101→    >
+   102→      {/* Subtle gold circle pattern across the navy section */}
+   103→      <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />
+   104→      {/* Premium gold orbs */}
+   105→      <div className="absolute top-1/4 -right-20 h-[400px] w-[400px] rounded-full bg-gold/15 blur-[100px]" aria-hidden />
+   106→      <div className="absolute bottom-1/4 -left-20 h-[350px] w-[350px] rounded-full bg-gold/10 blur-[100px]" aria-hidden />
+   107→      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
+   108→      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
+   109→      {/* gold orbs */}
+   110→      <div className="absolute top-1/4 -right-20 h-80 w-80 rounded-full bg-gold/15 blur-[120px]" />
+   111→      <div className="absolute bottom-1/4 -left-20 h-72 w-72 rounded-full bg-navy-light/30 blur-[120px]" />
+   112→
+   113→      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+   114→        <Reveal className="text-center max-w-3xl mx-auto mb-14">
+   115→          <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold font-medium mb-4">
+   116→            <LeafMark size={18} />
+   117→            Parent Portal
+   118→          </div>
+   119→          <h2 className="font-heading text-royal-cream-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+   120→            A window into your child&apos;s everyday journey
+   121→          </h2>
+   122→          <div className="mt-6">
+   123→            <GoldRule />
+   124→          </div>
+   125→          <p className="mt-6 text-[16px] leading-relaxed text-cream/85 text-pretty">
+   126→            One login — complete visibility. Track your child&apos;s report
+   127→            cards, read school notices, follow their participation in events,
+   128→            and browse the photo &amp; video gallery — all in one place.
+   129→          </p>
+   130→        </Reveal>
+   131→
+   132→        <AnimatePresence mode="wait">
+   133→          {!session ? (
+   134→            <motion.div key="login" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -24 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+   135→              <LoginPanel onLogin={(phone, password) => signIn("credentials", { phone, password, redirect: false })} />
+   136→            </motion.div>
+   137→          ) : (
+   138→            <motion.div key="dashboard" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -24 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+   139→              {loading || !data ? (
+   140→                <div className="text-center py-20">
+   141→                  <Loader2 className="h-8 w-8 animate-spin mx-auto text-gold" />
+   142→                  <p className="mt-3 text-cream/70 text-sm">Loading dashboard…</p>
+   143→                </div>
+   144→              ) : data.students.length === 0 ? (
+   145→                <div className="text-center py-20">
+   146→                  <p className="text-cream/85 mb-4">No students linked to your account yet.</p>
+   147→                  <Button onClick={() => signOut({ redirect: false })} className="rounded-full bg-gold-gradient text-navy-dark hover:shadow-gold">
+   148→                    Sign out
+   149→                  </Button>
+   150→                </div>
+   151→              ) : (
+   152→                <ParentDashboard
+   153→                  parentName={data.parent?.name || session.user?.name || "Parent"}
+   154→                  student={data.students[0]}
+   155→                  notices={data.notices}
+   156→                  tab={tab}
+   157→                  setTab={setTab}
+   158→                  onLogout={() => signOut({ redirect: false })}
+   159→                  onMarkNoticeRead={async (noticeId) => {
+   160→                    await fetch("/api/parent/me", {
+   161→                      method: "POST",
+   162→                      headers: { "Content-Type": "application/json" },
+   163→                      body: JSON.stringify({ noticeId }),
+   164→                    });
+   165→                    setData((prev) => prev ? { ...prev, notices: prev.notices.map(n => n.id === noticeId ? { ...n, read: true } : n) } : prev);
+   166→                  }}
+   167→                />
+   168→              )}
+   169→            </motion.div>
+   170→          )}
+   171→        </AnimatePresence>
+   172→      </div>
+   173→    </section>
+   174→  );
+   175→}
+   176→
+   177→/* ----------------------- LOGIN PANEL ----------------------- */
+   178→
+   179→function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) => Promise<any> }) {
+   180→  const { toast } = useToast();
+   181→  const [submitting, setSubmitting] = React.useState(false);
+   182→  const [phone, setPhone] = React.useState("");
+   183→  const [password, setPassword] = React.useState("");
+   184→
+   185→  const handleSubmit = async (e: React.FormEvent) => {
+   186→    e.preventDefault();
+   187→    setSubmitting(true);
+   188→    try {
+   189→      const result = await onLogin(phone, password);
+   190→      if (result?.error) {
+   191→        toast({
+   192→          title: "Login failed",
+   193→          description: "Phone or password is incorrect.",
+   194→          variant: "destructive",
+   195→        });
+   196→      } else {
+   197→        toast({
+   198→          title: "Welcome back! 👋",
+   199→          description: "You have signed in to the Parent Portal.",
+   200→        });
+   201→      }
+   202→    } catch (err: any) {
+   203→      toast({
+   204→        title: "Login failed",
+   205→        description: err?.message || "Network error.",
+   206→        variant: "destructive",
+   207→      });
+   208→    } finally {
+   209→      setSubmitting(false);
+   210→    }
+   211→  };
+   212→
+   213→  return (
+   214→    <div className="mx-auto max-w-md">
+   215→      <div className="relative rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-8 sm:p-10">
+   216→        <div className="absolute top-5 right-5 flex items-center gap-1.5 text-[10.5px] tracking-luxe uppercase text-gold font-semibold">
+   217→          <LeafMark size={14} />
+   218→          Secure Access
+   219→        </div>
+   220→
+   221→        <div className="flex flex-col items-center text-center mb-7">
+   222→          <BrandLogo variant="full" size={56} className="mb-4" />
+   223→          <h3 className="font-heading text-[26px] font-bold text-cream mb-1.5">
+   224→            Parent Sign-In
+   225→          </h3>
+   226→          <p className="text-[13.5px] text-cream/70">
+   227→            Use your registered phone number and password.
+   228→          </p>
+   229→        </div>
+   230→
+   231→        <form onSubmit={handleSubmit} className="space-y-4">
+   232→          <div className="space-y-1.5">
+   233→            <label className="text-[12px] tracking-wide font-medium text-cream/85">
+   234→              Registered Phone Number (10 digits)
+   235→            </label>
+   236→            <input
+   237→              type="tel"
+   238→              value={phone}
+   239→              onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+   240→              placeholder="Your 10-digit phone"
+   241→              required
+   242→              className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-3 text-[14.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+   243→            />
+   244→          </div>
+   245→          <div className="space-y-1.5">
+   246→            <label className="text-[12px] tracking-wide font-medium text-cream/85">
+   247→              Password
+   248→            </label>
+   249→            <input
+   250→              type="password"
+   251→              value={password}
+   252→              onChange={(e) => setPassword(e.target.value)}
+   253→              placeholder="••••••••"
+   254→              required
+   255→              className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-3 text-[14.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+   256→            />
+   257→          </div>
+   258→
+   259→          <div className="flex items-center justify-between text-[12px] pt-1">
+   260→            <label className="flex items-center gap-2 text-cream/65 cursor-pointer">
+   261→              <input type="checkbox" defaultChecked className="rounded border-gold/40 accent-[oklch(0.78_0.13_75)]" />
+   262→              Remember me
+   263→            </label>
+   264→            <a href="#" className="text-gold hover:text-gold-light transition-colors">
+   265→              Forgot password?
+   266→            </a>
+   267→          </div>
+   268→
+   269→          <Button
+   270→            type="submit"
+   271→            disabled={submitting}
+   272→            className="w-full rounded-xl bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold py-3.5 mt-2 disabled:opacity-70"
+   273→          >
+   274→            {submitting ? (
+   275→              <>
+   276→                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+   277→                Signing in…
+   278→              </>
+   279→            ) : (
+   280→              <>
+   281→                <LogIn className="h-4 w-4 mr-2" />
+   282→                Sign In to Parent Portal
+   283→              </>
+   284→            )}
+   285→          </Button>
+   286→        </form>
+   287→      </div>
+   288→
+   289→      {/* Feature chips below */}
+   290→      <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3">
+   291→        {[
+   292→          { icon: FileText, label: "Report Cards" },
+   293→          { icon: Bell, label: "Notices" },
+   294→          { icon: Trophy, label: "Participation" },
+   295→          { icon: ImageIcon, label: "Photo Gallery" },
+   296→        ].map((f) => {
+   297→          const Icon = f.icon;
+   298→          return (
+   299→            <div key={f.label} className="glass-navy rounded-xl border border-gold/20 p-3.5 text-center">
+   300→              <Icon className="h-5 w-5 text-gold mx-auto mb-1.5" />
+   301→              <p className="text-[11.5px] font-medium text-cream/85 tracking-wide">{f.label}</p>
+   302→            </div>
+   303→          );
+   304→        })}
+   305→      </div>
+   306→    </div>
+   307→  );
+   308→}
+   309→
+   310→/* ----------------------- PARENT DASHBOARD ----------------------- */
+   311→
+   312→function ParentDashboard({
+   313→  parentName,
+   314→  student,
+   315→  notices,
+   316→  tab,
+   317→  setTab,
+   318→  onLogout,
+   319→  onMarkNoticeRead,
+   320→}: {
+   321→  parentName: string;
+   322→  student: Student;
+   323→  notices: Notice[];
+   324→  tab: "overview" | "report" | "notice" | "participation" | "gallery";
+   325→  setTab: (t: "overview" | "report" | "notice" | "participation" | "gallery") => void;
+   326→  onLogout: () => void;
+   327→  onMarkNoticeRead: (id: string) => Promise<void>;
+   328→}) {
+   329→  const TABS = [
+   330→    { id: "overview", label: "Overview", icon: GraduationCap },
+   331→    { id: "report", label: "Report Cards", icon: FileText },
+   332→    { id: "notice", label: "Notices", icon: Bell },
+   333→    { id: "participation", label: "Participation", icon: Trophy },
+   334→    { id: "gallery", label: "Gallery", icon: ImageIcon },
+   335→  ] as const;
+   336→
+   337→  const unreadCount = notices.filter(n => !n.read).length;
+   338→
+   339→  return (
+   340→    <div>
+   341→      {/* Student card */}
+   342→      <Reveal className="rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-6 sm:p-8 mb-7">
+   343→        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+   344→          <div className="flex items-center gap-5">
+   345→            <span className="grid place-items-center h-20 w-20 rounded-2xl bg-navy border border-gold/40 text-cream font-heading font-bold text-[24px]">
+   346→              {student.name.split(" ").map((n) => n[0]).join("")}
+   347→            </span>
+   348→            <div>
+   349→              <p className="text-[11px] tracking-luxe uppercase text-gold font-semibold">Welcome, {parentName}</p>
+   350→              <h3 className="font-heading text-[24px] sm:text-[28px] font-bold text-cream leading-tight">
+   351→                {student.name}
+   352→              </h3>
+   353→              <p className="text-[13px] text-cream/75 mt-1">
+   354→                {student.classSection} · Roll {student.rollNo} · Class Teacher {student.classTeacher}
+   355→              </p>
+   356→            </div>
+   357→          </div>
+   358→          <Button onClick={onLogout} variant="ghost" className="rounded-full border border-cream/20 text-cream hover:bg-cream hover:text-navy self-start sm:self-center">
+   359→            <LogIn className="h-4 w-4 mr-1.5 rotate-180" />
+   360→            Logout
+   361→          </Button>
+   362→        </div>
+   363→      </Reveal>
+   364→
+   365→      {/* Tab nav */}
+   366→      <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-thin">
+   367→        {TABS.map((t) => {
+   368→          const Icon = t.icon;
+   369→          const badge = t.id === "notice" && unreadCount > 0 ? unreadCount : null;
+   370→          return (
+   371→            <button
+   372→              key={t.id}
+   373→              onClick={() => setTab(t.id as any)}
+   374→              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium whitespace-nowrap transition-all ${
+   375→                tab === t.id
+   376→                  ? "bg-gold-gradient text-navy-dark shadow-gold"
+   377→                  : "glass-navy text-cream/80 hover:text-cream border border-gold/20"
+   378→              }`}
+   379→            >
+   380→              <Icon className="h-4 w-4" />
+   381→              {t.label}
+   382→              {badge !== null && (
+   383→                <span className="grid place-items-center h-5 w-5 rounded-full bg-maroon text-cream text-[10px] font-bold">{badge}</span>
+   384→              )}
+   385→            </button>
+   386→          );
+   387→        })}
+   388→      </div>
+   389→
+   390→      {/* Tab content */}
+   391→      <div className="rounded-[2rem] glass-navy border border-gold/25 shadow-luxe p-6 sm:p-8 min-h-[420px]">
+   392→        <AnimatePresence mode="wait">
+   393→          {tab === "overview" && <OverviewTab key="ov" student={student} notices={notices} />}
+   394→          {tab === "report" && <ReportTab key="rc" student={student} />}
+   395→          {tab === "notice" && <NoticeTab key="nt" notices={notices} onMarkRead={onMarkNoticeRead} />}
+   396→          {tab === "participation" && <ParticipationTab key="pt" student={student} />}
+   397→          {tab === "gallery" && <GalleryTab key="gl" />}
+   398→        </AnimatePresence>
+   399→      </div>
+   400→    </div>
+   401→  );
+   402→}
+   403→
+   404→/* ----------------------- TAB: OVERVIEW ----------------------- */
+   405→function OverviewTab({ student, notices }: { student: Student; notices: Notice[] }) {
+   406→  const unread = notices.filter(n => !n.read).length;
+   407→  return (
+   408→    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4 }}>
+   409→      <h3 className="font-heading text-[24px] font-bold text-cream mb-1">Snapshot</h3>
+   410→      <p className="text-[13.5px] text-cream/70 mb-6">A quick overview of {student.name}&apos;s current term.</p>
+   411→
+   412→      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+   413→        {[
+   414→          { icon: CalendarDays, label: "Attendance", value: `${student.attendance}%`, trend: "↑ 2% this month" },
+   415→          { icon: TrendingUp, label: "Average Grade", value: student.averageGrade, trend: "Top of section" },
+   416→          { icon: Trophy, label: "Participation", value: `${student.participation.length} events`, trend: "3 awards" },
+   417→          { icon: Bell, label: "Pending Notices", value: `${unread}`, trend: unread > 0 ? `${unread} unread` : "All caught up" },
+   418→        ].map((s, i) => {
+   419→          const Icon = s.icon;
+   420→          return (
+   421→            <motion.div key={s.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.08 }} className="rounded-2xl bg-navy-dark/60 border border-gold/25 p-5">
+   422→              <Icon className="h-6 w-6 text-gold mb-3" />
+   423→              <p className="text-[10.5px] tracking-luxe uppercase text-cream/60 font-semibold mb-1">{s.label}</p>
+   424→              <p className="font-heading text-[26px] font-bold text-cream leading-none">{s.value}</p>
+   425→              <p className="text-[11.5px] text-gold-light mt-1.5">{s.trend}</p>
+   426→            </motion.div>
+   427→          );
+   428→        })}
+   429→      </div>
+   430→
+   431→      {/* Recent activity */}
+   432→      <div className="mt-7">
+   433→        <h4 className="font-heading text-[18px] font-bold text-cream mb-3">Recent Activity</h4>
+   434→        <div className="space-y-2.5">
+   435→          {[
+   436→            { icon: Trophy, text: `Participated in ${student.participation[0]?.event || "Inter-House Elocution"}`, time: "2 days ago", tone: "good" },
+   437→            { icon: FileText, text: "Term 1 report card published", time: "1 week ago", tone: "info" },
+   438→            { icon: Bell, text: `New notice: ${notices[0]?.title || "Parent–Teacher Meeting"}`, time: "3 days ago", tone: "warn" },
+   439→            { icon: CheckCircle2, text: "Attended all classes this week", time: "Today", tone: "good" },
+   440→          ].map((a, i) => {
+   441→            const Icon = a.icon;
+   442→            return (
+   443→              <div key={i} className="flex items-center gap-3.5 p-3.5 rounded-xl bg-navy-dark/40 border border-gold/15">
+   444→                <span className={`grid place-items-center h-10 w-10 rounded-xl shrink-0 ${a.tone === "good" ? "bg-gold/20 text-gold-light" : a.tone === "warn" ? "bg-maroon/30 text-gold-light" : "bg-navy-light/40 text-cream"}`}>
+   445→                  <Icon className="h-5 w-5" />
+   446→                </span>
+   447→                <div className="flex-1 min-w-0">
+   448→                  <p className="text-[14px] text-cream/90 leading-tight">{a.text}</p>
+   449→                  <p className="text-[11.5px] text-cream/55 mt-0.5 flex items-center gap-1.5">
+   450→                    <Clock className="h-3 w-3" />
+   451→                    {a.time}
+   452→                  </p>
+   453→                </div>
+   454→              </div>
+   455→            );
+   456→          })}
+   457→        </div>
+   458→      </div>
+   459→    </motion.div>
+   460→  );
+   461→}
+   462→
+   463→/* ----------------------- TAB: REPORT CARDS ----------------------- */
+   464→function ReportTab({ student }: { student: Student }) {
+   465→  return (
+   466→    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4 }}>
+   467→      <div className="flex items-start justify-between mb-6">
+   468→        <div>
+   469→          <h3 className="font-heading text-[24px] font-bold text-cream mb-1">Report Cards</h3>
+   470→          <p className="text-[13.5px] text-cream/70">Download or print your child&apos;s term-wise report card.</p>
+   471→        </div>
+   472→        <Button className="rounded-full bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold">
+   473→          <Download className="h-4 w-4 mr-1.5" />
+   474→          Download All
+   475→        </Button>
+   476→      </div>
+   477→
+   478→      {student.reportCards.map((rc) => (
+   479→        <div key={rc.id} className="rounded-2xl bg-navy-dark/50 border border-gold/25 p-6 mb-5">
+   480→          <div className="flex items-center justify-between mb-5">
+   481→            <h4 className="font-heading text-[20px] font-bold text-cream">{rc.term}</h4>
+   482→            <span className="rounded-full bg-gold/15 border border-gold/40 px-3 py-1 text-[11px] tracking-luxe uppercase text-gold-light font-semibold">
+   483→              Grade A · 90%
+   484→            </span>
+   485→          </div>
+   486→
+   487→          <div className="overflow-x-auto">
+   488→            <table className="w-full text-left">
+   489→              <thead>
+   490→                <tr className="border-b border-gold/20 text-[12px] tracking-luxe uppercase text-gold-light">
+   491→                  <th className="py-2 pr-4 font-semibold">Subject</th>
+   492→                  <th className="py-2 px-4 font-semibold">Marks</th>
+   493→                  <th className="py-2 px-4 font-semibold">Grade</th>
+   494→                  <th className="py-2 px-4 font-semibold">Progress</th>
+   495→                </tr>
+   496→              </thead>
+   497→              <tbody>
+   498→                {rc.subjects.map((s) => (
+   499→                  <tr key={s.id} className="border-b border-gold/10 last:border-0 text-cream">
+   500→                    <td className="py-3 pr-4 text-[14px] font-medium">{s.name}</td>
+   501→                    <td className="py-3 px-4 text-[14px] text-cream/80">{s.marks}/100</td>
+   502→                    <td className="py-3 px-4">
+   503→                      <span className="inline-flex items-center justify-center h-7 w-9 rounded-md bg-gold/15 border border-gold/40 text-gold-light text-[12px] font-bold">{s.grade}</span>
+   504→                    </td>
+   505→                    <td className="py-3 px-4">
+   506→                      <div className="h-1.5 w-32 rounded-full bg-navy-light/40 overflow-hidden">
+   507→                        <div className="h-full bg-gold-gradient" style={{ width: `${s.marks}%` }} />
+   508→                      </div>
+   509→                    </td>
+   510→                  </tr>
+   511→                ))}
+   512→              </tbody>
+   513→            </table>
+   514→          </div>
+   515→
+   516→          {rc.remarks && (
+   517→            <p className="mt-5 text-[14px] text-cream/80 italic leading-relaxed">
+   518→              <span className="text-gold-light font-medium not-italic">Teacher&apos;s remarks: </span>
+   519→              {rc.remarks}
+   520→            </p>
+   521→          )}
+   522→
+   523→          <div className="mt-5 flex flex-wrap gap-3">
+   524→            <Button className="rounded-full bg-navy text-cream hover:bg-navy-light px-5 py-2.5 text-[13px]">
+   525→              <Download className="h-4 w-4 mr-1.5" />
+   526→              Download PDF
+   527→            </Button>
+   528→            <Button variant="outline" className="rounded-full border-gold/40 text-gold-light hover:bg-gold/10 hover:text-cream px-5 py-2.5 text-[13px]">
+   529→              <Share2 className="h-4 w-4 mr-1.5" />
+   530→              Share with Family
+   531→            </Button>
+   532→          </div>
+   533→        </div>
+   534→      ))}
+   535→    </motion.div>
+   536→  );
+   537→}
+   538→
+   539→/* ----------------------- TAB: NOTICES ----------------------- */
+   540→function NoticeTab({ notices, onMarkRead }: { notices: Notice[]; onMarkRead: (id: string) => Promise<void> }) {
+   541→  return (
+   542→    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4 }}>
+   543→      <h3 className="font-heading text-[24px] font-bold text-cream mb-1">School Notices</h3>
+   544→      <p className="text-[13.5px] text-cream/70 mb-6">Stay updated with the latest from Ridgewood.</p>
+   545→
+   546→      <div className="space-y-4">
+   547→        {notices.map((n, i) => (
+   548→          <motion.div
+   549→            key={n.id}
+   550→            initial={{ opacity: 0, x: -12 }}
+   551→            animate={{ opacity: 1, x: 0 }}
+   552→            transition={{ duration: 0.4, delay: i * 0.08 }}
+   553→            onClick={() => !n.read && onMarkRead(n.id)}
+   554→            className={`group flex items-start gap-4 rounded-2xl border p-5 hover:border-gold/60 transition-all cursor-pointer ${
+   555→              n.read ? "bg-navy-dark/30 border-gold/15" : "bg-navy-dark/50 border-gold/40"
+   556→            }`}
+   557→          >
+   558→            <span className="grid place-items-center h-12 w-12 rounded-xl bg-gold/15 border border-gold/30 text-gold-light shrink-0">
+   559→              <Bell className="h-5 w-5" />
+   560→            </span>
+   561→            <div className="flex-1">
+   562→              <div className="flex flex-wrap items-center gap-2 mb-1.5">
+   563→                <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10.5px] tracking-luxe uppercase font-semibold border ${
+   564→                  n.tag === "Important"
+   565→                    ? "bg-gold/15 border-gold/40 text-gold-light"
+   566→                    : n.tag === "Holiday"
+   567→                    ? "bg-navy-light/40 border-cream/30 text-cream"
+   568→                    : "bg-maroon/30 border-maroon/40 text-gold-light"
+   569→                }`}>
+   570→                  {n.tag === "Important" && <AlertCircle className="h-3 w-3" />}
+   571→                  {n.tag}
+   572→                </span>
+   573→                <span className="text-[12px] text-cream/60 flex items-center gap-1.5">
+   574→                  <CalendarDays className="h-3.5 w-3.5" />
+   575→                  {n.date}
+   576→                </span>
+   577→                {!n.read && <span className="text-[10px] tracking-luxe uppercase text-gold font-bold">NEW</span>}
+   578→              </div>
+   579→              <h4 className="font-heading text-[17px] font-bold text-cream mb-1.5 leading-tight">{n.title}</h4>
+   580→              <p className="text-[13.5px] text-cream/75 leading-relaxed">{n.body}</p>
+   581→            </div>
+   582→            <ChevronRight className="h-5 w-5 text-gold/50 group-hover:translate-x-1 transition-transform shrink-0 mt-2" />
+   583→          </motion.div>
+   584→        ))}
+   585→      </div>
+   586→    </motion.div>
+   587→  );
+   588→}
+   589→
+   590→/* ----------------------- TAB: PARTICIPATION ----------------------- */
+   591→function ParticipationTab({ student }: { student: Student }) {
+   592→  return (
+   593→    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4 }}>
+   594→      <h3 className="font-heading text-[24px] font-bold text-cream mb-1">Participation &amp; Achievements</h3>
+   595→      <p className="text-[13.5px] text-cream/70 mb-6">Every event your child has been part of this academic year.</p>
+   596→
+   597→      <div className="grid sm:grid-cols-2 gap-4">
+   598→        {student.participation.map((p, i) => (
+   599→          <motion.div key={p.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.08 }} className="group rounded-2xl bg-navy-dark/50 border border-gold/25 p-5 hover:border-gold/50 transition-all">
+   600→            <div className="flex items-start justify-between mb-3">
+   601→              <span className="grid place-items-center h-12 w-12 rounded-xl bg-gold/15 border border-gold/30 text-gold-light">
+   602→                <Trophy className="h-5 w-5" />
+   603→              </span>
+   604→              {p.result.includes("1st") && <span className="text-[20px]" aria-hidden>🥇</span>}
+   605→              {p.result.includes("2nd") && <span className="text-[20px]" aria-hidden>🥈</span>}
+   606→              {p.result === "Participation" && <Star className="h-5 w-5 text-cream/60" />}
+   607→              {p.result === "Best Project" && <span className="text-[18px]" aria-hidden>🏆</span>}
+   608→            </div>
+   609→            <p className="text-[10.5px] tracking-luxe uppercase text-gold-light font-semibold mb-1">{p.category}</p>
+   610→            <h4 className="font-heading text-[18px] font-bold text-cream leading-tight mb-1.5">{p.event}</h4>
+   611→            <p className="text-[12px] text-cream/60 mb-2.5 flex items-center gap-1.5">
+   612→              <CalendarDays className="h-3.5 w-3.5" />
+   613→              {p.date}
+   614→            </p>
+   615→            <p className="text-[13px] text-cream/85 font-medium">
+   616→              Result: <span className="text-gold-light">{p.result}</span>
+   617→            </p>
+   618→          </motion.div>
+   619→        ))}
+   620→      </div>
+   621→    </motion.div>
+   622→  );
+   623→}
+   624→
+   625→/* ----------------------- TAB: GALLERY (with share/download) ----------------------- */
+   626→
+   627→interface GalleryItem {
+   628→  id: string;
+   629→  src: string;
+   630→  title: string;
+   631→  date: string | null;
+   632→  tag: string;
+   633→  type: string;
+   634→}
+   635→
+   636→function GalleryTab() {
+   637→  const [items, setItems] = React.useState<GalleryItem[]>([]);
+   638→  const [loading, setLoading] = React.useState(true);
+   639→  const [selected, setSelected] = React.useState<GalleryItem | null>(null);
+   640→  const { toast } = useToast();
+   641→
+   642→  // Static fallback (used if DB is empty on fresh Vercel deploy)
+   643→  const STATIC_ITEMS = [
+   644→    { id: "s1", src: "/gallery/independence-day-1.png", title: "Independence Day Celebration", date: "Aug 15, 2025", tag: "Patriotic", type: "photo" },
+   645→    { id: "s2", src: "/gallery/bachpan-teachers-day.png", title: "Teachers' Day with Bachpan", date: "Sep 05, 2025", tag: "Event", type: "photo" },
+   646→    { id: "s3", src: "/gallery/cultural-day.png", title: "Cultural Day Performance", date: "Jul 22, 2025", tag: "Cultural", type: "photo" },
+   647→    { id: "s4", src: "/gallery/friendship-day.png", title: "Friendship Day", date: "Aug 03, 2025", tag: "Event", type: "photo" },
+   648→    { id: "s5", src: "/gallery/uniform-students-1.png", title: "Classroom Moments", date: null, tag: "Classroom", type: "photo" },
+   649→    { id: "s6", src: "/gallery/cultural-2.png", title: "Festive Dress-up", date: "Jul 18, 2025", tag: "Cultural", type: "photo" },
+   650→  ];
+   651→
+   652→  React.useEffect(() => {
+   653→    fetch("/api/gallery")
+   654→      .then((r) => r.json())
+   655→      .then((d) => {
+   656→        const mapped = (d.items || []).map((it: any) => ({
+   657→          id: it.id,
+   658→          src: it.imageUrl,
+   659→          title: it.title,
+   660→          date: it.date,
+   661→          tag: it.tag,
+   662→          type: it.type,
+   663→        }));
+   664→        setItems(mapped.length > 0 ? mapped : STATIC_ITEMS);
+   665→      })
+   666→      .catch(() => setItems(STATIC_ITEMS))
+   667→      .finally(() => setLoading(false));
+   668→  }, []);
+   669→
+   670→  const handleDownload = (item: GalleryItem) => {
+   671→    toast({ title: "Download started", description: `"${item.title}" will be saved to your device.` });
+   672→    const a = document.createElement("a");
+   673→    a.href = item.src;
+   674→    a.download = item.src.split("/").pop() || "ridgewood-photo";
+   675→    document.body.appendChild(a);
+   676→    a.click();
+   677→    a.remove();
+   678→  };
+   679→
+   680→  const handleShare = (platform: string, item: GalleryItem) => {
+   681→    const shareUrl = typeof window !== "undefined" ? `${window.location.origin}${item.src}` : item.src;
+   682→    const shareText = `Our little one at Ridgewood School, Mirganj — ${item.title}. So proud! 🌟`;
+   683→    let url = "";
+   684→    if (platform === "whatsapp") {
+   685→      url = `https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`;
+   686→    } else if (platform === "instagram") {
+   687→      if (typeof navigator !== "undefined" && navigator.clipboard) {
+   688→        navigator.clipboard.writeText(shareText + " " + shareUrl).catch(() => {});
+   689→      }
+   690→      toast({ title: "Ready for Instagram Stories", description: "Caption + link copied. Paste into your story." });
+   691→      return;
+   692→    } else if (platform === "facebook") {
+   693→      url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+   694→    } else if (platform === "twitter") {
+   695→      url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+   696→    } else if (platform === "native") {
+   697→      if (typeof navigator !== "undefined" && (navigator as any).share) {
+   698→        (navigator as any).share({ title: item.title, text: shareText, url: shareUrl }).catch(() => {});
+   699→        return;
+   700→      }
+   701→      toast({ title: "Sharing not available", description: "Try one of the social platforms below." });
+   702→      return;
+   703→    }
+   704→    if (typeof window !== "undefined") {
+   705→      window.open(url, "_blank", "noopener,noreferrer,width=600,height=540");
+   706→    }
+   707→  };
+   708→
+   709→  if (loading) {
+   710→    return (
+   711→      <div className="text-center py-12">
+   712→        <Loader2 className="h-7 w-7 animate-spin mx-auto text-gold" />
+   713→        <p className="mt-2 text-cream/70 text-sm">Loading gallery…</p>
+   714→      </div>
+   715→    );
+   716→  }
+   717→
+   718→  return (
+   719→    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4 }}>
+   720→      <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
+   721→        <div>
+   722→          <h3 className="font-heading text-[24px] font-bold text-cream mb-1">School Gallery</h3>
+   723→          <p className="text-[13.5px] text-cream/70">Photos &amp; videos of school activities — download or share to your stories.</p>
+   724→        </div>
+   725→      </div>
+   726→
+   727→      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+   728→        {items.map((item) => (
+   729→          <motion.button
+   730→            key={item.id}
+   731→            initial={{ opacity: 0, scale: 0.95 }}
+   732→            animate={{ opacity: 1, scale: 1 }}
+   733→            transition={{ duration: 0.4 }}
+   734→            onClick={() => setSelected(item)}
+   735→            className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold/25 hover:border-gold/60 transition-all"
+   736→          >
+   737→            <img
+   738→              src={item.src}
+   739→              alt={item.title}
+   740→             
+   741→             
+   742→              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+   743→            />
+   744→            <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/10 to-transparent opacity-90" />
+   745→            <span className="absolute top-2.5 left-2.5 rounded-full bg-navy-dark/70 backdrop-blur-sm border border-gold/40 px-2 py-0.5 text-[9.5px] tracking-luxe uppercase text-gold-light font-semibold">{item.tag}</span>
+   746→            <div className="absolute top-2.5 right-2.5 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+   747→              <span className="grid place-items-center h-8 w-8 rounded-full bg-cream/90 text-navy backdrop-blur-sm"><Download className="h-3.5 w-3.5" /></span>
+   748→              <span className="grid place-items-center h-8 w-8 rounded-full bg-cream/90 text-navy backdrop-blur-sm"><Share2 className="h-3.5 w-3.5" /></span>
+   749→            </div>
+   750→            <div className="absolute bottom-0 inset-x-0 p-3 text-left">
+   751→              <p className="text-[13px] font-semibold text-cream leading-tight line-clamp-2">{item.title}</p>
+   752→              {item.date && item.date !== "—" && <p className="text-[10.5px] text-cream/65 mt-0.5">{item.date}</p>}
+   753→            </div>
+   754→          </motion.button>
+   755→        ))}
+   756→      </div>
+   757→
+   758→      <AnimatePresence>
+   759→        {selected && (
+   760→          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={() => setSelected(null)} className="fixed inset-0 z-[100] bg-navy-dark/90 backdrop-blur-md grid place-items-center p-4 sm:p-8">
+   761→            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.25 }} onClick={(e) => e.stopPropagation()} className="relative max-w-4xl w-full grid lg:grid-cols-12 gap-4 bg-navy-gradient rounded-3xl border border-gold/30 overflow-hidden shadow-luxe">
+   762→              <div className="lg:col-span-7 relative aspect-[4/3] lg:aspect-auto">
+   763→                <img src={selected.src} alt={selected.title} className="absolute inset-0 w-full h-full object-cover" />
+   764→              </div>
+   765→              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col">
+   766→                <div className="flex items-start justify-between mb-4">
+   767→                  <div>
+   768→                    <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 border border-gold/40 px-2.5 py-0.5 text-[10px] tracking-luxe uppercase text-gold-light font-semibold mb-2">{selected.tag}</span>
+   769→                    <h4 className="font-heading text-[22px] font-bold text-cream leading-tight">{selected.title}</h4>
+   770→                    {selected.date && selected.date !== "—" && <p className="text-[12.5px] text-cream/60 mt-1 flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" />{selected.date}</p>}
+   771→                  </div>
+   772→                  <button onClick={() => setSelected(null)} aria-label="Close" className="grid place-items-center h-9 w-9 rounded-full bg-navy-dark/60 border border-gold/30 text-cream hover:bg-gold hover:text-navy transition-colors"><X className="h-4 w-4" /></button>
+   773→                </div>
+   774→                <p className="text-[13.5px] text-cream/75 leading-relaxed mb-6">Captured at Ridgewood School, Mirganj — moments worth celebrating.</p>
+   775→                <div className="space-y-3 mt-auto">
+   776→                  <Button onClick={() => handleDownload(selected)} className="w-full rounded-full bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold">
+   777→                    <Download className="h-4 w-4 mr-1.5" />
+   778→                    Download Photo
+   779→                  </Button>
+   780→                  <div>
+   781→                    <p className="text-[11px] tracking-luxe uppercase text-cream/55 font-semibold mb-2">Share to your Stories</p>
+   782→                    <div className="grid grid-cols-4 gap-2">
+   783→                      {[
+   784→                        { id: "whatsapp", label: "WhatsApp", color: "bg-[#25D366] text-white", icon: "💬" },
+   785→                        { id: "instagram", label: "Instagram", color: "bg-[#E1306C] text-white", icon: "📷" },
+   786→                        { id: "facebook", label: "Facebook", color: "bg-[#1877F2] text-white", icon: "f" },
+   787→                        { id: "native", label: "More…", color: "bg-gold/20 text-gold-light", icon: "…" },
+   788→                      ].map((s) => (
+   789→                        <button key={s.id} onClick={() => handleShare(s.id, selected)} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border border-gold/25 hover:border-gold/60 transition-all ${s.color}`}>
+   790→                          <span className="text-[18px] leading-none font-bold">{s.icon}</span>
+   791→                          <span className="text-[10px] font-medium tracking-wide">{s.label}</span>
+   792→                        </button>
+   793→                      ))}
+   794→                    </div>
+   795→                  </div>
+   796→                </div>
+   797→              </div>
+   798→            </motion.div>
+   799→          </motion.div>
+   800→        )}
+   801→      </AnimatePresence>
+   802→    </motion.div>
+   803→  );
+   804→}
+   805→
