@@ -19,8 +19,27 @@
  *   Password: <your password>
  * And you'll automatically get admin access because your email matches STAFF_EMAILS.
  */
-const { MongoClient } = require("mongodb");
-const bcrypt = require("bcryptjs");
+// Try to load dependencies; print a friendly error if they're missing.
+let MongoClient, bcrypt;
+try {
+  MongoClient = require("mongodb").MongoClient;
+} catch (e) {
+  console.error("❌ The 'mongodb' package is not installed.");
+  console.error("   Run this first to install all dependencies:\n");
+  console.error("       npm install\n");
+  console.error("   (or if that fails:  npm install --legacy-peer-deps)");
+  console.error("   (or with bun:        bun install)\n");
+  process.exit(1);
+}
+try {
+  bcrypt = require("bcryptjs");
+} catch (e) {
+  console.error("❌ The 'bcryptjs' package is not installed.");
+  console.error("   Run this first to install all dependencies:\n");
+  console.error("       npm install\n");
+  process.exit(1);
+}
+
 const readline = require("readline");
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
