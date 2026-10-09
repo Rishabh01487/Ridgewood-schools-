@@ -15,6 +15,83 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "Ridgewoodmirganj@gmail.com";
 const GMAIL_USER = process.env.GMAIL_USER || ADMIN_EMAIL;
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || "";
 
+export async function sendEnquiryNotification(data: any) {
+  const subject = `New Enquiry: ${data.parentName} — ${data.grade || "Not specified"} | Ridgewood School`;
+
+  const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: 'Poppins', Arial, sans-serif; background: #faf7f0; margin: 0; padding: 20px;">
+  <div style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; border: 2px solid #c9a961;">
+
+    <!-- Header -->
+    <div style="background: #1A2B4C; padding: 24px 32px; text-align: center;">
+      <h1 style="color: #faf7f0; margin: 0; font-size: 20px; letter-spacing: 2px;">RIDGEWOOD SCHOOL, MIRGANJ</h1>
+      <p style="color: #c9a961; margin: 4px 0 0; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;">New Admission Enquiry</p>
+    </div>
+
+    <!-- Enquiry Details -->
+    <div style="padding: 28px;">
+      <h2 style="color: #1A2B4C; font-size: 16px; border-bottom: 2px solid #c9a961; padding-bottom: 6px; margin: 0 0 16px;">ENQUIRY DETAILS</h2>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef; width: 35%;">Parent's Name</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5;">${data.parentName || "—"}</td></tr>
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef;">Phone Number</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5;">${data.phone || "—"}</td></tr>
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef;">Email</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5;">${data.email || "—"}</td></tr>
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef;">Child's Age</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5;">${data.age || "—"}</td></tr>
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef;">Grade of Interest</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 700;">${data.grade || "—"}</td></tr>
+        <tr><td style="padding: 8px 12px; border: 1px solid #e5e5e5; font-weight: 600; background: #f9f6ef;">Message</td><td style="padding: 8px 12px; border: 1px solid #e5e5e5;">${data.message || "—"}</td></tr>
+      </table>
+
+      <div style="background: #f9f6ef; border-radius: 8px; padding: 16px; text-align: center; margin-top: 20px;">
+        <p style="color: #1A2B4C; font-size: 13px; margin: 0 0 8px;"><strong>Submitted on:</strong> ${new Date().toLocaleString("en-IN", { dateStyle: "full", timeStyle: "short" })}</p>
+        <p style="color: #666; font-size: 12px; margin: 0;">This is an automated email from Ridgewood School, Mirganj. Contact: +91 70522 24726</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+  const textBody = `
+RIDGEWOOD SCHOOL, MIRGANJ — NEW ENQUIRY
+
+Parent's Name: ${data.parentName}
+Phone: ${data.phone}
+Email: ${data.email || "—"}
+Child's Age: ${data.age || "—"}
+Grade of Interest: ${data.grade || "—"}
+Message: ${data.message || "—"}
+
+Submitted: ${new Date().toLocaleString("en-IN")}
+`;
+
+  if (GMAIL_APP_PASSWORD) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+      });
+      await transporter.sendMail({
+        from: GMAIL_USER,
+        to: ADMIN_EMAIL,
+        subject,
+        text: textBody,
+        html: htmlBody,
+      });
+      console.log("[email] Enquiry email sent to", ADMIN_EMAIL);
+    } catch (err) {
+      console.error("[email] Failed to send enquiry email:", err);
+    }
+  } else {
+    console.log("[email] GMAIL_APP_PASSWORD not set — would send enquiry to:", ADMIN_EMAIL);
+    console.log("[email] Enquiry details:", textBody);
+  }
+}
+
 export async function sendAdmissionNotification(data: any) {
   const subject = `New Registration: ${data.studentName} — ${data.admissionClass} | Ridgewood School`;
 

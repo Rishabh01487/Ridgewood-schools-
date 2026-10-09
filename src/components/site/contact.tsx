@@ -48,15 +48,38 @@ export function Contact() {
   const { toast } = useToast();
   const [submitting, setSubmitting] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formEl = e.currentTarget;
-    setSubmitting(true);
-    // simulate a network send
-    window.setTimeout(() => {
-      setSubmitting(false);
+    const formData = new FormData(formEl);
+    const payload = {
+      parentName: String(formData.get("parent") || ""),
+      phone: String(formData.get("phone") || ""),
+      email: String(formData.get("email") || ""),
+      age: String(formData.get("age") || ""),
+      grade: String(formData.get("grade") || ""),
+      message: String(formData.get("message") || ""),
+    };
+
+    if (!payload.parentName || !payload.phone) {
       toast({
-        title: "Thank you for reaching out!",
+        title: "Please fill in your name and phone number",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || "Failed to submit");
+      toast({
+        title: "Thank you for reaching out! 🎉",
         description: "Our admissions team will respond within one working day.",
       });
       try {
@@ -64,7 +87,15 @@ export function Contact() {
       } catch {
         // ignore
       }
-    }, 900);
+    } catch (err: any) {
+      toast({
+        title: "Failed to submit enquiry",
+        description: err.message || "Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -91,8 +122,9 @@ export function Contact() {
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-8">
-          {/* Contact info cards */}
-          <Reveal className="lg:col-span-5 space-y-4">
+          {/* Contact info cards — On mobile: shown SECOND (order-2, below the form).
+              On desktop: shown on the left (lg:order-1, lg:col-span-5). */}
+          <Reveal className="lg:col-span-5 lg:order-1 order-2 space-y-4">
             {CONTACT_INFO.map((c, i) => {
               const Icon = c.icon;
               return (
@@ -148,11 +180,13 @@ export function Contact() {
             </div>
           </Reveal>
 
-          {/* Form */}
-          <Reveal className="lg:col-span-7" delay={0.1}>
+          {/* Form — On mobile: shown FIRST (order-1) so the Enquiry button lands here.
+              On desktop: shown on the right (lg:order-2, lg:col-span-7). */}
+          <Reveal className="lg:col-span-7 lg:order-2 order-1" delay={0.1}>
             <form
+              id="enquiry-form"
               onSubmit={handleSubmit}
-              className="relative rounded-[2rem] bg-card border border-gold/25 shadow-luxe p-6 sm:p-10"
+              className="relative rounded-[2rem] bg-card border border-gold/25 shadow-luxe p-6 sm:p-10 scroll-mt-24"
             >
               {/* ornament corner */}
               <div className="absolute top-5 right-5 flex items-center gap-1.5 text-[10.5px] tracking-luxe uppercase text-gold-dark font-semibold">

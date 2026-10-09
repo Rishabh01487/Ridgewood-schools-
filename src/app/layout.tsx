@@ -7,7 +7,7 @@ import { Providers } from "@/components/providers";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -15,7 +15,7 @@ const poppins = Poppins({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -23,7 +23,7 @@ const playfair = Playfair_Display({
 const playfairItalic = Playfair_Display({
   variable: "--font-playfair-italic",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600"],
   style: "italic",
   display: "swap",
 });

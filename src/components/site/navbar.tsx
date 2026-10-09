@@ -11,6 +11,7 @@ import {
   LogIn,
   X,
   ChevronRight,
+  Send,
 } from "lucide-react";
 import { BrandLogo } from "./ornament";
 import { Button } from "@/components/ui/button";
@@ -82,16 +83,20 @@ export function Navbar() {
           {/* Email (hidden on small mobile, shown sm+) */}
           <a
             href="mailto:Ridgewoodmirganj@gmail.com"
-            className="hidden sm:flex items-center gap-2 hover:text-gold transition-colors shrink-0 font-medium"
+            className="hidden lg:flex items-center gap-2 hover:text-gold transition-colors shrink-0 font-medium"
           >
             <Mail className="h-4 w-4 text-gold shrink-0" />
-            <span className="truncate max-w-[200px] md:max-w-none">Ridgewoodmirganj@gmail.com</span>
+            <span className="truncate max-w-[200px]">Ridgewoodmirganj@gmail.com</span>
           </a>
 
-          {/* Admissions badge (hidden on small mobile, shown md+) */}
-          <span className="hidden md:inline-block text-gold tracking-luxe font-semibold text-[11px] uppercase shrink-0">
-            Admissions Open · 2026–27
-          </span>
+          {/* Enquiry button (always visible) — quick access to enquiry form */}
+          <a
+            href="#enquiry-form"
+            className="flex items-center gap-1.5 rounded-full bg-gold-gradient text-navy-dark font-semibold text-[11px] sm:text-[12px] uppercase tracking-luxe px-3 sm:px-4 py-1.5 hover:shadow-gold transition-all shrink-0"
+          >
+            <Send className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            Enquiry
+          </a>
         </div>
       </div>
 

@@ -26,4 +26,5 @@ export const collections = {
   participation: () => getDb().then(db => db.collection("participation")),
   galleryItems: () => getDb().then(db => db.collection("galleryItems")),
   admissions: () => getDb().then(db => db.collection("admissions")),
+  enquiries: () => getDb().then(db => db.collection("enquiries")),
 };
