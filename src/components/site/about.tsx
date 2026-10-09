@@ -45,10 +45,11 @@ export function About() {
               {/* MAIN — real Ridgewood classroom photo */}
               <RevealItem className="absolute left-0 top-0 w-[62%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream z-10">
                 <img
-                  src="/gallery/uniform-students-2.png"
+                  src="/gallery/uniform-students-2.webp"
                   alt="Ridgewood students in classroom uniform"
-                 
-                 
+                  loading="lazy"
+                  width={620}
+                  height={827}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/10 to-transparent" />
@@ -81,10 +82,11 @@ export function About() {
                 <div style={{ transform: "rotate(4deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
                     <img
-                      src="/gallery/independence-day-2.png"
+                      src="/gallery/independence-day-2.webp"
                       alt="Ridgewood Independence Day celebration"
-                     
-                     
+                      loading="lazy"
+                      width={380}
+                      height={285}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
@@ -99,10 +101,11 @@ export function About() {
                 <div style={{ transform: "rotate(-5deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
                     <img
-                      src="/gallery/cultural-day.png"
+                      src="/gallery/cultural-day.webp"
                       alt="Ridgewood cultural day performance"
-                     
-                     
+                      loading="lazy"
+                      width={360}
+                      height={480}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
@@ -117,10 +120,11 @@ export function About() {
                 <div style={{ transform: "rotate(-3deg)" }} className="w-full h-full">
                   <div className="relative w-full h-full">
                     <img
-                      src="/gallery/friendship-day.png"
+                      src="/gallery/friendship-day.webp"
                       alt="Ridgewood Friendship Day"
-                     
-                     
+                      loading="lazy"
+                      width={420}
+                      height={315}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
@@ -168,10 +172,11 @@ export function About() {
             <div className="lg:hidden space-y-4">
               <RevealItem className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
                 <img
-                  src="/gallery/uniform-students-2.png"
+                  src="/gallery/uniform-students-2.webp"
                   alt="Ridgewood students in classroom uniform"
-                 
-                 
+                  loading="lazy"
+                  width={620}
+                  height={775}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/10 to-transparent" />
@@ -190,10 +195,10 @@ export function About() {
               </RevealItem>
               <div className="grid grid-cols-2 gap-3">
                 <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(3deg)" }}>
-                  <img src="/gallery/independence-day-2.png" alt="Independence Day" className="absolute inset-0 w-full h-full object-cover" />
+                  <img src="/gallery/independence-day-2.webp" alt="Independence Day" loading="lazy" width={200} height={200} className="absolute inset-0 w-full h-full object-cover" />
                 </RevealItem>
                 <RevealItem className="relative aspect-square rounded-2xl overflow-hidden shadow-luxe border-4 border-cream" style={{ transform: "rotate(-3deg)" }}>
-                  <img src="/gallery/cultural-day.png" alt="Cultural Day" className="absolute inset-0 w-full h-full object-cover" />
+                  <img src="/gallery/cultural-day.webp" alt="Cultural Day" loading="lazy" width={200} height={200} className="absolute inset-0 w-full h-full object-cover" />
                 </RevealItem>
               </div>
             </div>

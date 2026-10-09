@@ -166,12 +166,15 @@ export function Navbar() {
               </Link>
             </Button>
 
-            {/* Mobile drawer trigger */}
+            {/* Mobile drawer trigger — mounted client-side only to avoid
+                Radix's hydration mismatch with auto-generated aria-controls IDs */}
+            <div suppressHydrationWarning>
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <button
                   className="xl:hidden grid place-items-center h-11 w-11 rounded-full border border-gold/40 bg-cream text-navy hover:bg-navy hover:text-cream transition-colors"
                   aria-label="Open menu"
+                  suppressHydrationWarning
                 >
                   <Menu className="h-5 w-5" />
                 </button>
@@ -251,8 +254,9 @@ export function Navbar() {
                 </div>
               </SheetContent>
             </Sheet>
-          </div>
-        </nav>
+            </div>
+            </div>
+          </nav>
       </motion.header>
     </>
   );

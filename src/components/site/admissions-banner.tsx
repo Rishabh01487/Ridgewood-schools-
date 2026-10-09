@@ -20,11 +20,11 @@ export function AdmissionsBanner() {
           className="relative inline-block"
         >
           {/* Cloud shape */}
-          <div className="relative bg-card border-2 border-gold/30 rounded-full px-8 sm:px-14 py-5 sm:py-7 shadow-luxe">
-            {/* Cloud bumps — sit ABOVE the cloud, do not overlap text */}
-            <div className="absolute -top-3 left-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 right-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+          <div className="relative bg-card border-2 border-gold/30 rounded-full px-8 sm:px-14 pt-8 pb-5 sm:pt-10 sm:py-7 shadow-luxe">
+            {/* Cloud bumps — overlap into cloud body, kept above text area */}
+            <div className="absolute -top-4 left-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-4 right-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             
             {/* Text — relative + z-10 ensures it always paints on top of bumps */}
             <div className="relative z-10 flex flex-col items-center gap-1.5">

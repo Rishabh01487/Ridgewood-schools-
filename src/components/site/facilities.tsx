@@ -41,7 +41,7 @@ const FACILITIES: Facility[] = [
     icon: MonitorPlay,
     tag: "Smart Classes",
     layout: "left",
-    image: "/gallery/generated/classroom-joyful.png",
+    image: "/gallery/generated/classroom-joyful.webp",
   },
   {
     id: "library",
@@ -58,7 +58,7 @@ const FACILITIES: Facility[] = [
     icon: Library,
     tag: "Library",
     layout: "right",
-    image: "/gallery/generated/library-reading.png",
+    image: "/gallery/generated/library-reading.webp",
   },
   {
     id: "smart-lab",
@@ -75,7 +75,7 @@ const FACILITIES: Facility[] = [
     icon: FlaskConical,
     tag: "Smart Lab",
     layout: "left",
-    image: "/gallery/generated/kid-on-balls.png",
+    image: "/gallery/generated/kid-on-balls.webp",
   },
   {
     id: "sports-club",
@@ -92,7 +92,7 @@ const FACILITIES: Facility[] = [
     icon: Trophy,
     tag: "Sports Club",
     layout: "right",
-    image: "/gallery/generated/playground-running.png",
+    image: "/gallery/generated/playground-running.webp",
   },
   {
     id: "music-dance",
@@ -109,7 +109,7 @@ const FACILITIES: Facility[] = [
     icon: Music2,
     tag: "Music & Dance",
     layout: "left",
-    image: "/gallery/generated/teacher-mentoring.png",
+    image: "/gallery/generated/teacher-mentoring.webp",
   },
   {
     id: "arts-crafts",
@@ -126,7 +126,7 @@ const FACILITIES: Facility[] = [
     icon: Paintbrush,
     tag: "Art & Craft",
     layout: "right",
-    image: "/gallery/generated/art-classroom.png",
+    image: "/gallery/generated/art-classroom.webp",
   },
 ];
 
@@ -226,6 +226,9 @@ function FeatureVisual({ facility }: { facility: Facility }) {
       <img
         src={facility.image}
         alt={facility.title}
+        loading="lazy"
+        width={800}
+        height={960}
         className="absolute inset-0 w-full h-full object-cover"
       />
       {/* gradient backdrop for legibility */}

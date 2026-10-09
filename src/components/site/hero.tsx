@@ -40,11 +40,13 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-block relative"
         >
-          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 py-3 sm:py-4 shadow-luxe">
-            {/* Cloud bumps — sit ABOVE the cloud, do not overlap text */}
-            <div className="absolute -top-3 left-1/4 w-6 h-6 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 right-1/4 w-6 h-6 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-5 pb-3 sm:pt-6 sm:pb-4 shadow-luxe">
+            {/* Cloud bumps — overlap into the cloud body to look integrated,
+                but kept above the text area (text starts at pt-5 = 20px,
+                bump bottoms at y=+4 = 16px clearance) */}
+            <div className="absolute -top-4 left-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-4 right-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             {/* Text — relative + z-10 ensures it always paints on top of bumps */}
             <div className="relative z-10 flex items-center gap-2 sm:gap-3">
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
@@ -214,8 +216,11 @@ export function Hero() {
           {/* Main framed photo */}
           <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
             <img
-              src="/gallery/uniform-students-1.png"
+              src="/gallery/uniform-students-1.webp"
               alt="Ridgewood students in classroom uniform"
+              width={800}
+              height={600}
+              fetchPriority="high"
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
             {/* Subtle warm gradient at bottom for caption legibility */}
@@ -245,8 +250,11 @@ export function Hero() {
           >
             <div className="relative w-full h-full">
               <img
-                src="/gallery/independence-day-1.png"
+                src="/gallery/independence-day-1.webp"
                 alt="Ridgewood Independence Day celebration"
+                loading="lazy"
+                width={160}
+                height={160}
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
             </div>
@@ -259,8 +267,11 @@ export function Hero() {
           >
             <div className="relative w-full h-full">
               <img
-                src="/gallery/bachpan-teachers-day.png"
+                src="/gallery/bachpan-teachers-day.webp"
                 alt="Teachers Day celebration"
+                loading="lazy"
+                width={144}
+                height={144}
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
             </div>
