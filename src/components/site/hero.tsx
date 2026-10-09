@@ -44,11 +44,12 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-block relative"
         >
-          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-5 pb-3 sm:pt-6 sm:pb-4 shadow-luxe">
-            {/* Cloud bumps — overlap into cloud body, kept above text area */}
-            <div className="absolute -top-4 left-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-4 right-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-8 pb-3 sm:pt-10 sm:pb-4 shadow-luxe">
+            {/* Cloud bumps — kept ENTIRELY above the cloud body (no overlap) so they
+                can NEVER cover the text. Small enough to look like cloud puffs. */}
+            <div className="absolute -top-3 left-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 right-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             {/* Text — relative + z-10 ensures it always paints on top of bumps */}
             <div className="relative z-10 flex items-center gap-2 sm:gap-3">
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
@@ -92,19 +93,21 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Main content — two-column on lg, stacked on mobile (photo first on mobile for visual impact) */}
+      {/* Main content — two-column on lg, stacked on mobile (TEXT FIRST on mobile
+          to match the user's reference layout — centered logo, headline, CTAs, stats,
+          with the photo shown BELOW the stats on mobile). */}
       <motion.div
         style={{ opacity }}
         className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 w-full grid lg:grid-cols-12 gap-6 lg:gap-16 items-center"
       >
-        {/* PHOTO — On mobile: shown FIRST (order-1) so users see the campus immediately.
+        {/* PHOTO — On mobile: shown SECOND (order-2, below text content).
             On desktop: shown on the right (lg:order-2). */}
         <motion.div
           style={{ y: yPhoto }}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-12 lg:col-span-5 order-1 lg:order-2 relative w-full max-w-md mx-auto lg:max-w-none"
+          className="col-span-12 lg:col-span-5 order-2 lg:order-2 relative w-full max-w-md mx-auto lg:max-w-none"
         >
           {/* Main framed photo — 16/10 on mobile (wider, less tall) so it fits more easily */}
           <div className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-[4/5] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream mx-auto">
@@ -179,9 +182,10 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* TEXT CONTENT — On mobile: shown SECOND (order-2, below the photo).
+        {/* TEXT CONTENT — On mobile: shown FIRST (order-1, above the photo) to
+            match the user's reference layout (centered logo, headline, CTAs, stats).
             On desktop: shown on the left (lg:order-1, lg:col-span-7). */}
-        <div className="col-span-12 lg:col-span-7 order-2 lg:order-1 text-center lg:text-left">
+        <div className="col-span-12 lg:col-span-7 order-1 lg:order-1 text-center lg:text-left">
           {/* Logo + name row */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}

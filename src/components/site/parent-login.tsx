@@ -98,7 +98,7 @@ export function ParentLogin() {
   return (
     <section
       id="parent-login"
-      className="relative anchor-offset bg-navy-gradient text-cream pt-6 pb-8 sm:py-14 overflow-hidden navy-premium"
+      className="relative anchor-offset bg-navy-gradient text-cream pt-4 pb-6 sm:py-14 overflow-hidden navy-premium"
     >
       {/* Subtle gold circle pattern across the navy section */}
       <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />
@@ -109,18 +109,18 @@ export function ParentLogin() {
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
-        <Reveal className="text-center max-w-3xl mx-auto mb-4 sm:mb-8">
-          <div className="inline-flex items-center gap-2 text-[11px] sm:text-[12px] tracking-luxe uppercase text-gold font-medium mb-1.5 sm:mb-3">
-            <LeafMark size={16} />
+        <Reveal className="text-center max-w-3xl mx-auto mb-3 sm:mb-8">
+          <div className="inline-flex items-center gap-2 text-[11px] sm:text-[12px] tracking-luxe uppercase text-gold font-medium mb-1 sm:mb-3">
+            <LeafMark size={14} />
             Parent Portal
           </div>
-          <h2 className="font-heading text-royal-cream-gradient animate-gradient-flow font-bold leading-tight text-[20px] sm:text-[32px] md:text-[40px] text-balance">
+          <h2 className="font-heading text-royal-cream-gradient animate-gradient-flow font-bold leading-tight text-[18px] sm:text-[32px] md:text-[40px] text-balance">
             A window into your child&apos;s everyday journey
           </h2>
           <div className="mt-2 sm:mt-4 hidden sm:block">
             <GoldRule />
           </div>
-          <p className="mt-2 sm:mt-4 text-[12.5px] sm:text-[15px] leading-relaxed text-cream/85 text-pretty max-w-2xl mx-auto">
+          <p className="mt-2 sm:mt-4 text-[12px] sm:text-[15px] leading-relaxed text-cream/85 text-pretty max-w-2xl mx-auto hidden sm:block">
             One login — complete visibility. Track your child&apos;s report
             cards, read school notices, follow their participation in events,
             and browse the photo &amp; video gallery — all in one place.
@@ -250,26 +250,26 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
 
       {/* RIGHT — login form */}
       <div className="w-full mx-auto lg:mx-0 lg:ml-auto lg:max-w-md">
-        <div className="relative rounded-[1.5rem] sm:rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-5 sm:p-7">
-          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1.5 text-[10px] sm:text-[10.5px] tracking-luxe uppercase text-gold font-semibold">
-            <LeafMark size={14} />
+        <div className="relative rounded-[1.25rem] sm:rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-4 sm:p-7">
+          <div className="absolute top-2.5 right-3 sm:top-4 sm:right-4 flex items-center gap-1.5 text-[10px] sm:text-[10.5px] tracking-luxe uppercase text-gold font-semibold">
+            <LeafMark size={12} />
             Secure Access
           </div>
 
-          <div className="flex flex-col items-center text-center mb-5 sm:mb-6">
-            <BrandLogo variant="full" size={42} tone="white" priority className="mb-2.5 sm:hidden" />
+          <div className="flex flex-col items-center text-center mb-3.5 sm:mb-6">
+            <BrandLogo variant="full" size={36} tone="white" priority className="mb-2 sm:hidden" />
             <BrandLogo variant="full" size={48} tone="white" priority className="mb-2.5 hidden sm:block" />
-            <h3 className="font-heading text-[20px] sm:text-[22px] font-bold text-cream mb-1">
+            <h3 className="font-heading text-[18px] sm:text-[22px] font-bold text-cream mb-0.5">
               Parent Sign-In
             </h3>
-            <p className="text-[12px] sm:text-[12.5px] text-cream/70">
+            <p className="text-[11.5px] sm:text-[12.5px] text-cream/70">
               Use your registered phone number and password.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="space-y-1.5">
-              <label className="text-[11.5px] sm:text-[12px] tracking-wide font-medium text-cream/85">
+          <form onSubmit={handleSubmit} className="space-y-2.5">
+            <div className="space-y-1">
+              <label className="text-[11px] sm:text-[12px] tracking-wide font-medium text-cream/85">
                 Registered Phone Number (10 digits)
               </label>
               <input
@@ -278,11 +278,11 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
                 onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                 placeholder="Your 10-digit phone"
                 required
-                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-2.5 text-[14px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-3.5 py-2 text-[13.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
               />
             </div>
-            <div className="space-y-1.5">
-              <label className="text-[11.5px] sm:text-[12px] tracking-wide font-medium text-cream/85">
+            <div className="space-y-1">
+              <label className="text-[11px] sm:text-[12px] tracking-wide font-medium text-cream/85">
                 Password
               </label>
               <input
@@ -291,11 +291,11 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-2.5 text-[14px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-3.5 py-2 text-[13.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
               />
             </div>
 
-            <div className="flex items-center justify-between text-[12px] pt-0.5">
+            <div className="flex items-center justify-between text-[11.5px] sm:text-[12px] pt-0.5">
               <label className="flex items-center gap-2 text-cream/65 cursor-pointer">
                 <input type="checkbox" defaultChecked className="rounded border-gold/40 accent-[oklch(0.78_0.13_75)]" />
                 Remember me
@@ -308,7 +308,7 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
             <Button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-xl bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold py-3 mt-1 disabled:opacity-70"
+              className="w-full rounded-xl bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold py-2.5 mt-0.5 disabled:opacity-70"
             >
               {submitting ? (
                 <>
@@ -326,7 +326,7 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
         </div>
 
         {/* Mobile-only feature chips (shown below form on small screens) */}
-        <div className="mt-4 sm:mt-5 grid grid-cols-2 gap-2 sm:gap-2.5 lg:hidden">
+        <div className="mt-3 sm:mt-5 grid grid-cols-4 gap-1.5 sm:gap-2.5 lg:hidden">
           {[
             { icon: FileText, label: "Report Cards" },
             { icon: Bell, label: "Notices" },
@@ -335,9 +335,9 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
           ].map((f) => {
             const Icon = f.icon;
             return (
-              <div key={f.label} className="glass-navy rounded-xl border border-gold/20 p-2.5 sm:p-3 text-center">
-                <Icon className="h-4 w-4 text-gold mx-auto mb-1" />
-                <p className="text-[11px] font-medium text-cream/85 tracking-wide">{f.label}</p>
+              <div key={f.label} className="glass-navy rounded-lg sm:rounded-xl border border-gold/20 p-1.5 sm:p-3 text-center">
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold mx-auto mb-0.5 sm:mb-1" />
+                <p className="text-[9px] sm:text-[11px] font-medium text-cream/85 tracking-wide leading-tight">{f.label}</p>
               </div>
             );
           })}
