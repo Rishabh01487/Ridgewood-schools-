@@ -9,6 +9,7 @@ const About = dynamic(() => import("@/components/site/about").then(m => ({ defau
 const WhyChoose = dynamic(() => import("@/components/site/why-choose").then(m => ({ default: m.WhyChoose })), { loading: () => null });
 const Facilities = dynamic(() => import("@/components/site/facilities").then(m => ({ default: m.Facilities })), { loading: () => null });
 const Gallery = dynamic(() => import("@/components/site/gallery").then(m => ({ default: m.Gallery })), { loading: () => null });
+const AdminUpload = dynamic(() => import("@/components/site/admin-upload").then(m => ({ default: m.AdminUpload })), { loading: () => null });
 const Testimonials = dynamic(() => import("@/components/site/testimonials").then(m => ({ default: m.Testimonials })), { loading: () => null });
 const ParentLogin = dynamic(() => import("@/components/site/parent-login").then(m => ({ default: m.ParentLogin })), { loading: () => null });
 const AdmissionForm = dynamic(() => import("@/components/site/admission-form").then(m => ({ default: m.AdmissionForm })), { loading: () => null });
@@ -26,6 +27,9 @@ export default function Home() {
         <WhyChoose />
         <Facilities />
         <Gallery />
+        {/* AdminUpload — only renders its UI when a staff member is logged in.
+            Hidden for everyone else (no layout shift). */}
+        <AdminUpload />
         <Testimonials />
         <ParentLogin />
         <AdmissionForm />

@@ -67,6 +67,9 @@ export function AdminUpload() {
     }
   }, [status, canUpload]);
 
+  // Hide entirely for non-staff. Visitors and regular parents never see this section.
+  if (!canUpload) return null;
+
   const handleFile = (f: File) => {
     // Client-side validation: file type & size
     const allowedTypes = [
