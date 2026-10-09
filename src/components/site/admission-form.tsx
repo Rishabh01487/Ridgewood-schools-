@@ -216,14 +216,14 @@ export function AdmissionForm() {
                       <F icon={User} label="Father's Name *" value={s2.fatherName} onChange={(v: string) => upd(2, "fatherName", v)} placeholder="Name" required />
                       <F icon={User} label="Occupation" value={s2.fatherOccupation} onChange={(v: string) => upd(2, "fatherOccupation", v)} placeholder="e.g. Business" />
                       <F icon={Phone} label="Father's Mobile *" type="tel" value={s2.fatherMobile} onChange={(v: string) => upd(2, "fatherMobile", v.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit" required />
-                      <F icon={Mail} label="Father's Email" type="email" value={s2.fatherEmail} onChange={(v: string) => upd(2, "fatherEmail", v)} placeholder="email" />
+                      <F icon={Mail} label="Father's Email (optional)" type="email" value={s2.fatherEmail} onChange={(v: string) => upd(2, "fatherEmail", v)} placeholder="email" />
                     </div>
                     <h3 className="font-heading text-[18px] font-bold text-navy mb-2 mt-5 flex items-center gap-2"><HeartHandshake className="h-5 w-5 text-gold-dark" /> Mother&apos;s Details</h3>
                     <div className="grid grid-cols-2 gap-3">
                       <F icon={User} label="Mother's Name" value={s2.motherName} onChange={(v: string) => upd(2, "motherName", v)} placeholder="Name" />
                       <F icon={User} label="Occupation" value={s2.motherOccupation} onChange={(v: string) => upd(2, "motherOccupation", v)} placeholder="e.g. Teacher" />
                       <F icon={Phone} label="Mother's Mobile" type="tel" value={s2.motherMobile} onChange={(v: string) => upd(2, "motherMobile", v.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit" />
-                      <F icon={Mail} label="Mother's Email" type="email" value={s2.motherEmail} onChange={(v: string) => upd(2, "motherEmail", v)} placeholder="email" />
+                      <F icon={Mail} label="Mother's Email (optional)" type="email" value={s2.motherEmail} onChange={(v: string) => upd(2, "motherEmail", v)} placeholder="email" />
                     </div>
                     <TA icon={MapPin} label="Residential Address *" value={s2.residentialAddress} onChange={(v: string) => upd(2, "residentialAddress", v)} placeholder="Full address" required />
                     <Sel icon={MapPin} label="School Transport Required?" value={s2.transport} onChange={(v: string) => upd(2, "transport", v)} options={["Yes", "No"]} placeholder="Select" />
