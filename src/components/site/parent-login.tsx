@@ -24,6 +24,7 @@ import {
   Image as ImageIcon,
   Video,
   Star,
+  Sparkles,
   X,
   Loader2,
 } from "lucide-react";
@@ -97,7 +98,7 @@ export function ParentLogin() {
   return (
     <section
       id="parent-login"
-      className="relative anchor-offset bg-navy-gradient text-cream py-16 sm:py-20 overflow-hidden navy-premium"
+      className="relative anchor-offset bg-navy-gradient text-cream py-12 sm:py-16 overflow-hidden navy-premium"
     >
       {/* Subtle gold circle pattern across the navy section */}
       <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />
@@ -106,23 +107,20 @@ export function ParentLogin() {
       <div className="absolute bottom-1/4 -left-20 h-[350px] w-[350px] rounded-full bg-gold/10 blur-[100px]" aria-hidden />
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
-      {/* gold orbs */}
-      <div className="absolute top-1/4 -right-20 h-80 w-80 rounded-full bg-gold/15 blur-[120px]" />
-      <div className="absolute bottom-1/4 -left-20 h-72 w-72 rounded-full bg-navy-light/30 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
-        <Reveal className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold font-medium mb-4">
+        <Reveal className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold font-medium mb-3">
             <LeafMark size={18} />
             Parent Portal
           </div>
-          <h2 className="font-heading text-royal-cream-gradient animate-gradient-flow font-bold leading-tight text-[34px] sm:text-[44px] md:text-[52px] text-balance">
+          <h2 className="font-heading text-royal-cream-gradient animate-gradient-flow font-bold leading-tight text-[28px] sm:text-[36px] md:text-[42px] text-balance">
             A window into your child&apos;s everyday journey
           </h2>
-          <div className="mt-6">
+          <div className="mt-4">
             <GoldRule />
           </div>
-          <p className="mt-6 text-[16px] leading-relaxed text-cream/85 text-pretty">
+          <p className="mt-4 text-[15px] leading-relaxed text-cream/85 text-pretty max-w-2xl mx-auto">
             One login — complete visibility. Track your child&apos;s report
             cards, read school notices, follow their participation in events,
             and browse the photo &amp; video gallery — all in one place.
@@ -211,97 +209,138 @@ function LoginPanel({ onLogin }: { onLogin: (phone: string, password: string) =>
   };
 
   return (
-    <div className="mx-auto max-w-md">
-      <div className="relative rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-8 sm:p-10">
-        <div className="absolute top-5 right-5 flex items-center gap-1.5 text-[10.5px] tracking-luxe uppercase text-gold font-semibold">
-          <LeafMark size={14} />
-          Secure Access
+    <div className="mx-auto max-w-5xl grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      {/* LEFT — benefits / feature panel (desktop only) */}
+      <div className="hidden lg:block">
+        <div className="space-y-6">
+          <div>
+            <div className="inline-flex items-center gap-2 text-[11px] tracking-luxe uppercase text-gold font-semibold mb-3">
+              <Sparkles className="h-3.5 w-3.5" />
+              Everything in one place
+            </div>
+            <h3 className="font-heading text-[26px] font-bold text-cream leading-tight mb-3">
+              Stay close to your child&apos;s school life — every day, every term.
+            </h3>
+            <p className="text-[14.5px] leading-relaxed text-cream/75 text-pretty">
+              Sign in to follow their academic progress, celebrate their wins,
+              and never miss a school notice again. Your private window —
+              updated weekly.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { icon: FileText, label: "Report Cards", desc: "Term-wise marks & grades" },
+              { icon: Bell, label: "Notices", desc: "School updates in real-time" },
+              { icon: Trophy, label: "Participation", desc: "Events, awards & wins" },
+              { icon: ImageIcon, label: "Photo Gallery", desc: "Your child's private album" },
+            ].map((f) => {
+              const Icon = f.icon;
+              return (
+                <div key={f.label} className="glass-navy rounded-xl border border-gold/20 p-4">
+                  <Icon className="h-5 w-5 text-gold mb-2" />
+                  <p className="text-[13px] font-semibold text-cream">{f.label}</p>
+                  <p className="text-[11.5px] text-cream/65 mt-0.5 leading-snug">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-
-        <div className="flex flex-col items-center text-center mb-7">
-          <BrandLogo variant="full" size={56} className="mb-4" />
-          <h3 className="font-heading text-[26px] font-bold text-cream mb-1.5">
-            Parent Sign-In
-          </h3>
-          <p className="text-[13.5px] text-cream/70">
-            Use your registered phone number and password.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-[12px] tracking-wide font-medium text-cream/85">
-              Registered Phone Number (10 digits)
-            </label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-              placeholder="Your 10-digit phone"
-              required
-              className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-3 text-[14.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[12px] tracking-wide font-medium text-cream/85">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-3 text-[14.5px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
-            />
-          </div>
-
-          <div className="flex items-center justify-between text-[12px] pt-1">
-            <label className="flex items-center gap-2 text-cream/65 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded border-gold/40 accent-[oklch(0.78_0.13_75)]" />
-              Remember me
-            </label>
-            <a href="#" className="text-gold hover:text-gold-light transition-colors">
-              Forgot password?
-            </a>
-          </div>
-
-          <Button
-            type="submit"
-            disabled={submitting}
-            className="w-full rounded-xl bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold py-3.5 mt-2 disabled:opacity-70"
-          >
-            {submitting ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Signing in…
-              </>
-            ) : (
-              <>
-                <LogIn className="h-4 w-4 mr-2" />
-                Sign In to Parent Portal
-              </>
-            )}
-          </Button>
-        </form>
       </div>
 
-      {/* Feature chips below */}
-      <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { icon: FileText, label: "Report Cards" },
-          { icon: Bell, label: "Notices" },
-          { icon: Trophy, label: "Participation" },
-          { icon: ImageIcon, label: "Photo Gallery" },
-        ].map((f) => {
-          const Icon = f.icon;
-          return (
-            <div key={f.label} className="glass-navy rounded-xl border border-gold/20 p-3.5 text-center">
-              <Icon className="h-5 w-5 text-gold mx-auto mb-1.5" />
-              <p className="text-[11.5px] font-medium text-cream/85 tracking-wide">{f.label}</p>
+      {/* RIGHT — login form */}
+      <div className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
+        <div className="relative rounded-[2rem] glass-navy border border-gold/30 shadow-luxe p-7 sm:p-8">
+          <div className="absolute top-4 right-4 flex items-center gap-1.5 text-[10.5px] tracking-luxe uppercase text-gold font-semibold">
+            <LeafMark size={14} />
+            Secure Access
+          </div>
+
+          <div className="flex flex-col items-center text-center mb-6">
+            <BrandLogo variant="full" size={48} className="mb-3" />
+            <h3 className="font-heading text-[22px] font-bold text-cream mb-1">
+              Parent Sign-In
+            </h3>
+            <p className="text-[12.5px] text-cream/70">
+              Use your registered phone number and password.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-3.5">
+            <div className="space-y-1.5">
+              <label className="text-[12px] tracking-wide font-medium text-cream/85">
+                Registered Phone Number (10 digits)
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                placeholder="Your 10-digit phone"
+                required
+                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-2.5 text-[14px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+              />
             </div>
-          );
-        })}
+            <div className="space-y-1.5">
+              <label className="text-[12px] tracking-wide font-medium text-cream/85">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                className="w-full rounded-xl bg-navy-dark/50 border border-gold/30 px-4 py-2.5 text-[14px] text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all"
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-[12px] pt-0.5">
+              <label className="flex items-center gap-2 text-cream/65 cursor-pointer">
+                <input type="checkbox" defaultChecked className="rounded border-gold/40 accent-[oklch(0.78_0.13_75)]" />
+                Remember me
+              </label>
+              <a href="#" className="text-gold hover:text-gold-light transition-colors">
+                Forgot password?
+              </a>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={submitting}
+              className="w-full rounded-xl bg-gold-gradient text-navy-dark font-semibold hover:shadow-gold py-3 mt-1.5 disabled:opacity-70"
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Signing in…
+                </>
+              ) : (
+                <>
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Sign In to Parent Portal
+                </>
+              )}
+            </Button>
+          </form>
+        </div>
+
+        {/* Mobile-only feature chips (shown below form on small screens) */}
+        <div className="mt-5 grid grid-cols-2 gap-2.5 lg:hidden">
+          {[
+            { icon: FileText, label: "Report Cards" },
+            { icon: Bell, label: "Notices" },
+            { icon: Trophy, label: "Participation" },
+            { icon: ImageIcon, label: "Photo Gallery" },
+          ].map((f) => {
+            const Icon = f.icon;
+            return (
+              <div key={f.label} className="glass-navy rounded-xl border border-gold/20 p-3 text-center">
+                <Icon className="h-4 w-4 text-gold mx-auto mb-1" />
+                <p className="text-[11px] font-medium text-cream/85 tracking-wide">{f.label}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

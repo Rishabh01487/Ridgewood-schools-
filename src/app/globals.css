@@ -617,8 +617,10 @@
     oklch(0.78 0.13 75 / 0.4) 85%,
     transparent 100%);
 }
-/* Ensure content sits above the premium overlay */
-.navy-premium > *:not(.navy-top-glow) {
+/* Ensure content sits above the premium overlay — but DO NOT override
+   absolutely-positioned decorative children (gold orbs, lines, circle patterns),
+   otherwise they will enter the document flow and inflate the section. */
+.navy-premium > *:not(.navy-top-glow):not([class*="absolute"]) {
   position: relative;
   z-index: 2;
 }
