@@ -1,13 +1,10 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
-import { About } from "@/components/site/about";
 import { WhyChoose } from "@/components/site/why-choose";
-import { Philosophy } from "@/components/site/philosophy";
 import { Facilities } from "@/components/site/facilities";
 import { Gallery } from "@/components/site/gallery";
 import { Testimonials } from "@/components/site/testimonials";
 import { ParentLogin } from "@/components/site/parent-login";
-import { AdmissionsBanner } from "@/components/site/admissions-banner";
 import { AdmissionForm } from "@/components/site/admission-form";
 import { AdminPanel } from "@/components/site/admin-panel";
 import { Contact } from "@/components/site/contact";
@@ -19,10 +16,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
-        <AdmissionsBanner />
-        <About />
         <WhyChoose />
-        <Philosophy />
         <Facilities />
         <Gallery />
         <Testimonials />

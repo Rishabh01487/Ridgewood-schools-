@@ -16,8 +16,7 @@ import {
 
 const QUICK_LINKS = [
   { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Academics", href: "#academics" },
+  { label: "Why Choose", href: "#academics" },
   { label: "Campus Life", href: "#campus" },
   { label: "Gallery", href: "#gallery" },
   { label: "Admissions", href: "#admissions" },

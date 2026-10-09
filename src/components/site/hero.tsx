@@ -30,8 +30,34 @@ export function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex items-center pt-28 pb-16 sm:pt-32 sm:pb-20"
+      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex flex-col justify-center pt-16 pb-12 sm:pt-20 sm:pb-16"
     >
+      {/* Cloud "Admissions Open" banner at the very top of hero */}
+      <div className="relative z-20 text-center px-4 mb-4 sm:mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="inline-block relative"
+        >
+          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 py-3 sm:py-4 shadow-luxe">
+            {/* Cloud bumps */}
+            <div className="absolute -top-3 left-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="absolute -top-3 right-1/4 w-8 h-8 rounded-full bg-card border-2 border-gold/30 border-b-0" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
+              <span className="font-heading text-[14px] sm:text-[20px] font-bold text-sunset-gradient animate-gradient-flow leading-none">
+                Admissions Open
+              </span>
+              <span className="font-heading text-[16px] sm:text-[24px] font-bold text-royal-gradient animate-gradient-flow leading-none">
+                2026–2027
+              </span>
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
       {/* Layer 1 — cream gradient with subtle navy circle pattern */}
       <div className="absolute inset-0 -z-20 bg-cream-gradient" aria-hidden />
       <CirclePattern color="oklch(0.235 0.07 264 / 0.06)" />
@@ -51,11 +77,11 @@ export function Hero() {
         >
           <path
             d="M0,200 L0,120 C160,100 220,40 360,50 C520,60 580,110 720,110 C880,110 940,30 1100,40 C1240,48 1300,100 1440,90 L1440,200 Z"
-            fillfill="var(--brand-navy)"
+            fill="var(--brand-navy)"
           />
           <path
             d="M0,200 L0,160 C140,140 200,100 340,110 C500,122 560,160 700,158 C860,156 920,110 1080,120 C1220,128 1280,170 1440,160 L1440,200 Z"
-            fillfill="var(--brand-navy)"
+            fill="var(--brand-navy)"
             opacity="0.7"
           />
         </svg>
@@ -185,7 +211,7 @@ export function Hero() {
           className="col-span-12 lg:col-span-5 relative mt-6 lg:mt-0 w-full"
         >
           {/* Main framed photo */}
-          <div className="relative aspect-[16/10] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
+          <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
             <img
               src="/gallery/uniform-students-1.png"
               alt="Ridgewood students in classroom uniform"
