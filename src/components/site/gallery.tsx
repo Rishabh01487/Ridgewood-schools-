@@ -78,7 +78,7 @@ export function Gallery() {
   );
 
   return (
-    <section id="gallery" className="relative anchor-offset bg-cream py-24 sm:py-32 overflow-hidden">
+    <section id="gallery" className="relative anchor-offset bg-cream py-16 sm:py-20 overflow-hidden">
       {/* Subtle navy circle pattern — matches the Ridgewood Chronicle aesthetic */}
       <div className="absolute inset-0 pointer-events-none opacity-50" aria-hidden>
         <svg className="w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 1024">

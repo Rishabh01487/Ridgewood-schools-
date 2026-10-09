@@ -70,7 +70,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative anchor-offset bg-cream py-24 sm:py-32"
+      className="relative anchor-offset bg-cream py-16 sm:py-20"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">

@@ -10,11 +10,11 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative anchor-offset bg-cream-gradient py-24 sm:py-32"
+      className="relative anchor-offset bg-cream-gradient py-16 sm:py-20"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         {/* Section header */}
-        <Reveal className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold-dark font-medium mb-4">
             <LeafMark size={18} />
             About Ridgewood
@@ -278,53 +278,6 @@ export function About() {
           </div>
         </div>
 
-        {/* History band */}
-        <Reveal delay={0.1} className="mt-24">
-          <div className="relative overflow-hidden rounded-[2rem] bg-navy text-cream px-8 sm:px-14 py-14 sm:py-16 shadow-luxe">
-            <CirclePattern color="oklch(0.78 0.13 75 / 0.12)" />
-            <div className="absolute -top-10 -right-10 h-[280px] w-[280px] rounded-full bg-gold/10 blur-[80px]" />
-            <div className="absolute -bottom-12 -left-12 h-[260px] w-[260px] rounded-full bg-navy-light/30 blur-[80px]" />
-            <div className="relative grid md:grid-cols-12 gap-10 items-center">
-              <div className="md:col-span-5">
-                <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold font-medium mb-4">
-                  <LeafMark size={18} />
-                  Our History
-                </div>
-                <h3 className="font-heading text-[28px] sm:text-[34px] font-bold leading-tight">
-                  A Trust born of philanthropy, a School born of purpose.
-                </h3>
-              </div>
-              <div className="md:col-span-7 space-y-4 text-[15.5px] leading-relaxed text-cream/85">
-                <p>
-                  Ridgewood School was founded by the distinguished philanthropist
-                  and entrepreneur <span className="text-gold font-medium">Ashok Kumar Gupta</span> under
-                  the Ashok Educational and Social Welfare Trust, established in
-                  2024.
-                </p>
-                <p>
-                  We are ideally situated in the heart of Mirganj — near Alam
-                  Hospital, Dr B N Chaudhary Lane, Near Hathwa Mor — and began our journey
-                  in April 2023 with a Pre-Primary section in collaboration with
-                  Bachpan, A Play School.
-                </p>
-                <div className="flex flex-wrap gap-x-8 gap-y-3 pt-4 border-t border-cream/15">
-                  <div>
-                    <p className="font-heading text-[22px] font-bold text-gold">2020</p>
-                    <p className="text-[11px] tracking-luxe uppercase text-cream/60 mt-0.5">Primary Wing Est.</p>
-                  </div>
-                  <div>
-                    <p className="font-heading text-[22px] font-bold text-gold">2023</p>
-                    <p className="text-[11px] tracking-luxe uppercase text-cream/60 mt-0.5">Pre-Primary Launched</p>
-                  </div>
-                  <div>
-                    <p className="font-heading text-[22px] font-bold text-gold">CBSE</p>
-                    <p className="text-[11px] tracking-luxe uppercase text-cream/60 mt-0.5">Curriculum</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

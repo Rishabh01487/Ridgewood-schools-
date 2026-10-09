@@ -85,7 +85,7 @@ export function ParentLogin() {
 
   if (status === "loading") {
     return (
-      <section id="parent-login" className="relative anchor-offset bg-navy-gradient text-cream py-24 sm:py-32">
+      <section id="parent-login" className="relative anchor-offset bg-navy-gradient text-cream py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 sm:px-8 text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto text-gold" />
           <p className="mt-3 text-cream/70 text-sm">Loading…</p>
@@ -97,7 +97,7 @@ export function ParentLogin() {
   return (
     <section
       id="parent-login"
-      className="relative anchor-offset bg-navy-gradient text-cream py-24 sm:py-32 overflow-hidden navy-premium"
+      className="relative anchor-offset bg-navy-gradient text-cream py-16 sm:py-20 overflow-hidden navy-premium"
     >
       {/* Subtle gold circle pattern across the navy section */}
       <CirclePattern color="oklch(0.78 0.13 75 / 0.25)" />

@@ -19,12 +19,10 @@ const QUICK_LINKS = [
   { label: "About Us", href: "#about" },
   { label: "Academics", href: "#academics" },
   { label: "Campus Life", href: "#campus" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Admissions", href: "#admissions" },
   { label: "Parent Login", href: "#parent-login" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "News & Updates", href: "#news" },
-  { label: "Staff Upload", href: "#admin-upload" },
-  { label: "Admin Dashboard", href: "#admin-panel" },
+  { label: "Admin", href: "#admin-panel" },
   { label: "Contact", href: "#contact" },
 ];
 

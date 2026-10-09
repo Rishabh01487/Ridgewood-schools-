@@ -44,11 +44,11 @@ export function WhyChoose() {
   return (
     <section
       id="academics"
-      className="relative anchor-offset bg-cream py-24 sm:py-32"
+      className="relative anchor-offset bg-cream py-16 sm:py-20"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         {/* Header */}
-        <Reveal className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold-dark font-medium mb-4">
             <LeafMark size={18} />
             Why Choose Ridgewood
