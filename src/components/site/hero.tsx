@@ -10,8 +10,12 @@ import Link from "next/link";
 /**
  * Hero — clean, premium, LIGHT feel.
  * Cream background with subtle navy circle pattern, real shield logo,
- * strong typography, and a single framed real campus photo on the right.
- * No dark carousel — that felt gimmicky.
+ * strong typography, and a single framed real campus photo.
+ *
+ * Mobile-first: the photo is shown FIRST (above the text) so users see the
+ * campus immediately when they open the page on a phone. The text content
+ * (logo, headline, CTAs, stats) appears below the photo on mobile.
+ * On lg+ screens, the photo moves to the right and text to the left.
  */
 
 export function Hero() {
@@ -30,7 +34,7 @@ export function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative isolate overflow-hidden bg-cream text-navy min-h-[100svh] flex flex-col justify-center pt-16 pb-12 sm:pt-20 sm:pb-16"
+      className="relative isolate overflow-hidden bg-cream text-navy pt-14 pb-10 sm:pt-20 sm:pb-16 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center"
     >
       {/* Cloud "Admissions Open" banner at the very top of hero */}
       <div className="relative z-20 text-center px-4 mb-4 sm:mb-6">
@@ -41,9 +45,7 @@ export function Hero() {
           className="inline-block relative"
         >
           <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-5 pb-3 sm:pt-6 sm:pb-4 shadow-luxe">
-            {/* Cloud bumps — overlap into the cloud body to look integrated,
-                but kept above the text area (text starts at pt-5 = 20px,
-                bump bottoms at y=+4 = 16px clearance) */}
+            {/* Cloud bumps — overlap into cloud body, kept above text area */}
             <div className="absolute -top-4 left-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-card border-2 border-gold/30 border-b-0" />
             <div className="absolute -top-4 right-1/4 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
@@ -90,22 +92,106 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Main content — two-column on lg, stacked on mobile */}
+      {/* Main content — two-column on lg, stacked on mobile (photo first on mobile for visual impact) */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 w-full grid lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+        className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 w-full grid lg:grid-cols-12 gap-6 lg:gap-16 items-center"
       >
-        {/* LEFT — text content */}
-        <div className="lg:col-span-7 text-center lg:text-left">
+        {/* PHOTO — On mobile: shown FIRST (order-1) so users see the campus immediately.
+            On desktop: shown on the right (lg:order-2). */}
+        <motion.div
+          style={{ y: yPhoto }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="col-span-12 lg:col-span-5 order-1 lg:order-2 relative w-full max-w-md mx-auto lg:max-w-none"
+        >
+          {/* Main framed photo — 16/10 on mobile (wider, less tall) so it fits more easily */}
+          <div className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-[4/5] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream mx-auto">
+            <img
+              src="/gallery/uniform-students-1.webp"
+              alt="Ridgewood students in classroom uniform"
+              width={800}
+              height={600}
+              fetchPriority="high"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+            {/* Subtle warm gradient at bottom for caption legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 via-transparent to-transparent" />
+
+            {/* Floating chip on the photo */}
+            <div className="absolute top-4 left-4 sm:top-5 sm:left-5">
+              <div className="rounded-full bg-cream/95 backdrop-blur-sm border border-gold/40 px-3 py-1.5 flex items-center gap-2 text-[10px] sm:text-[10.5px] tracking-luxe uppercase font-semibold text-navy shadow-soft">
+                <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-gold" />
+                Est. 2020 · Mirganj
+              </div>
+            </div>
+
+            {/* Caption */}
+            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 lg:p-6 text-cream">
+              <p className="font-heading text-[18px] sm:text-[20px] font-semibold leading-tight">
+                Real classrooms.
+                <span className="block text-gradient-gold">Real joy.</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Floating mini accent photo — slightly tilted, top-right (xl+ only, smaller desktops cut off) */}
+          <div
+            className="absolute -top-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden xl:block"
+            style={{ transform: "rotate(6deg)" }}
+          >
+            <div className="relative w-full h-full">
+              <img
+                src="/gallery/independence-day-1.webp"
+                alt="Ridgewood Independence Day celebration"
+                loading="lazy"
+                width={160}
+                height={160}
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            </div>
+          </div>
+
+          {/* Floating mini accent photo — bottom-left, slight tilt (xl+ only) */}
+          <div
+            className="absolute -bottom-8 -left-6 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden xl:block"
+            style={{ transform: "rotate(-4deg)" }}
+          >
+            <div className="relative w-full h-full">
+              <img
+                src="/gallery/bachpan-teachers-day.webp"
+                alt="Teachers Day celebration"
+                loading="lazy"
+                width={144}
+                height={144}
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            </div>
+          </div>
+
+          {/* Floating "Top of section" badge — gold pill (xl only) */}
+          <div className="absolute top-1/2 -left-10 -translate-y-1/2 hidden xl:flex flex-col items-center gap-1">
+            <span className="text-[10px] tracking-luxe uppercase text-navy/70 font-semibold [writing-mode:vertical-rl] rotate-180">
+              Joyful Learning
+            </span>
+            <span className="h-12 w-px bg-gold/40" />
+          </div>
+        </motion.div>
+
+        {/* TEXT CONTENT — On mobile: shown SECOND (order-2, below the photo).
+            On desktop: shown on the left (lg:order-1, lg:col-span-7). */}
+        <div className="col-span-12 lg:col-span-7 order-2 lg:order-1 text-center lg:text-left">
           {/* Logo + name row */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:justify-start mb-8"
+            className="flex items-center justify-center lg:justify-start mb-5 sm:mb-8"
           >
-            {/* FULL Ridgewood logo: shield + RIDGEWOOD SCHOOL + A CBSE Curriculum School subtitle (matches the user's original uploaded logo) */}
-            <BrandLogo variant="full" size={72} priority className="shrink-0" />
+            {/* FULL Ridgewood logo: shield + RIDGEWOOD SCHOOL + A CBSE Curriculum School subtitle */}
+            <BrandLogo variant="full" size={56} priority className="shrink-0 sm:hidden" />
+            <BrandLogo variant="full" size={72} priority className="shrink-0 hidden sm:block" />
           </motion.div>
 
           {/* Eyebrow */}
@@ -113,21 +199,18 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="mb-5 inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold-dark font-semibold"
+            className="mb-3 sm:mb-5 inline-flex items-center gap-2 text-[11px] sm:text-[12px] tracking-luxe uppercase text-gold-dark font-semibold"
           >
             <LeafMark size={16} />
             From Roots to Ridges
           </motion.div>
 
-          {/* Headline — premium two-font + animated sunset gradient
-              Line 1 "Where curious minds" — Poppins bold, animated warm sunset gradient (navy → maroon → coral → gold)
-              Line 2 "flourish joyfully" — Playfair Display italic, animated royal gradient (deep navy → indigo → gold)
-              Both lines have a flowing gradient animation for an "alive" feel */}
+          {/* Headline — premium two-font + animated sunset gradient */}
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-bold leading-[1.15] tracking-tight text-[28px] sm:text-[42px] lg:text-[58px] text-center lg:text-left"
+            className="font-heading font-bold leading-[1.15] tracking-tight text-[26px] sm:text-[42px] lg:text-[58px] text-center lg:text-left"
           >
             <span className="text-sunset-gradient animate-gradient-flow block whitespace-nowrap">
               Where curious minds
@@ -142,7 +225,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4 }}
-            className="mt-6 max-w-xl mx-auto lg:mx-0 text-[16px] sm:text-[17.5px] leading-relaxed text-navy/75 text-pretty"
+            className="mt-5 sm:mt-6 max-w-xl mx-auto lg:mx-0 text-[15px] sm:text-[17.5px] leading-relaxed text-navy/75 text-pretty"
           >
             A CBSE curriculum school in Mirganj where child-centred, NEP 2020-aligned
             learning meets teachers who act as foster parents — and classrooms that
@@ -154,7 +237,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.55 }}
-            className="mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3"
+            className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3"
           >
             <Button
               asChild
@@ -181,7 +264,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.7 }}
-            className="mt-10 grid grid-cols-3 gap-3 sm:gap-8 text-navy text-center lg:text-left"
+            className="mt-7 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-8 text-navy text-center lg:text-left"
           >
             {[
               { value: "200+", label: "Learners" },
@@ -194,7 +277,7 @@ export function Hero() {
                   i !== 0 ? "lg:border-l lg:border-navy/15 lg:pl-8" : ""
                 }`}
               >
-                <span className="font-heading text-[22px] sm:text-[34px] font-bold text-gradient-navy leading-none">
+                <span className="font-heading text-[20px] sm:text-[34px] font-bold text-gradient-navy leading-none">
                   {s.value}
                 </span>
                 <span className="text-[9px] sm:text-[11.5px] tracking-luxe uppercase text-navy/60 mt-1.5 font-medium">
@@ -204,93 +287,12 @@ export function Hero() {
             ))}
           </motion.div>
         </div>
-
-        {/* RIGHT — single framed real campus photo (shown on tablet+; on mobile shown below text) */}
-        <motion.div
-          style={{ y: yPhoto }}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-12 lg:col-span-5 relative mt-6 lg:mt-0 w-full"
-        >
-          {/* Main framed photo */}
-          <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-luxe border-4 border-cream">
-            <img
-              src="/gallery/uniform-students-1.webp"
-              alt="Ridgewood students in classroom uniform"
-              width={800}
-              height={600}
-              fetchPriority="high"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            {/* Subtle warm gradient at bottom for caption legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-transparent" />
-
-            {/* Floating chip on the photo */}
-            <div className="absolute top-5 left-5">
-              <div className="rounded-full bg-cream/95 backdrop-blur-sm border border-gold/40 px-3.5 py-1.5 flex items-center gap-2 text-[10.5px] tracking-luxe uppercase font-semibold text-navy shadow-soft">
-                <Sparkles className="h-3.5 w-3.5 text-gold" />
-                Est. 2020 · Mirganj
-              </div>
-            </div>
-
-            {/* Caption */}
-            <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-cream">
-              <p className="font-heading text-[20px] font-semibold leading-tight">
-                Real classrooms.
-                <span className="block text-gradient-gold">Real joy.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Floating mini accent photo — slightly tilted, top-right */}
-          <div
-            className="absolute -top-6 -right-6 w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden md:block"
-            style={{ transform: "rotate(6deg)" }}
-          >
-            <div className="relative w-full h-full">
-              <img
-                src="/gallery/independence-day-1.webp"
-                alt="Ridgewood Independence Day celebration"
-                loading="lazy"
-                width={160}
-                height={160}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Floating mini accent photo — bottom-left, slight tilt */}
-          <div
-            className="absolute -bottom-8 -left-6 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-luxe border-4 border-cream hidden md:block"
-            style={{ transform: "rotate(-4deg)" }}
-          >
-            <div className="relative w-full h-full">
-              <img
-                src="/gallery/bachpan-teachers-day.webp"
-                alt="Teachers Day celebration"
-                loading="lazy"
-                width={144}
-                height={144}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Floating "Top of section" badge — gold pill */}
-          <div className="absolute top-1/2 -left-10 -translate-y-1/2 hidden xl:flex flex-col items-center gap-1">
-            <span className="text-[10px] tracking-luxe uppercase text-navy/70 font-semibold [writing-mode:vertical-rl] rotate-180">
-              Joyful Learning
-            </span>
-            <span className="h-12 w-px bg-gold/40" />
-          </div>
-        </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — desktop only (mobile users naturally scroll) */}
       <motion.div
         style={{ opacity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-navy/65"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden lg:flex flex-col items-center gap-2 text-navy/65"
       >
         <span className="text-[10px] tracking-luxe uppercase font-medium">Scroll</span>
         <span className="grid place-items-center h-9 w-6 rounded-full border border-navy/40">
