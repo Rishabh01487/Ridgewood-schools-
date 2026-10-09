@@ -1,33 +1,11 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
-
-/**
- * Ridgewood School — NextAuth configuration
- *
- * Security notes:
- * - Credentials provider: phone (10-digit) + password
- * - Passwords are bcrypt-hashed (10 rounds) in the DB
- * - JWT sessions signed with NEXTAUTH_SECRET
- * - Phone numbers are normalised (digits only, last 10 chars) before lookup
- * - Failed auth returns null (no user enumeration via timing in this layer;
- *   bcrypt.compare is constant-time)
- * - Email is included in the JWT so /api/upload can check staff allowlist
- */
-
-const PHONE_RE = /^\d{10}$/;
+import { collections } from "@/lib/mongodb";
 
 export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: "jwt",
-    // Short-lived sessions for school portal
-    maxAge: 7 * 24 * 60 * 60, // 7 days
-  },
-  pages: {
-    signIn: "/#parent-login",
-    error: "/#parent-login",
-  },
+  session: { strategy: "jwt", maxAge: 7 * 24 * 60 * 60 },
+  pages: { signIn: "/#parent-login", error: "/#parent-login" },
   providers: [
     CredentialsProvider({
       name: "Parent Login",
@@ -37,27 +15,28 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials) return null;
-        // Normalise phone — keep only digits, take last 10
         const rawPhone = (credentials.phone || "").replace(/\D/g, "").slice(-10);
         const password = credentials.password || "";
-        if (!PHONE_RE.test(rawPhone) || !password) return null;
-        if (password.length > 200) return null; // pre-empt DoS on huge passwords
+        if (!/^\d{10}$/.test(rawPhone) || !password) return null;
+        if (password.length > 200) return null;
 
-        const parent = await db.parent.findUnique({
-          where: { phone: rawPhone },
-        });
-        // Always run bcrypt.compare (even if parent not found) to reduce timing oracle.
-        // For non-existent user, compare against a pre-computed hash so the function still takes time.
-        const dummyHash = "$2a$10$CwTycUXWue0ThqfSt4UMWeK3eqY8m8m8m8m8m8m8m8m8m8m8m8m8m";
-        const hashToCompare = parent?.passwordHash || dummyHash;
-        const valid = await bcrypt.compare(password, hashToCompare);
-        if (!parent || !valid) return null;
+        try {
+          const col = await collections.parents();
+          const parent = await col.findOne({ phone: rawPhone });
+          const dummyHash = "$2a$10$CwTycUXWue0ThqfSt4UMWeK3eqY8m8m8m8m8m8m8m8m8m8m8m8m8m";
+          const hashToCompare = parent?.passwordHash || dummyHash;
+          const valid = await bcrypt.compare(password, hashToCompare);
+          if (!parent || !valid) return null;
 
-        return {
-          id: parent.id,
-          name: parent.name,
-          email: parent.email || undefined,
-        } as any;
+          return {
+            id: String(parent._id),
+            name: parent.name,
+            email: parent.email || undefined,
+          } as any;
+        } catch (err) {
+          console.error("[auth] Error:", err);
+          return null;
+        }
       },
     }),
   ],

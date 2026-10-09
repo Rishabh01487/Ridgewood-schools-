@@ -1,56 +1,57 @@
-/**
- * Admin API — Staff-only notice management.
- * POST /api/admin/notices — create a notice
- * DELETE /api/admin/notices — delete a notice by id
- */
 import { NextRequest, NextResponse } from "next/server";
+import { collections } from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { db } from "@/lib/db";
+import bcrypt from "bcryptjs";
 
 const STAFF_EMAILS = (process.env.STAFF_EMAILS || "Ridgewoodmirganj@gmail.com,admin@ridgewoodmirganj.in")
-  .split(",")
-  .map((s) => s.trim().toLowerCase())
-  .filter(Boolean);
+  .split(",").map(s => s.trim().toLowerCase()).filter(Boolean);
 
 function isStaff(email?: string | null): boolean {
   if (!email) return false;
   return STAFF_EMAILS.includes(email.toLowerCase());
 }
 
-const CUID_RE = /^c[a-z0-9]{20,30}$/i;
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isStaff(session.user.email)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  try {
+    const col = await collections.notices();
+    const items = await col.find({}).sort({ createdAt: -1 }).limit(100).toArray();
+    return NextResponse.json({ items: items.map((it: any) => ({ ...it, id: String(it._id) })) });
+  } catch (err: any) {
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
+}
 
-// POST — create notice
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!isStaff(session.user.email)) return NextResponse.json({ error: "Forbidden — staff only" }, { status: 403 });
-
-  let body: any;
-  try { body = await req.json(); } catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
-
-  const notice = await db.notice.create({
-    data: {
-      title: (body.title || "").slice(0, 200),
-      body: (body.body || "").slice(0, 1000),
-      tag: (body.tag || "General").slice(0, 50),
-      date: (body.date || "").slice(0, 50),
-    },
-  });
-
-  return NextResponse.json({ ok: true, notice });
+  if (!isStaff(session.user.email)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  try {
+    const body = await req.json();
+    const col = await collections.notices();
+    const result = await col.insertOne({ ...body, createdAt: new Date() });
+    return NextResponse.json({ ok: true, id: result.insertedId });
+  } catch (err: any) {
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
 }
 
-// DELETE — delete notice by id
 export async function DELETE(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!isStaff(session.user.email)) return NextResponse.json({ error: "Forbidden — staff only" }, { status: 403 });
-
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  if (!CUID_RE.test(id || "")) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
-
-  await db.notice.delete({ where: { id: id! } });
-  return NextResponse.json({ ok: true });
+  if (!isStaff(session.user.email)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
+    const { ObjectId } = await import("mongodb");
+    const col = await collections.notices();
+    await col.deleteOne({ _id: new ObjectId(id) });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
 }

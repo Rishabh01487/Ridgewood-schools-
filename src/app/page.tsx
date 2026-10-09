@@ -19,6 +19,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <AdmissionsBanner />
         <About />
         <WhyChoose />
         <Philosophy />
@@ -26,7 +27,6 @@ export default function Home() {
         <Gallery />
         <Testimonials />
         <ParentLogin />
-        <AdmissionsBanner />
         <AdmissionForm />
         <AdminPanel />
         <Contact />
