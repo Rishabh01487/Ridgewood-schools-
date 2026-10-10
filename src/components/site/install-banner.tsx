@@ -17,7 +17,7 @@ import { usePWAInstall } from "@/hooks/use-pwa-install";
  *  - Hidden if app is already installed
  */
 
-const DISMISS_KEY = "ridgewood-install-dismissed-v2";
+const DISMISS_KEY = "ridgewood-install-dismissed-v3";
 const DISMISS_DAYS = 7;
 
 function shouldShowAfterDismiss(): boolean {
