@@ -135,6 +135,41 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Pre-hydration blocker: prevents the main website from flashing
+            before the WelcomeGate mounts on first visit.
+            Runs SYNCHRONOUSLY before the body renders, so the user never sees
+            the main website until the gate has been clicked (or skipped).
+            On return visits (localStorage flag set), the blocker is removed
+            immediately so the site loads normally. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+              try {
+                var KEY = 'ridgewood-welcomed-v2';
+                if (window.localStorage && window.localStorage.getItem(KEY)) {
+                  // Returning visitor — no gate needed, let site show normally
+                  document.documentElement.classList.add('gate-done');
+                  return;
+                }
+                // First visit — inject a dark overlay immediately so the website
+                // body is never visible. The WelcomeGate React component will take
+                // over this overlay and animate it.
+                document.documentElement.classList.add('gate-active');
+                var s = document.createElement('style');
+                s.id = 'gate-blocker-style';
+                s.textContent = 'html.gate-active body { visibility:hidden !important; background:#11183a !important; }';
+                document.head.appendChild(s);
+              } catch (e) {
+                // localStorage blocked (private mode) — still show gate by default
+                document.documentElement.classList.add('gate-active');
+                var s = document.createElement('style');
+                s.id = 'gate-blocker-style';
+                s.textContent = 'html.gate-active body { visibility:hidden !important; background:#11183a !important; }';
+                document.head.appendChild(s);
+              }
+            })();`,
+          }}
+        />
         {/* JSON-LD structured data for SEO — School + EducationalOrganization schema.
             Rich snippets help Google show your school with rating, address, phone,
             opening hours, and grade levels in search results. */}

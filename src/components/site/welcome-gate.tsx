@@ -24,6 +24,8 @@ const STORAGE_KEY = "ridgewood-welcomed-v2";
 type Stage = "closed" | "opening" | "revealing" | "holding" | "exited";
 
 export function WelcomeGate() {
+  // Start as "show=true" if the pre-hydration script indicated a first visit.
+  // We check the html class set by the inline script in <head>.
   const [show, setShow] = React.useState(false);
   const [stage, setStage] = React.useState<Stage>("closed");
 
@@ -32,14 +34,24 @@ export function WelcomeGate() {
     try {
       const seen = window.localStorage.getItem(STORAGE_KEY);
       if (!seen) {
-        const t = setTimeout(() => setShow(true), 300);
-        return () => clearTimeout(t);
+        // First visit — show the gate.
+        // Remove the pre-hydration blocker style (the React gate will take over
+        // as the dark overlay). The html.gate-active class stays so body remains
+        // hidden until the React gate is fully mounted and ready.
+        const blockerStyle = document.getElementById("gate-blocker-style");
+        if (blockerStyle) blockerStyle.remove();
+        setShow(true);
       } else {
+        // Returning visitor — make sure the website is visible.
+        document.documentElement.classList.remove("gate-active");
+        document.documentElement.classList.add("gate-done");
         setStage("exited");
       }
     } catch {
-      const t = setTimeout(() => setShow(true), 300);
-      return () => clearTimeout(t);
+      // localStorage blocked — show the gate by default (first-visit behavior)
+      const blockerStyle = document.getElementById("gate-blocker-style");
+      if (blockerStyle) blockerStyle.remove();
+      setShow(true);
     }
   }, []);
 
@@ -53,6 +65,15 @@ export function WelcomeGate() {
       };
     }
   }, [show, stage]);
+
+  // When the gate fully exits, make sure the website body becomes visible
+  // (removes the gate-active class so the website can be seen).
+  React.useEffect(() => {
+    if (stage === "exited") {
+      document.documentElement.classList.remove("gate-active");
+      document.documentElement.classList.add("gate-done");
+    }
+  }, [stage]);
 
   const handleEnter = () => {
     if (stage !== "closed") return;
