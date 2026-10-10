@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
+import { WelcomeGate } from "@/components/site/welcome-gate";
 import dynamic from "next/dynamic";
 
 // Lazy-load below-the-fold sections so the initial page load is fast.
@@ -20,6 +21,10 @@ const Footer = dynamic(() => import("@/components/site/footer").then(m => ({ def
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col bg-cream text-foreground">
+      {/* Welcome Gate — only shows on first visit per browser (localStorage).
+          A grand decorative gate with Maa Saraswati's image and Admissions banner
+          that opens to reveal the website. Hidden on subsequent visits. */}
+      <WelcomeGate />
       <Navbar />
       <main className="relative flex-1">
         <Hero />
