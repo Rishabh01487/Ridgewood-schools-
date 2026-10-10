@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
 import { WelcomeGate } from "@/components/site/welcome-gate";
+import { InstallBanner } from "@/components/site/install-banner";
 import dynamic from "next/dynamic";
 
 // Lazy-load below-the-fold sections so the initial page load is fast.
@@ -42,6 +43,11 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      {/* Install App banner — appears after the welcome gate opens.
+          Chrome/Edge/Android: native install prompt.
+          iOS Safari: shows "Add to Home Screen" instructions.
+          Dismissable with X (remembers for 7 days). */}
+      <InstallBanner />
     </div>
   );
 }
