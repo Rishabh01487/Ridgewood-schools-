@@ -32,6 +32,7 @@ export function WelcomeGate() {
   // We check the html class set by the inline script in <head>.
   const [show, setShow] = React.useState(false);
   const [stage, setStage] = React.useState<Stage>("closed");
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // On mount: check sessionStorage to decide whether to show this session.
   // (sessionStorage is cleared when the browser is closed, so the gate will
@@ -95,8 +96,26 @@ export function WelcomeGate() {
     }
   }, [stage]);
 
+  const playWelcomeSound = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0; // maximum volume
+      audioRef.current.play().catch(() => {
+        // Autoplay blocked — will play on next interaction
+      });
+    }
+  };
+
+  // Try to play audio when the gate becomes visible (may be blocked by browser)
+  React.useEffect(() => {
+    if (show && stage === "closed") {
+      playWelcomeSound();
+    }
+  }, [show, stage]);
+
   const handleEnter = () => {
     if (stage !== "closed") return;
+    // Play the welcome sound on user interaction (browsers allow audio after a tap)
+    playWelcomeSound();
     try {
       window.sessionStorage.setItem(STORAGE_KEY, new Date().toISOString());
     } catch {
@@ -138,6 +157,14 @@ export function WelcomeGate() {
           role="dialog"
           aria-label="Welcome to Ridgewood School, Mirganj"
         >
+          {/* Welcome voice audio — "Welcome to Ridgewood. From roots to ridges."
+              Plays at maximum volume when the gate appears or when user taps to enter. */}
+          <audio
+            ref={audioRef}
+            src="/brand/welcome-voice.wav"
+            preload="auto"
+            aria-hidden="true"
+          />
           {/* Ambient glow background */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-gold/15 blur-[120px]" />
