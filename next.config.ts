@@ -32,6 +32,11 @@ const nextConfig: NextConfig = {
         destination: "/#admissions",
         permanent: false,
       },
+      {
+        source: "/enquiry",
+        destination: "/#enquiry-form",
+        permanent: false,
+      },
     ];
   },
 };
