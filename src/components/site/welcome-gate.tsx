@@ -6,26 +6,28 @@ import { Sparkles, ChevronDown, X } from "lucide-react";
 import { BrandLogo } from "./ornament";
 
 /**
- * WelcomeGate — a grand temple-style gate that visitors see on first visit
- * to the Ridgewood School website. Shows Maa Saraswati (goddess of knowledge),
- * an Admissions Open 2026-27 banner, and ornate doors that open to reveal her
- * before fading away to show the main website.
+ * WelcomeGate — a cinematic temple-style welcome gate for Ridgewood School.
  *
- * Behavior:
- *  - Shows on first visit per browser (localStorage flag "ridgewood-welcomed-v1")
- *  - Skip button available immediately
- *  - Doors slide apart on click, revealing Saraswati for 2 seconds
- *  - Then gate fades out and main website is visible
- *  - Body scroll is locked while gate is visible
+ * Cinematic sequence (when user clicks "Tap to enter"):
+ *   1. CLOSED — ornate temple doors with Sanskrit symbols + gold filigree
+ *   2. OPENING — doors slide apart (1.4s), revealing bright divine light behind
+ *   3. REVEALING — light blooms outward (god rays + glow), Saraswati fades in rising from the light (1.2s)
+ *   4. HOLDING — Saraswati fully visible with caption "विद्या ददाति विनयम्" (1.4s)
+ *   5. EXITING — entire scene fades away, main website appears (1.2s)
+ *
+ * Total animation: ~5 seconds of cinematic entrance.
+ * Only shows on first visit per browser (localStorage "ridgewood-welcomed-v1").
  */
 
 const STORAGE_KEY = "ridgewood-welcomed-v1";
 
+type Stage = "closed" | "opening" | "revealing" | "holding" | "exited";
+
 export function WelcomeGate() {
   const [show, setShow] = React.useState(false);
-  const [opened, setOpened] = React.useState(false);
-  const [exited, setExited] = React.useState(false);
+  const [stage, setStage] = React.useState<Stage>("closed");
 
+  // On mount: check localStorage to decide whether to show
   React.useEffect(() => {
     try {
       const seen = window.localStorage.getItem(STORAGE_KEY);
@@ -33,7 +35,7 @@ export function WelcomeGate() {
         const t = setTimeout(() => setShow(true), 300);
         return () => clearTimeout(t);
       } else {
-        setExited(true);
+        setStage("exited");
       }
     } catch {
       const t = setTimeout(() => setShow(true), 300);
@@ -41,44 +43,61 @@ export function WelcomeGate() {
     }
   }, []);
 
+  // Lock body scroll while gate is visible
   React.useEffect(() => {
-    if (show && !exited) {
+    if (show && stage !== "exited") {
       const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prev;
       };
     }
-  }, [show, exited]);
+  }, [show, stage]);
 
   const handleEnter = () => {
-    if (opened) return;
-    setOpened(true);
+    if (stage !== "closed") return;
     try {
       window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
     } catch {
       // ignore
     }
-    // After doors open + Saraswati is visible for ~2.5s, fade out completely
-    setTimeout(() => setExited(true), 3000);
+    // Cinematic timeline:
+    setStage("opening");
+    setTimeout(() => setStage("revealing"), 1400); // doors finish opening
+    setTimeout(() => setStage("holding"), 2600);   // Saraswati fully revealed
+    setTimeout(() => setStage("exited"), 4000);    // fade out to website
   };
 
-  if (exited) return null;
+  // For "Skip" button — jump straight to exited
+  const handleSkip = () => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+    } catch {
+      // ignore
+    }
+    setStage("exited");
+  };
+
+  if (stage === "exited") return null;
+
+  const opened = stage !== "closed";
+  const revealing = stage === "revealing" || stage === "holding" || stage === "exited";
+  const isFadingOut = stage === "exited";
 
   return (
     <AnimatePresence>
       {show && (
         <motion.div
           initial={{ opacity: 1 }}
-          animate={{ opacity: opened ? 0 : 1 }}
+          animate={{ opacity: isFadingOut ? 0 : 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: opened ? 1.4 : 0.4, ease: "easeOut", delay: opened ? 1.6 : 0 }}
+          transition={{ duration: isFadingOut ? 1.2 : 0.4, ease: "easeOut" }}
           className="fixed inset-0 z-[200] bg-navy-dark"
           aria-modal="true"
           role="dialog"
           aria-label="Welcome to Ridgewood School, Mirganj"
         >
-          {/* Decorative ambient glow */}
+          {/* Ambient glow background */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-gold/15 blur-[120px]" />
             <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-navy-light/30 blur-[100px]" />
@@ -89,10 +108,10 @@ export function WelcomeGate() {
           <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent z-30" />
           <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent z-30" />
 
-          {/* Skip button */}
-          {!opened && (
+          {/* Skip button — visible while doors are closed */}
+          {stage === "closed" && (
             <button
-              onClick={handleEnter}
+              onClick={handleSkip}
               className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 grid place-items-center h-10 w-10 sm:h-11 sm:w-11 rounded-full border border-gold/40 bg-navy/40 backdrop-blur-sm text-cream hover:bg-gold hover:text-navy-dark hover:border-gold transition-colors"
               aria-label="Skip welcome and enter website"
             >
@@ -107,7 +126,7 @@ export function WelcomeGate() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: opened ? 0 : 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.4 }}
                 className="mb-3 sm:mb-4"
               >
                 <BrandLogo variant="full" size={48} tone="white" className="mx-auto" />
@@ -117,7 +136,7 @@ export function WelcomeGate() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: opened ? 0 : 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.25 }}
+                transition={{ duration: 0.4 }}
                 className="inline-block relative mb-4 sm:mb-5"
               >
                 <div className="relative bg-cream border-2 border-gold/40 rounded-full px-5 sm:px-8 py-2.5 shadow-luxe">
@@ -139,15 +158,78 @@ export function WelcomeGate() {
 
               {/* The Gate — temple-style arched doors */}
               <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm aspect-[3/4] my-2">
-                {/* Saraswati image — revealed when doors open */}
+                {/* === DIVINE LIGHT — appears behind doors when they open === */}
+                {/* Bright white-gold radial glow that blooms outward when doors open */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.3 }}
                   animate={{
-                    opacity: opened ? 1 : 0,
-                    scale: opened ? 1 : 0.95,
+                    opacity: opened ? (revealing ? 1 : 0.7) : 0,
+                    scale: opened ? (revealing ? 1.2 : 1) : 0.3,
                   }}
-                  transition={{ duration: 0.8, delay: opened ? 0.4 : 0 }}
+                  transition={{ duration: revealing ? 1.2 : 0.6, ease: "easeOut" }}
+                  className="absolute inset-0 rounded-[1.5rem] overflow-hidden"
+                  style={{ zIndex: 10 }}
+                >
+                  {/* Bright central light source */}
+                  <div className="absolute inset-0 bg-gradient-radial from-white via-gold-light/80 to-transparent" style={{ background: "radial-gradient(circle at center, #ffffff 0%, #ffe9a8 30%, #ffd770 50%, #c9a96180 70%, transparent 100%)" }} />
+                  {/* Inner intense glow */}
+                  <div className="absolute inset-1/4 rounded-full bg-white blur-2xl" />
+                </motion.div>
+
+                {/* === GOD RAYS — diagonal light beams from center === */}
+                <AnimatePresence>
+                  {opened && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: revealing ? 0.6 : 0.3, scale: revealing ? 1.4 : 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-[1.5rem] overflow-hidden pointer-events-none"
+                      style={{ zIndex: 11 }}
+                    >
+                      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 100 100">
+                        {/* 8 diagonal god rays from center */}
+                        {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+                          <rect
+                            key={i}
+                            x="48"
+                            y="-50"
+                            width="4"
+                            height="200"
+                            fill="url(#rayGradient)"
+                            transform={`rotate(${angle} 50 50)`}
+                            opacity="0.7"
+                          />
+                        ))}
+                        <defs>
+                          <linearGradient id="rayGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+                            <stop offset="40%" stopColor="#ffe9a8" stopOpacity="0.4" />
+                            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.8" />
+                            <stop offset="60%" stopColor="#ffe9a8" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* === SARASWATI — appears from the light === */}
+                {/* First fades in AFTER doors are open, emerging from the divine light */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                  animate={{
+                    opacity: revealing ? 1 : 0,
+                    scale: revealing ? 1 : 0.85,
+                    y: revealing ? 0 : 20,
+                  }}
+                  transition={{
+                    duration: stage === "revealing" ? 1.2 : 0.6,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   className="absolute inset-0 rounded-[1.5rem] overflow-hidden border-4 border-gold/50 shadow-luxe"
+                  style={{ zIndex: 15 }}
                 >
                   <img
                     src="/brand/saraswati.webp"
@@ -168,7 +250,7 @@ export function WelcomeGate() {
                   </div>
                 </motion.div>
 
-                {/* LEFT DOOR — slides out to the left when opened */}
+                {/* === LEFT DOOR — slides out to the left === */}
                 <motion.div
                   initial={{ x: 0 }}
                   animate={{ x: opened ? "-105%" : 0 }}
@@ -176,7 +258,7 @@ export function WelcomeGate() {
                   className="absolute inset-y-0 left-0 w-1/2 rounded-l-[1.5rem] overflow-hidden shadow-2xl"
                   style={{ zIndex: 20 }}
                 >
-                  {/* Door body — cream/maroon gradient to look like a real temple door */}
+                  {/* Door body — maroon gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#7a1a2a] via-[#4a0a18] to-[#2a0810]" />
 
                   {/* Gold filigree pattern overlay */}
@@ -194,41 +276,41 @@ export function WelcomeGate() {
                     </svg>
                   </div>
 
-                  {/* Arch at top — rounded Indian temple arch */}
+                  {/* Arch at top */}
                   <div className="absolute top-0 inset-x-0 h-1/3 bg-gradient-to-b from-[#2a0810] to-transparent" style={{ clipPath: "ellipse(100% 100% at 50% 100%)" }} />
 
-                  {/* Gold border around the door (frame) */}
+                  {/* Gold border frame */}
                   <div className="absolute inset-0 border-2 border-gold/60 rounded-l-[1.5rem]" />
                   <div className="absolute top-0 inset-x-0 h-[3px] bg-gold" />
                   <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gold" />
                   <div className="absolute inset-y-0 left-0 w-[3px] bg-gold" />
 
-                  {/* Inner seam — gold bar on the right edge (where doors meet) */}
+                  {/* Inner seam gold bar */}
                   <div className="absolute inset-y-0 right-0 w-[4px] bg-gradient-to-b from-gold via-gold-light to-gold shadow-[0_0_8px_oklch(0.78_0.13_75)]" />
 
-                  {/* Sanskrit ॐ ornament at top of door */}
+                  {/* Sanskrit ॐ at top */}
                   <div className="absolute top-4 left-1/2 -translate-x-1/2 text-gold text-[24px] sm:text-[28px] font-serif drop-shadow-[0_0_4px_oklch(0.78_0.13_75_/_0.6)]">
                     ॐ
                   </div>
 
-                  {/* Decorative panel in the middle of the door */}
+                  {/* Medallion in middle with श्री */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 grid place-items-center">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-gold/70 grid place-items-center bg-gradient-to-br from-[#2a0810] to-[#4a0a18]">
                       <span className="text-gold text-[16px] sm:text-[18px] font-serif">श्री</span>
                     </div>
                   </div>
 
-                  {/* Door knocker / handle (gold knob near the seam) */}
+                  {/* Door knocker */}
                   <div className="absolute top-1/2 -translate-y-1/2 right-2 h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-gold-gradient shadow-gold border-2 border-cream/50" />
 
-                  {/* Decorative lamp/diya at bottom of door */}
+                  {/* Diya lamp at bottom */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center">
                     <div className="h-3 w-3 rounded-full bg-gold shadow-[0_0_12px_3px_oklch(0.78_0.13_75)]" />
                     <div className="h-1 w-6 mt-1 rounded-full bg-gold/40" />
                   </div>
                 </motion.div>
 
-                {/* RIGHT DOOR — slides out to the right when opened */}
+                {/* === RIGHT DOOR — slides out to the right === */}
                 <motion.div
                   initial={{ x: 0 }}
                   animate={{ x: opened ? "105%" : 0 }}
@@ -236,10 +318,10 @@ export function WelcomeGate() {
                   className="absolute inset-y-0 right-0 w-1/2 rounded-r-[1.5rem] overflow-hidden shadow-2xl"
                   style={{ zIndex: 20 }}
                 >
-                  {/* Door body — matching gradient */}
+                  {/* Door body */}
                   <div className="absolute inset-0 bg-gradient-to-bl from-[#7a1a2a] via-[#4a0a18] to-[#2a0810]" />
 
-                  {/* Gold filigree pattern overlay */}
+                  {/* Gold filigree overlay */}
                   <div className="absolute inset-0 pointer-events-none opacity-50">
                     <svg className="w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 200 400">
                       <defs>
@@ -257,39 +339,39 @@ export function WelcomeGate() {
                   {/* Arch at top */}
                   <div className="absolute top-0 inset-x-0 h-1/3 bg-gradient-to-b from-[#2a0810] to-transparent" style={{ clipPath: "ellipse(100% 100% at 50% 100%)" }} />
 
-                  {/* Gold border around the door */}
+                  {/* Gold border frame */}
                   <div className="absolute inset-0 border-2 border-gold/60 rounded-r-[1.5rem]" />
                   <div className="absolute top-0 inset-x-0 h-[3px] bg-gold" />
                   <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gold" />
                   <div className="absolute inset-y-0 right-0 w-[3px] bg-gold" />
 
-                  {/* Inner seam — gold bar on the left edge (where doors meet) */}
+                  {/* Inner seam gold bar */}
                   <div className="absolute inset-y-0 left-0 w-[4px] bg-gradient-to-b from-gold via-gold-light to-gold shadow-[0_0_8px_oklch(0.78_0.13_75)]" />
 
-                  {/* Sanskrit ornament at top of door */}
+                  {/* Sanskrit श्री at top */}
                   <div className="absolute top-4 left-1/2 -translate-x-1/2 text-gold text-[24px] sm:text-[28px] font-serif drop-shadow-[0_0_4px_oklch(0.78_0.13_75_/_0.6)]">
                     श्री
                   </div>
 
-                  {/* Decorative panel in the middle of the door */}
+                  {/* Medallion with विद्या */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 grid place-items-center">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-gold/70 grid place-items-center bg-gradient-to-bl from-[#2a0810] to-[#4a0a18]">
                       <span className="text-gold text-[16px] sm:text-[18px] font-serif">विद्या</span>
                     </div>
                   </div>
 
-                  {/* Door knocker / handle (gold knob near the seam) */}
+                  {/* Door knocker */}
                   <div className="absolute top-1/2 -translate-y-1/2 left-2 h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-gold-gradient shadow-gold border-2 border-cream/50" />
 
-                  {/* Decorative lamp/diya at bottom of door */}
+                  {/* Diya lamp at bottom */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center">
                     <div className="h-3 w-3 rounded-full bg-gold shadow-[0_0_12px_3px_oklch(0.78_0.13_75)]" />
                     <div className="h-1 w-6 mt-1 rounded-full bg-gold/40" />
                   </div>
                 </motion.div>
 
-                {/* Top arch — decorative element above the door seam */}
-                {!opened && (
+                {/* Top arch ornament — gold ॐ above the door seam (visible while closed) */}
+                {stage === "closed" && (
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -304,7 +386,7 @@ export function WelcomeGate() {
 
                 {/* Click prompt — visible while doors are closed */}
                 <AnimatePresence>
-                  {!opened && (
+                  {stage === "closed" && (
                     <motion.button
                       onClick={handleEnter}
                       initial={{ opacity: 0 }}
@@ -330,7 +412,7 @@ export function WelcomeGate() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: opened ? 0 : 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.4 }}
                 className="mt-16 sm:mt-20"
               >
                 <h1 className="font-heading text-[20px] sm:text-[26px] md:text-[30px] font-bold text-cream leading-tight text-balance">
