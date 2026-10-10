@@ -36,7 +36,7 @@ export function Hero() {
       ref={ref}
       className="relative isolate overflow-hidden bg-cream text-navy pt-14 pb-10 sm:pt-20 sm:pb-16 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center"
     >
-      {/* Cloud "Admissions Open" banner at the very top of hero */}
+      {/* Cloud "Admissions Open" banner at the very top of hero — clickable, scrolls to admission form */}
       <div className="relative z-20 text-center px-4 mb-4 sm:mb-6">
         <motion.div
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -44,24 +44,31 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-block relative"
         >
-          <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-8 pb-3 sm:pt-10 sm:pb-4 shadow-luxe">
-            {/* Cloud bumps — kept ENTIRELY above the cloud body (no overlap) so they
-                can NEVER cover the text. Small enough to look like cloud puffs. */}
-            <div className="absolute -top-3 left-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            <div className="absolute -top-3 right-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0" />
-            {/* Text — relative + z-10 ensures it always paints on top of bumps */}
-            <div className="relative z-10 flex items-center gap-2 sm:gap-3">
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
-              <span className="font-heading text-[14px] sm:text-[20px] font-bold text-sunset-gradient animate-gradient-flow leading-none whitespace-nowrap">
-                Admissions Open
-              </span>
-              <span className="font-heading text-[16px] sm:text-[24px] font-bold text-royal-gradient animate-gradient-flow leading-none whitespace-nowrap">
-                2026–2027
-              </span>
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
+          <a
+            href="#admissions"
+            aria-label="Admissions Open 2026-2027 — Click to apply now"
+            title="Click to apply now"
+            className="group block relative cursor-pointer transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-4 focus-visible:ring-offset-cream rounded-full"
+          >
+            <div className="relative bg-card border-2 border-gold/30 rounded-full px-5 sm:px-10 pt-8 pb-3 sm:pt-10 sm:pb-4 shadow-luxe group-hover:border-gold group-hover:shadow-gold transition-all">
+              {/* Cloud bumps — kept ENTIRELY above the cloud body (no overlap) so they
+                  can NEVER cover the text. Small enough to look like cloud puffs. */}
+              <div className="absolute -top-3 left-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0 group-hover:border-gold transition-colors" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-card border-2 border-gold/30 border-b-0 group-hover:border-gold transition-colors" />
+              <div className="absolute -top-3 right-[20%] w-4 h-4 rounded-full bg-card border-2 border-gold/30 border-b-0 group-hover:border-gold transition-colors" />
+              {/* Text — relative + z-10 ensures it always paints on top of bumps */}
+              <div className="relative z-10 flex items-center gap-2 sm:gap-3">
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
+                <span className="font-heading text-[14px] sm:text-[20px] font-bold text-sunset-gradient animate-gradient-flow leading-none whitespace-nowrap">
+                  Admissions Open
+                </span>
+                <span className="font-heading text-[16px] sm:text-[24px] font-bold text-royal-gradient animate-gradient-flow leading-none whitespace-nowrap">
+                  2026–2027
+                </span>
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gold shrink-0" />
+              </div>
             </div>
-          </div>
+          </a>
         </motion.div>
       </div>
       {/* Layer 1 — cream gradient with subtle navy circle pattern */}
