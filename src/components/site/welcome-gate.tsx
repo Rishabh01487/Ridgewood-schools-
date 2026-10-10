@@ -16,9 +16,13 @@ import { BrandLogo } from "./ornament";
  *   5. EXITING — entire scene fades away, main website appears (1.2s)
  *
  * Total animation: ~5 seconds of cinematic entrance.
- * Only shows on first visit per browser (localStorage "ridgewood-welcomed-v2").
+ * Shows once per browser session (sessionStorage "ridgewood-welcomed-v2").
+ * When the browser/tab is closed and reopened, the gate shows again.
  */
 
+// Use sessionStorage so the gate shows once per browser session.
+// When the user closes the browser/tab and reopens it, the gate shows again.
+// Within a single session (refresh, navigating back to home), the gate is skipped.
 const STORAGE_KEY = "ridgewood-welcomed-v2";
 
 type Stage = "closed" | "opening" | "revealing" | "holding" | "exited";
@@ -29,26 +33,25 @@ export function WelcomeGate() {
   const [show, setShow] = React.useState(false);
   const [stage, setStage] = React.useState<Stage>("closed");
 
-  // On mount: check localStorage to decide whether to show
+  // On mount: check sessionStorage to decide whether to show this session.
+  // (sessionStorage is cleared when the browser is closed, so the gate will
+  //  show again the next time the user opens the site fresh.)
   React.useEffect(() => {
     try {
-      const seen = window.localStorage.getItem(STORAGE_KEY);
+      const seen = window.sessionStorage.getItem(STORAGE_KEY);
       if (!seen) {
-        // First visit — show the gate.
-        // Remove the pre-hydration blocker style (the React gate will take over
-        // as the dark overlay). The html.gate-active class stays so body remains
-        // hidden until the React gate is fully mounted and ready.
+        // First visit this session — show the gate.
         const blockerStyle = document.getElementById("gate-blocker-style");
         if (blockerStyle) blockerStyle.remove();
         setShow(true);
       } else {
-        // Returning visitor — make sure the website is visible.
+        // Already seen this session — make sure the website is visible.
         document.documentElement.classList.remove("gate-active");
         document.documentElement.classList.add("gate-done");
         setStage("exited");
       }
     } catch {
-      // localStorage blocked — show the gate by default (first-visit behavior)
+      // sessionStorage blocked — show the gate by default
       const blockerStyle = document.getElementById("gate-blocker-style");
       if (blockerStyle) blockerStyle.remove();
       setShow(true);
@@ -78,7 +81,7 @@ export function WelcomeGate() {
   const handleEnter = () => {
     if (stage !== "closed") return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+      window.sessionStorage.setItem(STORAGE_KEY, new Date().toISOString());
     } catch {
       // ignore
     }
@@ -92,7 +95,7 @@ export function WelcomeGate() {
   // For "Skip" button — jump straight to exited
   const handleSkip = () => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+      window.sessionStorage.setItem(STORAGE_KEY, new Date().toISOString());
     } catch {
       // ignore
     }

@@ -136,31 +136,32 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Pre-hydration blocker: prevents the main website from flashing
-            before the WelcomeGate mounts on first visit.
+            before the WelcomeGate mounts.
             Runs SYNCHRONOUSLY before the body renders, so the user never sees
             the main website until the gate has been clicked (or skipped).
-            On return visits (localStorage flag set), the blocker is removed
-            immediately so the site loads normally. */}
+            Uses sessionStorage — gate shows once per browser session.
+            When the browser/tab is closed and reopened, the gate shows again.
+            On refresh within the same session, the gate is skipped. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){
               try {
                 var KEY = 'ridgewood-welcomed-v2';
-                if (window.localStorage && window.localStorage.getItem(KEY)) {
-                  // Returning visitor — no gate needed, let site show normally
+                if (window.sessionStorage && window.sessionStorage.getItem(KEY)) {
+                  // Already seen this session — no gate needed, let site show normally
                   document.documentElement.classList.add('gate-done');
                   return;
                 }
-                // First visit — inject a dark overlay immediately so the website
-                // body is never visible. The WelcomeGate React component will take
-                // over this overlay and animate it.
+                // First visit this session — inject a dark overlay immediately so the
+                // website body is never visible. The WelcomeGate React component
+                // will take over this overlay and animate it.
                 document.documentElement.classList.add('gate-active');
                 var s = document.createElement('style');
                 s.id = 'gate-blocker-style';
                 s.textContent = 'html.gate-active body { visibility:hidden !important; background:#11183a !important; }';
                 document.head.appendChild(s);
               } catch (e) {
-                // localStorage blocked (private mode) — still show gate by default
+                // sessionStorage blocked (private mode) — still show gate by default
                 document.documentElement.classList.add('gate-active');
                 var s = document.createElement('style');
                 s.id = 'gate-blocker-style';
