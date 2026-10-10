@@ -16,10 +16,10 @@ import { BrandLogo } from "./ornament";
  *   5. EXITING — entire scene fades away, main website appears (1.2s)
  *
  * Total animation: ~5 seconds of cinematic entrance.
- * Only shows on first visit per browser (localStorage "ridgewood-welcomed-v1").
+ * Only shows on first visit per browser (localStorage "ridgewood-welcomed-v2").
  */
 
-const STORAGE_KEY = "ridgewood-welcomed-v1";
+const STORAGE_KEY = "ridgewood-welcomed-v2";
 
 type Stage = "closed" | "opening" | "revealing" | "holding" | "exited";
 
@@ -233,9 +233,9 @@ export function WelcomeGate() {
                 >
                   <img
                     src="/brand/saraswati.webp"
-                    alt="Maa Saraswati — Goddess of Knowledge, Music, and Arts, sitting on a lotus with veena, books, and swan"
-                    width={600}
-                    height={1050}
+                    alt="Maa Saraswati — Goddess of Knowledge, Music, and Arts, seated on a lotus with veena, scriptures, lotus, and peacocks around her, divine aura and mandala halo"
+                    width={700}
+                    height={1244}
                     fetchPriority="high"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
