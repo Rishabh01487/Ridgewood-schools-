@@ -132,10 +132,11 @@ export function WelcomeGate() {
           <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent z-30" />
           <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent z-30" />
 
-          {/* Skip button — visible while doors are closed */}
+          {/* Skip button — visible while doors are closed.
+              Stop propagation so clicking it doesn't also trigger the gate-open handler. */}
           {stage === "closed" && (
             <button
-              onClick={handleSkip}
+              onClick={(e) => { e.stopPropagation(); handleSkip(); }}
               className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 grid place-items-center h-10 w-10 sm:h-11 sm:w-11 rounded-full border border-gold/40 bg-navy/40 backdrop-blur-sm text-cream hover:bg-gold hover:text-navy-dark hover:border-gold transition-colors"
               aria-label="Skip welcome and enter website"
             >
@@ -143,8 +144,12 @@ export function WelcomeGate() {
             </button>
           )}
 
-          {/* Main content */}
-          <div className="relative h-full w-full grid place-items-center px-4 py-10 overflow-y-auto">
+          {/* Main content — clicking anywhere in this area opens the gate (when closed).
+              Skip button (X) stops propagation so it still works independently. */}
+          <div
+            onClick={stage === "closed" ? handleEnter : undefined}
+            className={stage === "closed" ? "relative h-full w-full grid place-items-center px-4 py-10 overflow-y-auto cursor-pointer" : "relative h-full w-full grid place-items-center px-4 py-10 overflow-y-auto"}
+          >
             <div className="relative w-full max-w-2xl mx-auto text-center">
               {/* Top brand line */}
               <motion.div
@@ -180,8 +185,23 @@ export function WelcomeGate() {
                 </div>
               </motion.div>
 
-              {/* The Gate — temple-style arched doors */}
-              <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm aspect-[3/4] my-2">
+              {/* The Gate — temple-style arched doors.
+                  The whole gate area is clickable (when closed) — tapping anywhere
+                  on the doors, the prompt, or the surrounding area opens the gate.
+                  Skip button (X) and other interactive elements stop propagation. */}
+              <div
+                onClick={stage === "closed" ? handleEnter : undefined}
+                className={stage === "closed" ? "relative mx-auto w-full max-w-[280px] sm:max-w-sm aspect-[3/4] my-2 cursor-pointer" : "relative mx-auto w-full max-w-[280px] sm:max-w-sm aspect-[3/4] my-2"}
+                role={stage === "closed" ? "button" : undefined}
+                tabIndex={stage === "closed" ? 0 : undefined}
+                onKeyDown={(e) => {
+                  if (stage === "closed" && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault();
+                    handleEnter();
+                  }
+                }}
+                aria-label={stage === "closed" ? "Open the gate to enter Ridgewood School website (tap anywhere)" : undefined}
+              >
                 {/* === DIVINE LIGHT — appears behind doors when they open === */}
                 {/* Bright white-gold radial glow that blooms outward when doors open */}
                 <motion.div
