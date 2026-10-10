@@ -54,7 +54,7 @@ export function WhyChoose() {
             Why Choose Ridgewood
           </div>
           <h2 className="font-heading text-sunset-gradient animate-gradient-flow font-bold leading-tight text-[30px] sm:text-[40px] md:text-[46px] text-balance">
-            A premium primary education, gently shaped around every child
+            A premium education, gently shaped around every child
           </h2>
           <div className="mt-4">
             <GoldRule />

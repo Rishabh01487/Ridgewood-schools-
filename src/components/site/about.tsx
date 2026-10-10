@@ -26,7 +26,7 @@ export function About() {
             <GoldRule />
           </div>
           <p className="mt-6 text-[16px] sm:text-[17px] leading-relaxed text-navy/70 text-pretty">
-            Ridgewood School, Mirganj is a CBSE primary wing founded under the
+            Ridgewood School, Mirganj is a CBSE curriculum school founded under the
             Ashok Educational and Social Welfare Trust. Established in 2020, we
             began our journey with a Pre-Primary section in collaboration with
             Bachpan — A Play School — a renowned chain managed by S.K.

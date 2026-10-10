@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Users, CalendarClock, BookOpen, Award } from "lucide-react";
 
 const STATS = [
-  { icon: Users, value: "200+", label: "Curious Learners", sub: "Across Pre-Primary to 8th Standard" },
+  { icon: Users, value: "200+", label: "Curious Learners", sub: "Across Pre-Primary to 5th Standard" },
   { icon: CalendarClock, value: "5+", label: "Years of Trust", sub: "Established 2020" },
   { icon: BookOpen, value: "CBSE", label: "Curriculum", sub: "NEP 2020 aligned" },
   { icon: Award, value: "1:15", label: "Teacher Ratio", sub: "Personalised care" },

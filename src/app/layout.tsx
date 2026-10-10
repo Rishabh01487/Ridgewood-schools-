@@ -34,26 +34,26 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Ridgewood School Mirganj | Best CBSE Primary School in Mirganj, Bihar",
+      "Ridgewood School Mirganj | Best CBSE School in Mirganj, Bihar",
     template: "%s | Ridgewood School Mirganj",
   },
   description:
-    "Ridgewood School Mirganj — the best CBSE primary school in Mirganj, Bihar (est. 2020). Admissions open 2026-27 for Pre-Primary to Class 8. NEP 2020-aligned, child-centred learning, smart classes, library, sports, music & arts. Parent portal with report cards, notices & private photo gallery. Call +91 70522 24726.",
+    "Ridgewood School Mirganj — the best CBSE school in Mirganj, Bihar (est. 2020). Admissions open 2026-27 for Pre-Primary to Class 5. NEP 2020-aligned, child-centred learning, smart classes, library, sports, music & arts. Parent portal with report cards, notices & private photo gallery. Call +91 70522 24726.",
   keywords: [
     "Ridgewood School Mirganj",
     "Ridgewood School",
     "best school in Mirganj",
     "CBSE school Mirganj",
     "CBSE school Bihar Mirganj",
-    "primary school Mirganj",
-    "best primary school Mirganj",
+    "school Mirganj",
+    "best school Mirganj",
     "school admission Mirganj 2026",
     "school admission Mirganj 2027",
     "nursery school Mirganj",
     "LKG UKG school Mirganj",
     "play school Mirganj",
     "Pre-Primary school Mirganj",
-    "Class 1 to 8 school Mirganj",
+    "Class 1 to 5 school Mirganj",
     "Ridgewood Mirganj admissions",
     "Ridgewood Mirganj parent login",
     "Ridgewood Mirganj fee structure",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
   category: "Education",
   openGraph: {
     title:
-      "Ridgewood School Mirganj | Best CBSE Primary School in Mirganj, Bihar",
+      "Ridgewood School Mirganj | Best CBSE School in Mirganj, Bihar",
     description:
-      "Admissions Open 2026-27! CBSE primary school in Mirganj (est. 2020). Pre-Primary to Class 8. NEP 2020-aligned, smart classes, sports, arts. Parent portal with report cards, notices & private photo gallery. Call +91 70522 24726.",
+      "Admissions Open 2026-27! CBSE school in Mirganj (est. 2020). Pre-Primary to Class 5. NEP 2020-aligned, smart classes, sports, arts. Parent portal with report cards, notices & private photo gallery. Call +91 70522 24726.",
     siteName: "Ridgewood School, Mirganj",
     type: "website",
     url: SITE_URL,
@@ -83,16 +83,16 @@ export const metadata: Metadata = {
         url: "/brand/ridgewood-full-logo.png",
         width: 1506,
         height: 600,
-        alt: "Ridgewood School, Mirganj — Best CBSE Primary School in Mirganj, Bihar",
+        alt: "Ridgewood School, Mirganj — Best CBSE School in Mirganj, Bihar",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Ridgewood School Mirganj | Best CBSE Primary School in Mirganj, Bihar",
+      "Ridgewood School Mirganj | Best CBSE School in Mirganj, Bihar",
     description:
-      "Admissions Open 2026-27! CBSE primary school in Mirganj. Pre-Primary to Class 8. NEP 2020-aligned. Call +91 70522 24726.",
+      "Admissions Open 2026-27! CBSE school in Mirganj. Pre-Primary to Class 5. NEP 2020-aligned. Call +91 70522 24726.",
     images: ["/brand/ridgewood-full-logo.png"],
   },
   robots: {
@@ -148,7 +148,7 @@ export default function RootLayout({
               name: "Ridgewood School, Mirganj",
               alternateName: ["Ridgewood Mirganj", "Ridgewood School", "Ridgewood"],
               description:
-                "Ridgewood School Mirganj — the best CBSE primary school in Mirganj, Bihar. Established 2020 under the Ashok Educational and Social Welfare Trust. Pre-Primary to Class 8. NEP 2020-aligned, child-centred learning with smart classes, library, sports, music & arts. Admissions open 2026-27.",
+                "Ridgewood School Mirganj — the best CBSE school in Mirganj, Bihar. Established 2020 under the Ashok Educational and Social Welfare Trust. Pre-Primary to Class 5. NEP 2020-aligned, child-centred learning with smart classes, library, sports, music & arts. Admissions open 2026-27.",
               url: SITE_URL,
               logo: `${SITE_URL}/brand/ridgewood-full-logo.png`,
               image: `${SITE_URL}/brand/ridgewood-full-logo.png`,
@@ -203,11 +203,10 @@ export default function RootLayout({
               ],
               departments: [
                 { "@type": "EducationalOrganization", name: "Pre-Primary (Bachpan)" },
-                { "@type": "EducationalOrganization", name: "Primary School (Class 1-5)" },
-                { "@type": "EducationalOrganization", name: "Middle School (Class 6-8)" },
+                { "@type": "EducationalOrganization", name: "School (Class 1-5)" },
               ],
               knowsAbout: [
-                "CBSE Primary Education",
+                "CBSE Education",
                 "NEP 2020 Aligned Curriculum",
                 "Pre-Primary Education",
                 "Child-Centred Pedagogy",
@@ -246,7 +245,7 @@ export default function RootLayout({
                   name: "What is Ridgewood School Mirganj?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Ridgewood School, Mirganj is a CBSE curriculum primary school in Mirganj, Bihar, established in 2020 under the Ashok Educational and Social Welfare Trust. It offers classes from Pre-Primary (in collaboration with Bachpan) up to Class 8, with NEP 2020-aligned, child-centred learning. From Roots to Ridges.",
+                    text: "Ridgewood School, Mirganj is a CBSE curriculum school in Mirganj, Bihar, established in 2020 under the Ashok Educational and Social Welfare Trust. It offers classes from Pre-Primary (in collaboration with Bachpan) up to Class 5, with NEP 2020-aligned, child-centred learning. From Roots to Ridges.",
                   },
                 },
                 {
@@ -254,7 +253,7 @@ export default function RootLayout({
                   name: "Is Ridgewood School Mirganj a CBSE school?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, Ridgewood School, Mirganj follows the CBSE (Central Board of Secondary Education) curriculum. It is one of the best CBSE primary schools in Mirganj, Bihar, with NEP 2020-aligned learning, smart classes, and modern teaching methods.",
+                    text: "Yes, Ridgewood School, Mirganj follows the CBSE (Central Board of Secondary Education) curriculum. It is one of the best CBSE schools in Mirganj, Bihar, with NEP 2020-aligned learning, smart classes, and modern teaching methods.",
                   },
                 },
                 {
@@ -262,7 +261,7 @@ export default function RootLayout({
                   name: "What classes does Ridgewood School Mirganj offer?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Ridgewood School Mirganj offers admissions from Pre-Primary (Play Group, Nursery, LKG, UKG in collaboration with Bachpan) to Class 8 (8th Standard). Classes follow the CBSE curriculum with NEP 2020 alignment.",
+                    text: "Ridgewood School Mirganj offers admissions from Pre-Primary (Play Group, Nursery, LKG, UKG in collaboration with Bachpan) to Class 5 (5th Standard). Classes follow the CBSE curriculum with NEP 2020 alignment.",
                   },
                 },
                 {
@@ -270,7 +269,7 @@ export default function RootLayout({
                   name: "Are admissions open at Ridgewood School Mirganj for 2026-27?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, admissions are open for the academic year 2026-2027 at Ridgewood School, Mirganj for Pre-Primary to Class 8. Limited seats. Parents can apply online at ridgewoodschools.com or call +91 70522 24726 for enquiries.",
+                    text: "Yes, admissions are open for the academic year 2026-2027 at Ridgewood School, Mirganj for Pre-Primary to Class 5. Limited seats. Parents can apply online at ridgewoodschools.com or call +91 70522 24726 for enquiries.",
                   },
                 },
                 {

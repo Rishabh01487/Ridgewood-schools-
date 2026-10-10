@@ -39,7 +39,7 @@ export function AdmissionsBanner() {
                 2026 – 2027
               </span>
               <p className="text-[11px] sm:text-[12px] text-navy/60 tracking-wide mt-1">
-                Limited seats · Pre-Primary to 8th Standard · Apply now
+                Limited seats · Pre-Primary to 5th Standard · Apply now
               </p>
             </div>
           </div>

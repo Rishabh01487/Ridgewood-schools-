@@ -31,7 +31,7 @@ const FACILITIES: Facility[] = [
     eyebrow: "Technology-Enabled Learning",
     title: "Smart Classes that bring lessons to life",
     description:
-      "Ridgewood Primary School integrates smart classes to enhance the learning experience for its students. These technologically equipped classrooms make lessons more engaging through interactive audio-visual tools. Smart classes help simplify complex concepts, making education fun and accessible for young learners.",
+      "Ridgewood School integrates smart classes to enhance the learning experience for its students. These technologically equipped classrooms make lessons more engaging through interactive audio-visual tools. Smart classes help simplify complex concepts, making education fun and accessible for young learners.",
     bullets: [
       "Interactive audio-visual tools",
       "Simplified complex concepts",
@@ -65,7 +65,7 @@ const FACILITIES: Facility[] = [
     eyebrow: "Hands-on Discovery",
     title: "Smart Lab & Classroom for curious minds",
     description:
-      "Ridgewood Primary School features a modern Smart Lab to foster hands-on learning and skill development. Equipped with advanced tools and technology, the lab allows students to explore science, math, and other subjects through interactive experiments and activities. This innovative approach encourages curiosity, critical thinking, and problem-solving in young minds.",
+      "Ridgewood School features a modern Smart Lab to foster hands-on learning and skill development. Equipped with advanced tools and technology, the lab allows students to explore science, math, and other subjects through interactive experiments and activities. This innovative approach encourages curiosity, critical thinking, and problem-solving in young minds.",
     bullets: [
       "Advanced tools & technology",
       "Interactive experiments across subjects",

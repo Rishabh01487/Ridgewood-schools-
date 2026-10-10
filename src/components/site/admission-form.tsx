@@ -36,9 +36,6 @@ const CLASSES = [
   "3rd Standard",
   "4th Standard",
   "5th Standard",
-  "6th Standard",
-  "7th Standard",
-  "8th Standard",
 ];
 
 const ACADEMIC_YEARS = ["2026–2027", "2027–2028"];
@@ -141,7 +138,7 @@ export function AdmissionForm() {
           <div className="inline-flex items-center gap-2 text-[12px] tracking-luxe uppercase text-gold-dark font-medium mb-3"><LeafMark size={18} />Registration Open · 2026–27</div>
           <h2 className="font-heading text-sunset-gradient animate-gradient-flow font-bold leading-tight text-[28px] sm:text-[40px] text-balance">Secure your child&apos;s seat at Ridgewood</h2>
           <div className="mt-4"><GoldRule /></div>
-          <p className="mt-4 text-[15px] sm:text-[16px] text-navy/70 max-w-2xl mx-auto text-pretty">Complete the registration form below. Limited seats available from Pre-Primary to 8th Standard. We&apos;ll contact you within 1 working day.</p>
+          <p className="mt-4 text-[15px] sm:text-[16px] text-navy/70 max-w-2xl mx-auto text-pretty">Complete the registration form below. Limited seats available from Pre-Primary to 5th Standard. We&apos;ll contact you within 1 working day.</p>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-6">

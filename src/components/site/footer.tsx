@@ -32,9 +32,6 @@ const PROGRAMS = [
   "3rd Standard",
   "4th Standard",
   "5th Standard",
-  "6th Standard",
-  "7th Standard",
-  "8th Standard",
 ];
 
 const FACILITIES_LIST = [
