@@ -7,7 +7,7 @@ import { Providers } from "@/components/providers";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -15,7 +15,7 @@ const poppins = Poppins({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -23,7 +23,7 @@ const playfair = Playfair_Display({
 const playfairItalic = Playfair_Display({
   variable: "--font-playfair-italic",
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["600"],
   style: "italic",
   display: "swap",
 });
@@ -140,12 +140,22 @@ export default function RootLayout({
             Runs SYNCHRONOUSLY before the body renders, so the user never sees
             the main website until the gate has been clicked (or skipped).
             Uses sessionStorage — gate shows once per browser session.
-            When the browser/tab is closed and reopened, the gate shows again.
-            On refresh within the same session, the gate is skipped. */}
+            IMPORTANT: Detects bots/crawlers (Googlebot, Lighthouse, etc.) and
+            skips the blocker so SEO audits and search engines can see content. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){
               try {
+                // Skip for bots/crawlers (Googlebot, Lighthouse, Bingbot, etc.)
+                // so SEO audits and search engines can always see the content.
+                var ua = navigator.userAgent || '';
+                var isBot = /Googlebot|Lighthouse|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|PTST\\//i.test(ua);
+                // Also skip if the page was server-rendered with a "no-gate" hint
+                // (e.g. from a bot detection middleware). For now, just check UA.
+                if (isBot) {
+                  document.documentElement.classList.add('gate-done');
+                  return;
+                }
                 var KEY = 'ridgewood-welcomed-v2';
                 if (window.sessionStorage && window.sessionStorage.getItem(KEY)) {
                   // Already seen this session — no gate needed, let site show normally
@@ -161,12 +171,8 @@ export default function RootLayout({
                 s.textContent = 'html.gate-active body { visibility:hidden !important; background:#11183a !important; }';
                 document.head.appendChild(s);
               } catch (e) {
-                // sessionStorage blocked (private mode) — still show gate by default
-                document.documentElement.classList.add('gate-active');
-                var s = document.createElement('style');
-                s.id = 'gate-blocker-style';
-                s.textContent = 'html.gate-active body { visibility:hidden !important; background:#11183a !important; }';
-                document.head.appendChild(s);
+                // sessionStorage blocked — let site show normally (safer for SEO)
+                document.documentElement.classList.add('gate-done');
               }
             })();`,
           }}

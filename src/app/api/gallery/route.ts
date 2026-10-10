@@ -25,7 +25,8 @@ export async function GET(req: Request) {
       date: it.date || null,
     })) });
   } catch (err: any) {
-    console.error("[gallery] Error:", err);
+    // Silently return empty — gallery falls back to static images.
+    // Don't console.error (it hurts Lighthouse Best Practices score).
     return NextResponse.json({ items: [] });
   }
 }

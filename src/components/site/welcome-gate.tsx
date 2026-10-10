@@ -280,7 +280,7 @@ export function WelcomeGate() {
                     alt="Maa Saraswati — Goddess of Knowledge, Music, and Arts, seated on a lotus with veena, scriptures, lotus, and peacocks around her, divine aura and mandala halo"
                     width={700}
                     height={1244}
-                    fetchPriority="high"
+                    loading="eager"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/85 via-navy-dark/15 to-transparent" />
