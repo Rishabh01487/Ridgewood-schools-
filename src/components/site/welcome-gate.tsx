@@ -36,7 +36,24 @@ export function WelcomeGate() {
   // On mount: check sessionStorage to decide whether to show this session.
   // (sessionStorage is cleared when the browser is closed, so the gate will
   //  show again the next time the user opens the site fresh.)
+  // Also skip the gate if the URL has a hash (e.g. #admissions from a QR code)
+  // so users scanning a QR code go directly to the target section.
   React.useEffect(() => {
+    // If URL has a hash (e.g. #admissions), skip the gate entirely
+    if (window.location.hash) {
+      document.documentElement.classList.remove("gate-active");
+      document.documentElement.classList.add("gate-done");
+      setStage("exited");
+      // Also remove the pre-hydration blocker style if present
+      const blockerStyle = document.getElementById("gate-blocker-style");
+      if (blockerStyle) blockerStyle.remove();
+      // Scroll to the target after a short delay (let components load)
+      setTimeout(() => {
+        const target = document.getElementById(window.location.hash.slice(1));
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 1500);
+      return;
+    }
     try {
       const seen = window.sessionStorage.getItem(STORAGE_KEY);
       if (!seen) {

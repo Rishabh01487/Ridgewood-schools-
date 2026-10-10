@@ -146,12 +146,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function(){
               try {
+                // If URL has a hash (e.g. #admissions from a QR code scan),
+                // skip the gate entirely so the user goes directly to the target.
+                if (window.location.hash) {
+                  document.documentElement.classList.add('gate-done');
+                  return;
+                }
                 // Skip for bots/crawlers (Googlebot, Lighthouse, Bingbot, etc.)
                 // so SEO audits and search engines can always see the content.
                 var ua = navigator.userAgent || '';
                 var isBot = /Googlebot|Lighthouse|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|PTST\\//i.test(ua);
-                // Also skip if the page was server-rendered with a "no-gate" hint
-                // (e.g. from a bot detection middleware). For now, just check UA.
                 if (isBot) {
                   document.documentElement.classList.add('gate-done');
                   return;

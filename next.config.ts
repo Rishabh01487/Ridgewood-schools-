@@ -22,6 +22,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Redirect /admissions → homepage with #admissions hash (so QR codes work)
+  // The domain redirect (ridgewoodschools.com → www.ridgewoodschools.com) strips
+  // hash fragments, so we use a path redirect instead which preserves the hash.
+  async redirects() {
+    return [
+      {
+        source: "/admissions",
+        destination: "/#admissions",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
