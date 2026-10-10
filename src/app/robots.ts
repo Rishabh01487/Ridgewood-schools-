@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://ridgewoodmirganj.in/sitemap.xml",
-    host: "https://ridgewoodmirganj.in",
+    sitemap: "https://ridgewoodschools.com/sitemap.xml",
+    host: "https://ridgewoodschools.com",
   };
 }
